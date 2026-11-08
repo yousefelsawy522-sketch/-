@@ -151,9 +151,11 @@
       <div id="portal-recent-profiles-section" class="border-t border-gray-100 dark:border-slate-700/80 pt-4 hidden">
         <div class="text-xs font-bold text-gray-500 dark:text-gray-400 mb-2 flex items-center justify-between">
           <span>صدقات العائلة المسجلة في هذا الجهاز:</span>
-          <span class="text-[10px] text-emerald-600">اختر للدخول</span>
+          <button id="btn-portal-clear-all-profiles" class="text-[10px] text-red-500 hover:text-red-700 underline font-normal">
+            مسح كافة المسجلين
+          </button>
         </div>
-        <div id="portal-saved-profiles-list" class="space-y-2 max-h-40 overflow-y-auto pr-1">
+        <div id="portal-saved-profiles-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
           <!-- Populated by JS -->
         </div>
       </div>
@@ -902,6 +904,28 @@
           </button>
         </div>
 
+
+        <!-- 6. PERMANENT DELETE DECEASED RECORD -->
+        <div class="bg-red-50/80 dark:bg-red-950/60 p-4 rounded-2xl border border-red-300 dark:border-red-800 mt-3">
+          <h4 class="text-xs font-bold text-red-800 dark:text-red-300 mb-1 flex items-center gap-1.5">
+            <span>🗑️</span>
+            <span>حذف هذا المتوفى نهائياً من الموقع</span>
+          </h4>
+          <p class="text-[11px] text-red-600 dark:text-red-400 mb-3 leading-relaxed">
+            سيتم مسح سجل هذا المتوفى وكافة أجزاء ختمته ورموز دخوله نهائياً من الموقع.
+          </p>
+          <div id="admin-delete-confirm-box" class="hidden bg-white dark:bg-slate-900 p-3 rounded-xl border border-red-400 dark:border-red-800 mb-3 text-center">
+            <p class="text-xs font-bold text-red-700 dark:text-red-400 mb-2">تأكيد: هل أنت متأكد من مسح وحذف هذا المتوفى نهائياً؟</p>
+            <div class="flex justify-center gap-2">
+              <button id="btn-admin-cancel-delete-deceased" class="px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-slate-700 text-xs font-semibold">تراجع</button>
+              <button id="btn-admin-confirm-delete-deceased" class="px-4 py-1.5 rounded-lg bg-red-700 hover:bg-red-800 text-white text-xs font-bold">نعم، احذف المتوفى نهائياً</button>
+            </div>
+          </div>
+          <button id="btn-admin-trigger-delete-deceased" class="w-full py-2.5 rounded-xl bg-red-700 hover:bg-red-800 text-white text-xs font-bold transition shadow-sm">
+            حذف هذا المتوفى نهائياً من السجلات
+          </button>
+        </div>
+
         <!-- 5. Logout from Admin Mode -->
         <div class="pt-2 text-center">
           <button id="btn-admin-logout" class="text-xs text-gray-500 hover:text-red-600 font-semibold underline">
@@ -1056,7 +1080,8 @@
           return { success: false, reason: 'pin_required' };
         }
         const cleanPin = pin.trim();
-        const cleanAdminPin = adminPin && adminPin.trim() ? adminPin.trim() : cleanPin;
+        // Admin PIN MUST be separate and strictly non-empty
+        const cleanAdminPin = adminPin && adminPin.trim() ? adminPin.trim() : (cleanPin + '99');
         profiles[cleanName] = {
           name: cleanName,
           gender: gender,
@@ -1072,23 +1097,21 @@
           khatmaHistory: []
         };
         saveAllProfiles(profiles);
-        AppState.isAdmin = true; // Creator is default admin
+        AppState.isAdmin = false; // Always locked by default!
       } else {
         const stored = profiles[cleanName];
-        if (asAdmin) {
-          if (stored.adminPin && stored.adminPin !== adminPin.trim()) {
-            return { success: false, reason: 'wrong_admin_pin' };
-          }
-          AppState.isAdmin = true;
-        } else {
-          // Regular family member check
-          if (stored.pin && stored.pin !== pin.trim() && stored.adminPin !== pin.trim()) {
-            return { success: false, reason: 'wrong_pin' };
-          }
-          if (stored.adminPin === pin.trim()) {
-            AppState.isAdmin = true; // Logged in with admin pin
-          }
+        // Ensure stored has an adminPin distinct from family pin
+        if (!stored.adminPin) {
+          stored.adminPin = (stored.pin ? stored.pin : '1234') + '99';
+          saveAllProfiles(profiles);
         }
+        // Family member login verification: must match family pin
+        if (stored.pin && stored.pin !== pin.trim() && stored.adminPin !== pin.trim()) {
+          return { success: false, reason: 'wrong_pin' };
+        }
+        // Never auto-grant admin on family entry!
+        AppState.isAdmin = false;
+        
         if (gender && stored.gender !== gender) {
           stored.gender = gender;
           saveAllProfiles(profiles);
@@ -1134,11 +1157,33 @@
         names.forEach(n => {
           const p = profiles[n];
           const item = document.createElement('div');
-          item.className = 'p-2.5 rounded-xl bg-gray-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-750 border border-gray-200 dark:border-slate-700 flex items-center justify-between cursor-pointer transition';
-          item.innerHTML = '<div><div class="text-xs font-bold text-gray-900 dark:text-white flex items-center gap-1.5"><span>' + p.name + '</span><span class="text-[10px] text-gray-400">🔒</span></div><div class="text-[10px] text-gray-400">الختمة #' + (p.currentKhatmaNumber || 1) + ' • تسبيحات: ' + (p.totalTasbeeh || 0) + '</div></div><button class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-[10px] font-bold">دخول بالرمز</button>';
-          item.addEventListener('click', () => {
-            promptVerifyPinModal(p);
-          });
+          item.className = 'p-2.5 rounded-xl bg-gray-50 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-750 border border-gray-200 dark:border-slate-700 flex items-center justify-between transition';
+          item.innerHTML = '<div class="flex-grow cursor-pointer flex items-center justify-between pl-2"><div><div class="text-xs font-bold text-gray-900 dark:text-white flex items-center gap-1.5"><span>' + p.name + '</span><span class="text-[10px] text-gray-400">🔒</span></div><div class="text-[10px] text-gray-400">الختمة #' + (p.currentKhatmaNumber || 1) + ' • تسبيحات: ' + (p.totalTasbeeh || 0) + '</div></div><button type="button" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-[10px] font-bold">دخول</button></div><button type="button" class="btn-del-profile p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-slate-700 transition flex-shrink-0" title="حذف هذا المسجل">🗑️</button>';
+          
+          const clickTarget = item.querySelector('.flex-grow');
+          if (clickTarget) {
+            clickTarget.addEventListener('click', () => {
+              promptVerifyPinModal(p);
+            });
+          }
+
+          const delBtn = item.querySelector('.btn-del-profile');
+          if (delBtn) {
+            delBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const all = getAllProfiles();
+              delete all[p.name];
+              saveAllProfiles(all);
+              if (AppState.currentDeceasedName === p.name) {
+                AppState.currentDeceasedName = '';
+                AppState.profile = null;
+                try { localStorage.removeItem('sadaqah_active_deceased'); } catch (err) {}
+              }
+              openGatewayScreen();
+              showToast('تم حذف مسجل (' + p.name + ') بنجاح 🗑️');
+            });
+          }
+
           listContainer.appendChild(item);
         });
       } else if (recentSec) {
@@ -1670,6 +1715,8 @@
     function closeAdminDashboard() {
       const modal = document.getElementById('modal-admin-dashboard');
       if (modal) modal.classList.add('hidden');
+      AppState.isAdmin = false; // Always re-locks on close!
+      refreshAllUI();
     }
 
     function updateAdminDashboardVisibilityUI() {
@@ -1725,7 +1772,7 @@
       }
 
 
-      // Admin Panel Open Button
+      // Admin Panel Open Button: ALWAYS locked by default, always prompts for Admin PIN!
       const btnOpenAdmin = document.getElementById('btn-open-admin-panel');
       const modalAdminAuth = document.getElementById('modal-admin-auth');
       const btnCancelAdminAuth = document.getElementById('btn-cancel-admin-auth');
@@ -1735,13 +1782,10 @@
 
       if (btnOpenAdmin) {
         btnOpenAdmin.addEventListener('click', () => {
-          if (AppState.isAdmin) {
-            openAdminDashboard();
-          } else {
-            if (inputAdminAuthPin) inputAdminAuthPin.value = '';
-            if (modalAdminAuth) modalAdminAuth.classList.remove('hidden');
-            setTimeout(() => { if (inputAdminAuthPin) inputAdminAuthPin.focus(); }, 100);
-          }
+          // ALWAYS ask for Admin PIN so it never stays open for others
+          if (inputAdminAuthPin) inputAdminAuthPin.value = '';
+          if (modalAdminAuth) modalAdminAuth.classList.remove('hidden');
+          setTimeout(() => { if (inputAdminAuthPin) inputAdminAuthPin.focus(); }, 100);
         });
       }
 
@@ -1753,23 +1797,27 @@
 
       if (btnConfirmAdminAuth && inputAdminAuthPin && modalAdminAuth) {
         btnConfirmAdminAuth.addEventListener('click', () => {
-          const pin = inputAdminAuthPin.value.trim();
+          const enteredAdminPin = inputAdminAuthPin.value.trim();
           const p = AppState.profile;
           if (!p) return;
-          if (p.adminPin === pin || p.pin === pin) {
+          // STRICT check: ONLY matches adminPin! NEVER family pin!
+          if (p.adminPin && p.adminPin === enteredAdminPin) {
             AppState.isAdmin = true;
             modalAdminAuth.classList.add('hidden');
             openAdminDashboard();
             refreshAllUI();
-            showToast('تم التحقق من صفة المشرف (Admin) بنجاح 👑');
+            showToast('تم فتح لوحة تحكم الأدمن بنجاح 👑');
           } else {
-            showToast('رمز المشرف (Admin PIN) غير صحيح!', 'error');
+            showToast('رمز المشرف (Admin PIN) غير صحيح! لا يمكن فتح لوحة الإدارة', 'error');
           }
         });
       }
 
       if (btnCloseAdminDash) {
-        btnCloseAdminDash.addEventListener('click', closeAdminDashboard);
+        btnCloseAdminDash.addEventListener('click', () => {
+          closeAdminDashboard();
+          showToast('تم إغلاق وقفل لوحة الأدمن 🔒');
+        });
       }
 
       // Admin Toggle Visibility (Hide from public)
@@ -1807,7 +1855,7 @@
         });
       }
 
-      // Admin Save Admin PIN
+      // Admin Save Admin PIN - strictly saves to profile and storage
       const btnAdminSaveAdminPin = document.getElementById('btn-admin-save-admin-pin');
       const inputAdminPin = document.getElementById('input-admin-new-admin-pin');
       if (btnAdminSaveAdminPin && inputAdminPin) {
@@ -1820,7 +1868,7 @@
           if (AppState.profile) {
             AppState.profile.adminPin = val;
             saveCurrentProfile();
-            showToast('تم تحديث رمز المشرف (Admin PIN) بنجاح 👑');
+            showToast('تم حفظ رمز المشرف (Admin PIN: ' + val + ') بنجاح 👑');
           }
         });
       }
@@ -1902,6 +1950,62 @@
         });
       }
 
+
+      // Clear All Saved Profiles from Gateway
+      const btnClearAllProfiles = document.getElementById('btn-portal-clear-all-profiles');
+      if (btnClearAllProfiles) {
+        btnClearAllProfiles.addEventListener('click', () => {
+          saveAllProfiles({});
+          AppState.currentDeceasedName = '';
+          AppState.profile = null;
+          try { localStorage.removeItem('sadaqah_active_deceased'); } catch (e) {}
+          openGatewayScreen();
+          showToast('تم مسح كافة المسجلين من هذا الجهاز بنجاح 🗑️');
+        });
+      }
+
+      // Admin Permanent Delete Deceased
+      const btnTriggerDelDeceased = document.getElementById('btn-admin-trigger-delete-deceased');
+      const boxConfirmDelDeceased = document.getElementById('admin-delete-confirm-box');
+      const btnCancelDelDeceased = document.getElementById('btn-admin-cancel-delete-deceased');
+      const btnConfirmDelDeceased = document.getElementById('btn-admin-confirm-delete-deceased');
+
+      if (btnTriggerDelDeceased && boxConfirmDelDeceased) {
+        btnTriggerDelDeceased.addEventListener('click', () => {
+          boxConfirmDelDeceased.classList.remove('hidden');
+          btnTriggerDelDeceased.classList.add('hidden');
+        });
+      }
+
+      if (btnCancelDelDeceased && boxConfirmDelDeceased && btnTriggerDelDeceased) {
+        btnCancelDelDeceased.addEventListener('click', () => {
+          boxConfirmDelDeceased.classList.add('hidden');
+          btnTriggerDelDeceased.classList.remove('hidden');
+        });
+      }
+
+      if (btnConfirmDelDeceased && boxConfirmDelDeceased && btnTriggerDelDeceased) {
+        btnConfirmDelDeceased.addEventListener('click', () => {
+          const p = AppState.profile;
+          if (!p) return;
+          const nameToDel = p.name;
+          const all = getAllProfiles();
+          delete all[nameToDel];
+          saveAllProfiles(all);
+          
+          AppState.currentDeceasedName = '';
+          AppState.profile = null;
+          try { localStorage.removeItem('sadaqah_active_deceased'); } catch (e) {}
+          
+          boxConfirmDelDeceased.classList.add('hidden');
+          btnTriggerDelDeceased.classList.remove('hidden');
+
+          closeAdminDashboard();
+          openGatewayScreen();
+          showToast('تم حذف ملف المتوفى (' + nameToDel + ') نهائياً من الموقع 🗑️');
+        });
+      }
+
       // Admin Logout
       const btnAdminLogout = document.getElementById('btn-admin-logout');
       if (btnAdminLogout) {
@@ -1925,7 +2029,7 @@
           }
           const pinVal = inputPortalPin.value.trim();
           if (!pinVal) {
-            showToast("يرجى إدخال رمز العائلة السري لحماية المساحة", "info");
+            showToast("يرجى إدخال رمز دخول العائلة (PIN)", "info");
             return;
           }
 
@@ -1934,6 +2038,13 @@
 
           const inputAdminPin = document.getElementById('input-portal-admin-pin');
           const adminPinVal = inputAdminPin ? inputAdminPin.value.trim() : '';
+
+          // If new profile, require admin pin so it can never be blank
+          const existingProfiles = getAllProfiles();
+          if (!existingProfiles[val] && !adminPinVal) {
+            showToast("يرجى إدخال رمز المشرف (Admin PIN) للتحكم في صفحة المتوفى", "info");
+            return;
+          }
 
           const checkHide = document.getElementById('check-portal-hide-deceased');
           const isHidden = checkHide ? checkHide.checked : false;
