@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>منصة الصدقة الجارية | فضاء العائلة لإهداء الثواب والختمات</title>
+  <title>منصة الصدقة الجارية</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,13 +99,13 @@
             <label class="cursor-pointer">
               <input type="radio" name="portal-gender" value="male" checked class="peer sr-only">
               <div class="p-2.5 rounded-xl border border-gray-300 dark:border-slate-700 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 dark:peer-checked:bg-emerald-950/40 text-center text-xs font-bold text-gray-700 dark:text-gray-300 peer-checked:text-emerald-700 dark:peer-checked:text-emerald-400 transition flex items-center justify-center gap-1.5">
-                <span>ذكر (رحمه الله • واغفر له)</span>
+                <span> ذكر </span>
               </div>
             </label>
             <label class="cursor-pointer">
               <input type="radio" name="portal-gender" value="female" class="peer sr-only">
               <div class="p-2.5 rounded-xl border border-gray-300 dark:border-slate-700 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 dark:peer-checked:bg-emerald-950/40 text-center text-xs font-bold text-gray-700 dark:text-gray-300 peer-checked:text-emerald-700 dark:peer-checked:text-emerald-400 transition flex items-center justify-center gap-1.5">
-                <span>أنثى (رحمها الله • واغفر لها)</span>
+                <span> أنثى </span>
               </div>
             </label>
           </div>
@@ -115,19 +115,40 @@
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <label for="input-portal-family-pin" class="text-xs font-bold text-gray-700 dark:text-gray-300 flex items-center gap-1">
-              <span>🔒 رمز العائلة السري (PIN):</span>
+              <span>🔑 رمز دخول العائلة:</span>
             </label>
-            <span class="text-[10px] text-emerald-600 font-semibold" id="pin-field-hint">رمز بسيط تشاركه مع العائلة (مثل 1234)</span>
+            <span class="text-[10px] text-emerald-600 font-semibold" id="pin-field-hint"></span>
           </div>
           <div class="relative">
-            <input id="input-portal-family-pin" type="password" maxlength="12" placeholder="اكتب رمزاً سرياً بسيطاً (مثال: 1234)" class="w-full text-sm px-4 py-3 rounded-xl border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition font-mono tracking-widest text-center">
+            <input id="input-portal-family-pin" type="password" maxlength="12" placeholder="رمز دخول العائلة..." class="w-full text-sm px-4 py-2.5 rounded-xl border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition font-mono tracking-widest text-center">
             <button id="btn-toggle-pin-visibility" type="button" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">
               عرض
             </button>
           </div>
-          <p class="text-[11px] text-gray-400 mt-1">
-            * أول من يُسجل يضع الرمز، وباقي العائلة يكتبون نفس الاسم والرمز للدخول ومتابعة الختمة والتسبيحات معاً.
-          </p>
+        </div>
+
+        <!-- Admin Passcode Field -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="input-portal-admin-pin" class="text-xs font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1">
+              <span>👑 رمز مسؤول العائلة:</span>
+            </label>
+            <span class="text-[10px] text-gray-400">خاص بالأدمن فقط للتحكم والإخفاء</span>
+          </div>
+          <input id="input-portal-admin-pin" type="password" maxlength="12" placeholder="رمز الأدمن السري (مثال: 9999)..." class="w-full text-sm px-4 py-2.5 rounded-xl border border-amber-300 dark:border-amber-700/60 bg-amber-50/40 dark:bg-slate-900 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-600/20 transition font-mono tracking-widest text-center">
+        </div>
+
+        <!-- Privacy & Visibility Checkbox -->
+        <div class="bg-gray-50 dark:bg-slate-800 p-3 rounded-xl border border-gray-200 dark:border-slate-700">
+          <label class="flex items-start gap-2.5 cursor-pointer">
+            <input id="check-portal-hide-deceased" type="checkbox" class="mt-0.5 rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4">
+            <div class="text-xs">
+              <span class="font-bold text-gray-800 dark:text-gray-200 block">إخفاء المتوفى عن العرض للجميع (خاص جداً)</span>
+              <span class="text-[11px] text-gray-500 dark:text-gray-400 leading-tight block mt-0.5">
+                لن يظهر اسم المتوفى في القائمة العامة بأي مكان، ولا يستطيع أحد الدخول إلا بكتابة الاسم والرمز السري بالضبط.
+              </span>
+            </div>
+          </label>
         </div>
 
         <!-- Submit Button -->
@@ -179,12 +200,16 @@
         <span>صدقة جارية مستمرة لروح:</span>
         <span id="top-bar-deceased-name" class="font-bold text-white bg-emerald-800/80 px-2.5 py-0.5 rounded-full border border-gold-400/30">...</span>
         <span id="top-bar-khatma-badge" class="bg-purple-900/80 text-purple-200 px-2 py-0.5 rounded-full text-[10px] font-bold border border-purple-500/30">الختمة #1</span>
-        <span class="text-[10px] text-emerald-300 bg-emerald-900/50 px-2 py-0.5 rounded-md flex items-center gap-1 border border-emerald-700/50" title="مساحة العائلة محمية برمز سري">
+        <span id="top-bar-privacy-badge" class="text-[10px] text-emerald-300 bg-emerald-900/50 px-2 py-0.5 rounded-md flex items-center gap-1 border border-emerald-700/50">
           <span>🔒</span>
-          <span>محمي برمز عائلي</span>
+          <span id="top-bar-privacy-text">محمي برمز</span>
         </span>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2">
+        <button id="btn-open-admin-panel" class="hover:underline flex items-center gap-1 text-amber-300 hover:text-amber-200 transition bg-amber-950/60 border border-amber-500/40 px-2.5 py-1 rounded-lg text-xs font-bold">
+          <span>👑</span>
+          <span id="btn-admin-label">لوحة الأدمن</span>
+        </button>
         <button id="btn-top-switch-deceased" class="hover:underline flex items-center gap-1 text-gold-200 hover:text-white transition bg-white/10 px-2.5 py-1 rounded-lg">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
           <span>دخول بمتوفى آخر / تبديل</span>
@@ -777,6 +802,110 @@
     </div>
   </div>
 
+
+  <!-- ADMIN AUTH MODAL (Prompt Admin PIN) -->
+  <div id="modal-admin-auth" class="fixed inset-0 z-55 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-amber-500/50 text-center">
+      <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 flex items-center justify-center text-2xl">
+        👑
+      </div>
+      <h3 class="text-base font-bold text-gray-900 dark:text-white mb-1">تسجيل دخول مسؤول العائلة (Admin)</h3>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
+        أدخل رمز المشرف السري لإدارة خصوصية المتوفى وإعدادات العائلة
+      </p>
+      
+      <input id="input-admin-auth-pin" type="password" maxlength="12" placeholder="رمز المشرف (Admin PIN)..." class="w-full text-center text-sm font-mono tracking-widest px-4 py-2.5 rounded-xl border border-amber-300 dark:border-amber-600 bg-gray-50 dark:bg-slate-900 focus:outline-none focus:border-amber-600 mb-4">
+      
+      <div class="flex gap-2">
+        <button id="btn-cancel-admin-auth" class="w-1/2 py-2 rounded-xl text-xs font-bold text-gray-500 hover:bg-gray-100 dark:hover:bg-slate-700 transition">إلغاء</button>
+        <button id="btn-confirm-admin-auth" class="w-1/2 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition">دخول المشرف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN CONTROL PANEL DASHBOARD MODAL -->
+  <div id="modal-admin-dashboard" class="fixed inset-0 z-55 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-850 rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl border border-amber-500/50 max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100 dark:border-slate-700">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">👑</span>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white leading-tight">لوحة تحكم مسؤول العائلة (Admin)</h3>
+            <span class="text-xs text-amber-600 font-semibold" id="admin-panel-deceased-target">...</span>
+          </div>
+        </div>
+        <button id="btn-close-admin-dashboard" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="space-y-5">
+        <!-- 1. Privacy Toggle (Hide from Public) -->
+        <div class="bg-amber-50/60 dark:bg-slate-800 p-4 rounded-2xl border border-amber-200 dark:border-amber-800/60">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-0.5">حالة ظهور المتوفى للجميع:</h4>
+              <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed" id="admin-privacy-status-desc">
+                عند الإخفاء، لن يظهر اسم المتوفى في شاشة الاستقبال لأي زائر.
+              </p>
+            </div>
+            <button id="btn-admin-toggle-visibility" class="px-4 py-2 rounded-xl font-bold text-xs transition flex-shrink-0 flex items-center gap-1.5 shadow-sm">
+              <span id="admin-visibility-btn-icon">👁️</span>
+              <span id="admin-visibility-btn-text">ظاهر للجميع</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Manage Family PIN -->
+        <div class="bg-gray-50 dark:bg-slate-800 p-4 rounded-2xl border border-gray-200 dark:border-slate-700">
+          <label for="input-admin-new-family-pin" class="block text-xs font-bold text-gray-800 dark:text-gray-200 mb-1">
+            🔑 تعديل رمز دخول أفراد العائلة (Family PIN):
+          </label>
+          <div class="flex gap-2">
+            <input id="input-admin-new-family-pin" type="text" maxlength="12" class="w-full text-xs font-mono px-3 py-2 rounded-xl border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900">
+            <button id="btn-admin-save-family-pin" class="px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold whitespace-nowrap transition">حفظ الرمز</button>
+          </div>
+        </div>
+
+        <!-- 3. Manage Admin PIN -->
+        <div class="bg-gray-50 dark:bg-slate-800 p-4 rounded-2xl border border-gray-200 dark:border-slate-700">
+          <label for="input-admin-new-admin-pin" class="block text-xs font-bold text-gray-800 dark:text-gray-200 mb-1">
+            👑 تعديل رمز المشرف السري (Admin PIN):
+          </label>
+          <div class="flex gap-2">
+            <input id="input-admin-new-admin-pin" type="text" maxlength="12" class="w-full text-xs font-mono px-3 py-2 rounded-xl border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900">
+            <button id="btn-admin-save-admin-pin" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold whitespace-nowrap transition">حفظ رمز الأدمن</button>
+          </div>
+        </div>
+
+        <!-- 4. Manage Khatma Resets & Stalled Parts -->
+        <div class="bg-gray-50 dark:bg-slate-800 p-4 rounded-2xl border border-gray-200 dark:border-slate-700">
+          <h4 class="text-xs font-bold text-gray-800 dark:text-gray-200 mb-1">📗 إدارة الختمة القرآنية:</h4>
+          <p class="text-[11px] text-gray-500 dark:text-gray-400 mb-3">
+            في حال حجز شخص جزءاً بالخطأ أو رغبتم في إلغاء الحجوزات المعلقة وتفريغها:
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <button id="btn-admin-clear-reserved-only" class="px-3.5 py-2 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-300 text-xs font-bold hover:bg-purple-200 transition">
+              إلغاء حجز الأجزاء غير المقروءة فقط
+            </button>
+            <button id="btn-admin-reset-full-khatma" class="px-3.5 py-2 rounded-xl bg-red-100 dark:bg-red-950/80 text-red-700 dark:text-red-300 text-xs font-bold hover:bg-red-200 transition">
+              تصفير كافة أجزاء الختمة
+            </button>
+          </div>
+        </div>
+
+        <!-- 5. Logout from Admin Mode -->
+        <div class="pt-2 text-center">
+          <button id="btn-admin-logout" class="text-xs text-gray-500 hover:text-red-600 font-semibold underline">
+            تسجيل الخروج من وضع المسؤول والعودة للعرض العادي
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="bg-white dark:bg-slate-950 border-t border-gray-200 dark:border-slate-800 py-8 text-center text-xs text-gray-500 dark:text-gray-400 mt-12 transition">
     <div class="container mx-auto px-4 max-w-xl space-y-3">
@@ -904,21 +1033,29 @@
       return name.trim().replace(/\s+/g, ' ');
     }
 
-    // Load or Create Profile with PIN validation
-    function authenticateAndLoadProfile(name, gender = 'male', pin = '') {
+    
+    // Extended AppState
+    AppState.isAdmin = false;
+    AppState.pendingVerifyProfile = null;
+
+    // Load or Create Profile with PIN & Admin PIN & isHidden
+    function authenticateAndLoadProfile(name, gender = 'male', pin = '', adminPin = '', isHidden = false, asAdmin = false) {
       const cleanName = normalizeName(name);
       if (!cleanName) return { success: false, reason: 'missing_name' };
       const profiles = getAllProfiles();
       
       if (!profiles[cleanName]) {
-        // Brand new profile - PIN is required
         if (!pin || pin.trim().length === 0) {
           return { success: false, reason: 'pin_required' };
         }
+        const cleanPin = pin.trim();
+        const cleanAdminPin = adminPin && adminPin.trim() ? adminPin.trim() : cleanPin;
         profiles[cleanName] = {
           name: cleanName,
           gender: gender,
-          pin: pin.trim(),
+          pin: cleanPin,
+          adminPin: cleanAdminPin,
+          isHidden: !!isHidden,
           createdAt: new Date().toLocaleDateString('ar-EG'),
           totalTasbeeh: 0,
           totalDuas: 12,
@@ -928,14 +1065,25 @@
           khatmaHistory: []
         };
         saveAllProfiles(profiles);
+        AppState.isAdmin = true; // Creator is default admin
       } else {
-        // Existing profile - check PIN
-        const storedPin = profiles[cleanName].pin;
-        if (storedPin && storedPin !== pin.trim()) {
-          return { success: false, reason: 'wrong_pin' };
+        const stored = profiles[cleanName];
+        if (asAdmin) {
+          if (stored.adminPin && stored.adminPin !== adminPin.trim()) {
+            return { success: false, reason: 'wrong_admin_pin' };
+          }
+          AppState.isAdmin = true;
+        } else {
+          // Regular family member check
+          if (stored.pin && stored.pin !== pin.trim() && stored.adminPin !== pin.trim()) {
+            return { success: false, reason: 'wrong_pin' };
+          }
+          if (stored.adminPin === pin.trim()) {
+            AppState.isAdmin = true; // Logged in with admin pin
+          }
         }
-        if (gender && profiles[cleanName].gender !== gender) {
-          profiles[cleanName].gender = gender;
+        if (gender && stored.gender !== gender) {
+          stored.gender = gender;
           saveAllProfiles(profiles);
         }
       }
@@ -950,6 +1098,7 @@
 
       return { success: true, profile: AppState.profile };
     }
+
 
     function saveCurrentProfile() {
       if (!AppState.currentDeceasedName || !AppState.profile) return;
@@ -1051,6 +1200,26 @@
       renderKhatmaGrid();
       renderDuas();
       updateHomeKhatmaBanner();
+      // Update Privacy Badge and Admin status
+      const privacyText = document.getElementById('top-bar-privacy-text');
+      const privacyBadge = document.getElementById('top-bar-privacy-badge');
+      const btnAdminLabel = document.getElementById('btn-admin-label');
+
+      if (p.isHidden) {
+        if (privacyText) privacyText.textContent = 'مخفي عن العرض للجميع 🔒';
+        if (privacyBadge) {
+          privacyBadge.className = 'text-[10px] text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded-md flex items-center gap-1 border border-amber-500/50';
+        }
+      } else {
+        if (privacyText) privacyText.textContent = 'ظاهر في قائمة العائلة 🌐';
+        if (privacyBadge) {
+          privacyBadge.className = 'text-[10px] text-emerald-300 bg-emerald-900/50 px-2 py-0.5 rounded-md flex items-center gap-1 border border-emerald-700/50';
+        }
+      }
+
+      if (btnAdminLabel) {
+        btnAdminLabel.textContent = AppState.isAdmin ? 'لوحة الأدمن (مفعل)' : 'لوحة الأدمن';
+      }
     }
 
     function updateStats() {
@@ -1160,6 +1329,26 @@
 
       updateStats();
       updateHomeKhatmaBanner();
+      // Update Privacy Badge and Admin status
+      const privacyText = document.getElementById('top-bar-privacy-text');
+      const privacyBadge = document.getElementById('top-bar-privacy-badge');
+      const btnAdminLabel = document.getElementById('btn-admin-label');
+
+      if (p.isHidden) {
+        if (privacyText) privacyText.textContent = 'مخفي عن العرض للجميع 🔒';
+        if (privacyBadge) {
+          privacyBadge.className = 'text-[10px] text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded-md flex items-center gap-1 border border-amber-500/50';
+        }
+      } else {
+        if (privacyText) privacyText.textContent = 'ظاهر في قائمة العائلة 🌐';
+        if (privacyBadge) {
+          privacyBadge.className = 'text-[10px] text-emerald-300 bg-emerald-900/50 px-2 py-0.5 rounded-md flex items-center gap-1 border border-emerald-700/50';
+        }
+      }
+
+      if (btnAdminLabel) {
+        btnAdminLabel.textContent = AppState.isAdmin ? 'لوحة الأدمن (مفعل)' : 'لوحة الأدمن';
+      }
 
       if (completedCount === 30) {
         triggerKhatmaCelebration();
@@ -1452,6 +1641,51 @@
       }
     }
 
+    
+    // Admin Dashboard Handlers
+    function openAdminDashboard() {
+      const p = AppState.profile;
+      if (!p) return;
+      const modal = document.getElementById('modal-admin-dashboard');
+      const targetName = document.getElementById('admin-panel-deceased-target');
+      const familyPinInput = document.getElementById('input-admin-new-family-pin');
+      const adminPinInput = document.getElementById('input-admin-new-admin-pin');
+
+      if (targetName) targetName.textContent = 'المتوفى: ' + p.name;
+      if (familyPinInput) familyPinInput.value = p.pin || '';
+      if (adminPinInput) adminPinInput.value = p.adminPin || '';
+
+      updateAdminDashboardVisibilityUI();
+
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeAdminDashboard() {
+      const modal = document.getElementById('modal-admin-dashboard');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function updateAdminDashboardVisibilityUI() {
+      const p = AppState.profile;
+      if (!p) return;
+      const desc = document.getElementById('admin-privacy-status-desc');
+      const btn = document.getElementById('btn-admin-toggle-visibility');
+      const btnIcon = document.getElementById('admin-visibility-btn-icon');
+      const btnText = document.getElementById('admin-visibility-btn-text');
+
+      if (p.isHidden) {
+        if (desc) desc.textContent = 'المتوفى حالياً (مخفي) تماماً ولن يظهر في القائمة العامة للزوار. لا يدخل عليه إلا من يعرف الاسم والرمز.';
+        if (btn) btn.className = 'px-4 py-2 rounded-xl font-bold text-xs bg-red-600 hover:bg-red-700 text-white transition flex-shrink-0 flex items-center gap-1.5 shadow-sm';
+        if (btnIcon) btnIcon.textContent = '🔒';
+        if (btnText) btnText.textContent = 'مخفي عن الجميع (اضغط للإظهار)';
+      } else {
+        if (desc) desc.textContent = 'المتوفى حالياً (ظاهر) في قائمة الاستقبال بالجهاز للوصول السريع للعائلة بالرمز.';
+        if (btn) btn.className = 'px-4 py-2 rounded-xl font-bold text-xs bg-emerald-600 hover:bg-emerald-700 text-white transition flex-shrink-0 flex items-center gap-1.5 shadow-sm';
+        if (btnIcon) btnIcon.textContent = '🌐';
+        if (btnText) btnText.textContent = 'ظاهر في القائمة (اضغط للإخفاء)';
+      }
+    }
+
     function setupEventListeners() {
       document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -1483,6 +1717,148 @@
         });
       }
 
+
+      // Admin Panel Open Button
+      const btnOpenAdmin = document.getElementById('btn-open-admin-panel');
+      const modalAdminAuth = document.getElementById('modal-admin-auth');
+      const btnCancelAdminAuth = document.getElementById('btn-cancel-admin-auth');
+      const btnConfirmAdminAuth = document.getElementById('btn-confirm-admin-auth');
+      const inputAdminAuthPin = document.getElementById('input-admin-auth-pin');
+      const btnCloseAdminDash = document.getElementById('btn-close-admin-dashboard');
+
+      if (btnOpenAdmin) {
+        btnOpenAdmin.addEventListener('click', () => {
+          if (AppState.isAdmin) {
+            openAdminDashboard();
+          } else {
+            if (inputAdminAuthPin) inputAdminAuthPin.value = '';
+            if (modalAdminAuth) modalAdminAuth.classList.remove('hidden');
+            setTimeout(() => { if (inputAdminAuthPin) inputAdminAuthPin.focus(); }, 100);
+          }
+        });
+      }
+
+      if (btnCancelAdminAuth && modalAdminAuth) {
+        btnCancelAdminAuth.addEventListener('click', () => {
+          modalAdminAuth.classList.add('hidden');
+        });
+      }
+
+      if (btnConfirmAdminAuth && inputAdminAuthPin && modalAdminAuth) {
+        btnConfirmAdminAuth.addEventListener('click', () => {
+          const pin = inputAdminAuthPin.value.trim();
+          const p = AppState.profile;
+          if (!p) return;
+          if (p.adminPin === pin || p.pin === pin) {
+            AppState.isAdmin = true;
+            modalAdminAuth.classList.add('hidden');
+            openAdminDashboard();
+            refreshAllUI();
+            showToast('تم التحقق من صفة المشرف (Admin) بنجاح 👑');
+          } else {
+            showToast('رمز المشرف (Admin PIN) غير صحيح!', 'error');
+          }
+        });
+      }
+
+      if (btnCloseAdminDash) {
+        btnCloseAdminDash.addEventListener('click', closeAdminDashboard);
+      }
+
+      // Admin Toggle Visibility (Hide from public)
+      const btnAdminToggleVis = document.getElementById('btn-admin-toggle-visibility');
+      if (btnAdminToggleVis) {
+        btnAdminToggleVis.addEventListener('click', () => {
+          if (!AppState.profile) return;
+          AppState.profile.isHidden = !AppState.profile.isHidden;
+          saveCurrentProfile();
+          updateAdminDashboardVisibilityUI();
+          refreshAllUI();
+          if (AppState.profile.isHidden) {
+            showToast('تم إخفاء المتوفى عن العرض للجميع بنجاح 🔒');
+          } else {
+            showToast('تم تفعيل ظهور المتوفى في القائمة العامة للعائلة 🌐');
+          }
+        });
+      }
+
+      // Admin Save Family PIN
+      const btnAdminSaveFamilyPin = document.getElementById('btn-admin-save-family-pin');
+      const inputAdminFamilyPin = document.getElementById('input-admin-new-family-pin');
+      if (btnAdminSaveFamilyPin && inputAdminFamilyPin) {
+        btnAdminSaveFamilyPin.addEventListener('click', () => {
+          const val = inputAdminFamilyPin.value.trim();
+          if (!val) {
+            showToast('يرجى كتابة رمز صحيح', 'info');
+            return;
+          }
+          if (AppState.profile) {
+            AppState.profile.pin = val;
+            saveCurrentProfile();
+            showToast('تم تحديث رمز دخول العائلة بنجاح 🔑');
+          }
+        });
+      }
+
+      // Admin Save Admin PIN
+      const btnAdminSaveAdminPin = document.getElementById('btn-admin-save-admin-pin');
+      const inputAdminPin = document.getElementById('input-admin-new-admin-pin');
+      if (btnAdminSaveAdminPin && inputAdminPin) {
+        btnAdminSaveAdminPin.addEventListener('click', () => {
+          const val = inputAdminPin.value.trim();
+          if (!val) {
+            showToast('يرجى كتابة رمز مشرف صحيح', 'info');
+            return;
+          }
+          if (AppState.profile) {
+            AppState.profile.adminPin = val;
+            saveCurrentProfile();
+            showToast('تم تحديث رمز المشرف (Admin PIN) بنجاح 👑');
+          }
+        });
+      }
+
+      // Admin Manage Khatma: Clear reserved only
+      const btnAdminClearReserved = document.getElementById('btn-admin-clear-reserved-only');
+      if (btnAdminClearReserved) {
+        btnAdminClearReserved.addEventListener('click', () => {
+          if (!AppState.profile || !AppState.profile.khatmaAjzaa) return;
+          let count = 0;
+          Object.keys(AppState.profile.khatmaAjzaa).forEach(k => {
+            if (AppState.profile.khatmaAjzaa[k].state === 'reserved') {
+              delete AppState.profile.khatmaAjzaa[k];
+              count++;
+            }
+          });
+          saveCurrentProfile();
+          renderKhatmaGrid();
+          showToast('تم إلغاء وتفريغ ' + count + ' جزءاً محجوزاً معلقاً بنجاح 📗');
+        });
+      }
+
+      // Admin Reset Full Khatma
+      const btnAdminResetFull = document.getElementById('btn-admin-reset-full-khatma');
+      if (btnAdminResetFull) {
+        btnAdminResetFull.addEventListener('click', () => {
+          if (!AppState.profile) return;
+          AppState.profile.khatmaAjzaa = {};
+          saveCurrentProfile();
+          renderKhatmaGrid();
+          showToast('تم تصفير أجزاء الختمة الحالية لتكون متاحة للجميع من جديد', 'info');
+        });
+      }
+
+      // Admin Logout
+      const btnAdminLogout = document.getElementById('btn-admin-logout');
+      if (btnAdminLogout) {
+        btnAdminLogout.addEventListener('click', () => {
+          AppState.isAdmin = false;
+          closeAdminDashboard();
+          refreshAllUI();
+          showToast('تم تسجيل الخروج من وضع المسؤول والعودة للعرض العادي');
+        });
+      }
+
       // Portal Form Submit with PIN
       const btnPortalEnter = document.getElementById('btn-portal-enter');
       const inputPortalName = document.getElementById('input-portal-deceased-name');
@@ -1502,7 +1878,13 @@
           const genderInput = document.querySelector('input[name="portal-gender"]:checked');
           const gender = genderInput ? genderInput.value : 'male';
 
-          const res = authenticateAndLoadProfile(val, gender, pinVal);
+          const inputAdminPin = document.getElementById('input-portal-admin-pin');
+          const adminPinVal = inputAdminPin ? inputAdminPin.value.trim() : '';
+
+          const checkHide = document.getElementById('check-portal-hide-deceased');
+          const isHidden = checkHide ? checkHide.checked : false;
+
+          const res = authenticateAndLoadProfile(val, gender, pinVal, adminPinVal, isHidden);
           if (res.success) {
             closeGatewayScreen();
             refreshAllUI();
