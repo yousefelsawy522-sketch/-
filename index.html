@@ -223,7 +223,7 @@
         <button data-tab="quran" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800">سور الصدقة والمصحف</button>
         <button data-tab="duas" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800">الأدعية المأثورة</button>
         <button data-tab="athkar" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800">أذكار المسلم</button>
-        <button data-tab="deploy" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800">نشر الموقع مجاناً</button>
+        
       </nav>
 
       <!-- Utility Buttons (Sound, Dark mode, Share) -->
@@ -251,7 +251,7 @@
       <button data-tab="quran" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800">القرآن الكريم</button>
       <button data-tab="duas" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800">الأدعية</button>
       <button data-tab="athkar" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800">الأذكار</button>
-      <button data-tab="deploy" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800">نشر الموقع</button>
+      
     </div>
   </header>
 
@@ -724,70 +724,7 @@
       </div>
     </section>
 
-    <!-- ==============================================
-         TAB 7: DEPLOY & SHARE
-         ============================================== -->
-    <section id="tab-content-deploy" class="tab-pane hidden py-8">
-      <div class="container mx-auto px-4 max-w-3xl">
-        <div class="text-center mb-8">
-          <div class="inline-block p-3 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 mb-2 text-3xl">📤</div>
-          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">نشر الموقع ليعمل كرابط دائم أونلاين مجاناً</h2>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            كيف تنشر هذا الموقع ليفتحه أفراد العائلة من هواتفهم في أي وقت ومن أي مكان
-          </p>
-        </div>
-
-        <div class="bg-gradient-to-br from-emerald-700 to-emerald-900 text-white rounded-3xl p-6 md:p-8 mb-8 shadow-xl border border-emerald-500/40 text-center">
-          <div class="text-4xl mb-3">💾</div>
-          <h3 class="text-xl md:text-2xl font-bold mb-2">تحميل ملف الموقع بصيغة ويب (HTML)</h3>
-          <p class="text-emerald-100 text-sm max-w-xl mx-auto mb-6 leading-relaxed">
-            الملف كامل ولا يحتاج لأي ملفات خارجية. يمكنك تشغيله في المتصفح فوراً، أو رفعه على منصة مجانية ليعطيك رابطاً دائماً تشاركه على واتساب.
-          </p>
-          <button id="btn-download-html" class="px-8 py-3.5 rounded-2xl bg-gold-400 hover:bg-gold-500 text-gray-950 font-bold text-sm md:text-base shadow-lg transition active:scale-95 inline-flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            <span>تحميل ملف الموقع الآن (index.html)</span>
-          </button>
-        </div>
-
-        <div class="space-y-4">
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-gray-200 dark:border-slate-700 shadow-sm">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 font-bold flex items-center justify-center text-sm">1</span>
-              <h4 class="font-bold text-gray-900 dark:text-white text-base">منصة Netlify Drop (أسرع طريقة - 30 ثانية)</h4>
-            </div>
-            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed pl-11">
-              افتح الرابط <span class="font-mono text-emerald-600 font-bold">app.netlify.com/drop</span> واسحب الملف المحمّل، وسينشئ لك موقعاً سريعاً برابط دائم ومجاني مدى الحياة.
-            </p>
-          </div>
-
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-gray-200 dark:border-slate-700 shadow-sm">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-bold flex items-center justify-center text-sm">2</span>
-              <h4 class="font-bold text-gray-900 dark:text-white text-base">منصة GitHub Pages (رسمي ومجاني)</h4>
-            </div>
-            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed pl-11">
-              أنشئ مستودعاً جديداً وسمّ الملف <span class="font-mono text-blue-600 font-bold">index.html</span> ثم فعّل ميزة Pages ليكون الموقع متاحاً على مدار الساعة.
-            </p>
-          </div>
-
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-gray-200 dark:border-slate-700 shadow-sm">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 font-bold flex items-center justify-center text-sm">3</span>
-              <h4 class="font-bold text-gray-900 dark:text-white text-base">مشاركة الرابط في مجموعات العائلة على واتساب</h4>
-            </div>
-            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed pl-11 mb-3">
-              أرسل الرابط لأفراد العائلة مع إخبارهم باسم المتوفى والرمز السري البسيط ليدخل الجميع ويتشاركوا في إتمام أجزاء الختمة وتكرارها كلما انتهت!
-            </p>
-            <div class="pl-11">
-              <button id="btn-share-whatsapp-guide" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.972.531 1.831.815 2.796.815 3.183 0 5.769-2.586 5.77-5.766.001-3.182-2.585-5.768-5.77-5.768zm0 10.372c-.886 0-1.748-.255-2.485-.733l-.178-.115-1.57.411.419-1.53-.122-.194c-.522-.832-.797-1.574-.796-2.443.001-2.538 2.065-4.602 4.605-4.602 2.539 0 4.604 2.064 4.605 4.602-.001 2.538-2.066 4.604-4.606 4.604z"/></svg>
-                <span>نسخ رسالة الدعوة لمجموعات واتساب</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    
 
   </main>
 
@@ -1515,24 +1452,6 @@
       }
     }
 
-    function downloadSiteHTML() {
-      try {
-        const htmlDoc = document.documentElement.outerHTML;
-        const blob = new Blob([htmlDoc], { type: 'text/html;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'index.html';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        showToast("تم تنزيل ملف الموقع بنجاح 💾");
-      } catch (e) {
-        showToast("تعذر بدء التنزيل", "info");
-      }
-    }
-
     function setupEventListeners() {
       document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -1948,18 +1867,6 @@
       const confirmNextKhatmaBtn = document.getElementById('btn-confirm-next-khatma');
       if (confirmNextKhatmaBtn) {
         confirmNextKhatmaBtn.addEventListener('click', handleNextKhatmaCycle);
-      }
-
-      const downloadBtn = document.getElementById('btn-download-html');
-      if (downloadBtn) downloadBtn.addEventListener('click', downloadSiteHTML);
-
-      const whatsappGuideBtn = document.getElementById('btn-share-whatsapp-guide');
-      if (whatsappGuideBtn) {
-        whatsappGuideBtn.addEventListener('click', () => {
-          const pinStr = (AppState.profile && AppState.profile.pin) ? 'الرمز العائلي للدخول: (' + AppState.profile.pin + ')\n' : '';
-          const msg = 'السلام عليكم ورحمة الله وبركاته،\nندعوكم لقراءة الفاتحة والتسبيح والمشاركة في إتمام ختمة القرآن لروح المغفور له بإذن الله (' + AppState.currentDeceasedName + '):\n' + pinStr + window.location.href + '\nكلما انتهت ختمة نبدأ في ختمة جديدة بإذن الله، نسألكم الدعاء له بالرحمة 🤍';
-          copyTextToClipboard(msg, "تم نسخ رسالة الواتساب الجاهزة لنشرها في المجموعات ✨");
-        });
       }
     }
 
