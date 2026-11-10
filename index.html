@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> منصة الصدقة الجارية </title>
+  <title>منصة الصدقة الجارية</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,10 +18,7 @@
             gold: { 100: '#fef3c7', 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' },
             sand: { 50: '#faf8f5', 100: '#f5f0e8', 200: '#ebe2d5', 800: '#2d261e', 900: '#1c1712' }
           },
-          fontFamily: {
-            quran: ['Amiri', 'serif'],
-            sans: ['Cairo', 'sans-serif'],
-          }
+          fontFamily: { quran: ['Amiri', 'serif'], sans: ['Cairo', 'sans-serif'] }
         }
       }
     }
@@ -33,11 +30,7 @@
     ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); }
     ::-webkit-scrollbar-thumb { background: #c59b27; border-radius: 4px; }
     .bead-pulse { animation: pulseBead 0.25s ease-out; }
-    @keyframes pulseBead {
-      0% { transform: scale(1); }
-      50% { transform: scale(0.94); }
-      100% { transform: scale(1); }
-    }
+    @keyframes pulseBead { 0% { transform: scale(1); } 50% { transform: scale(0.94); } 100% { transform: scale(1); } }
   </style>
 </head>
 <body class="bg-sand-50 text-gray-800 dark:bg-slate-900 dark:text-gray-100 min-h-screen flex flex-col transition-colors duration-300">
@@ -48,59 +41,46 @@
   <!-- GATEWAY / LOGIN SCREEN -->
   <section id="gateway-screen" class="fixed inset-0 z-[90] bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 flex items-center justify-center p-4 overflow-y-auto" style="z-index: 90;">
     <div class="bg-white dark:bg-slate-850 text-gray-900 dark:text-white rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl border border-gold-500/40 relative my-8">
-      
       <div class="text-center mb-5">
-        <div class="w-14 h-14 mx-auto mb-2 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-800 text-gold-300 flex items-center justify-center text-2xl shadow-md border border-gold-500/40">
-          🕌
-        </div>
-        <h2 id="gateway-title" class="text-xl font-bold text-emerald-900 dark:text-emerald-400 font-quran mb-0.5">
-          إنشاء صدقة جارية جديدة
-        </h2>
-        <p id="gateway-subtitle" class="text-xs text-gray-500 dark:text-gray-400">
-          أدخل بيانات المتوفى لإعداد الصفحة
-        </p>
+        <div class="w-14 h-14 mx-auto mb-2 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-800 text-gold-300 flex items-center justify-center text-2xl shadow-md border border-gold-500/40">🕌</div>
+        <h2 id="gateway-title" class="text-xl font-bold text-emerald-900 dark:text-emerald-400 font-quran mb-0.5">تسجيل الدخول للصدقة الجارية</h2>
+        <p id="gateway-desc" class="text-xs text-gray-500 dark:text-gray-400">أدخل اسم المتوفى والرمز للمتابعة</p>
       </div>
 
       <div class="space-y-3.5 mb-5">
-        <div id="wrapper-deceased-name">
-          <label for="input-portal-deceased-name" class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">اسم المتوفى:</label>
+        <div id="name-input-group">
+          <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">اسم المتوفى:</label>
           <input id="input-portal-deceased-name" type="text" placeholder="اكتب اسم المتوفى..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600/20 transition font-medium">
         </div>
 
-        <div id="wrapper-gender">
+        <div id="gender-input-group">
           <span class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">الصيغة:</span>
           <div class="grid grid-cols-2 gap-2.5">
             <label class="cursor-pointer">
               <input type="radio" name="portal-gender" value="male" checked class="peer sr-only">
-              <div class="py-2 px-3 rounded-xl border border-gray-300 dark:border-slate-700 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 dark:peer-checked:bg-emerald-950/40 text-center text-xs font-bold text-gray-700 dark:text-gray-300 peer-checked:text-emerald-700 dark:peer-checked:text-emerald-400 transition">ذكر</div>
+              <div class="py-2 px-3 rounded-xl border border-gray-300 dark:border-slate-700 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 text-center text-xs font-bold text-gray-700 peer-checked:text-emerald-700 transition">ذكر</div>
             </label>
             <label class="cursor-pointer">
               <input type="radio" name="portal-gender" value="female" class="peer sr-only">
-              <div class="py-2 px-3 rounded-xl border border-gray-300 dark:border-slate-700 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 dark:peer-checked:bg-emerald-950/40 text-center text-xs font-bold text-gray-700 dark:text-gray-300 peer-checked:text-emerald-700 dark:peer-checked:text-emerald-400 transition">أنثى</div>
+              <div class="py-2 px-3 rounded-xl border border-gray-300 dark:border-slate-700 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 text-center text-xs font-bold text-gray-700 peer-checked:text-emerald-700 transition">أنثى</div>
             </label>
           </div>
         </div>
 
         <div>
-          <label for="input-portal-family-pin" class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
-            رمز دخول العائلة (PIN):
-          </label>
+          <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">رمز دخول العائلة (PIN):</label>
           <div class="relative">
             <input id="input-portal-family-pin" type="password" maxlength="12" placeholder="الرمز السري..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 focus:outline-none focus:border-emerald-600 font-mono tracking-widest text-center">
-            <button id="btn-toggle-pin-visibility" type="button" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">عرض</button>
           </div>
         </div>
 
-        <div id="wrapper-admin-pin">
-          <label for="input-portal-admin-pin" class="block text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">
-            رمز المشرف (Admin PIN):
-          </label>
+        <div id="admin-pin-group">
+          <label class="block text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">رمز المشرف (اختياري لإنشاء صدقة جديدة):</label>
           <input id="input-portal-admin-pin" type="password" maxlength="12" placeholder="رمز المشرف للتحكم..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-amber-300 dark:border-amber-700/60 bg-amber-50/40 dark:bg-slate-900 focus:outline-none focus:border-amber-600 font-mono tracking-widest text-center">
         </div>
 
-        <button id="btn-portal-enter" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-700 to-emerald-800 hover:from-emerald-800 hover:to-emerald-900 text-white font-bold text-sm shadow-lg shadow-emerald-700/20 active:scale-98 transition flex items-center justify-center gap-2 mt-4">
+        <button id="btn-portal-enter" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-700 to-emerald-800 hover:from-emerald-800 hover:to-emerald-900 text-white font-bold text-sm shadow-lg shadow-emerald-700/20 active:scale-98 transition flex items-center justify-center gap-2">
           <span>دخول الموقع وبدء الصدقة الجارية</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </button>
       </div>
     </div>
@@ -113,17 +93,12 @@
         <span class="inline-block w-2.5 h-2.5 rounded-full bg-gold-400 animate-pulse"></span>
         <span>صدقة جارية مستمرة لروح:</span>
         <span id="top-bar-deceased-name" class="font-bold text-white bg-emerald-800/80 px-2.5 py-0.5 rounded-full border border-gold-400/30">...</span>
-        <span id="top-bar-khatma-badge" class="bg-purple-900/80 text-purple-200 px-2 py-0.5 rounded-full text-[10px] font-bold border border-purple-500/30">الختمة #1</span>
       </div>
       <div class="flex items-center gap-2">
         <button id="btn-open-admin-panel" class="hover:underline flex items-center gap-1 text-amber-300 hover:text-amber-200 transition bg-amber-950/60 border border-amber-500/40 px-2.5 py-1 rounded-lg text-xs font-bold">
-          <span>👑</span>
-          <span id="btn-admin-label">لوحة الأدمن</span>
+          <span>👑</span><span>لوحة الأدمن</span>
         </button>
-        <button id="btn-top-switch-deceased" class="hover:underline flex items-center gap-1 text-gold-200 hover:text-white transition bg-white/10 px-2.5 py-1 rounded-lg">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-          <span>تسجيل خروج</span>
-        </button>
+        <button id="btn-logout" class="hover:underline flex items-center gap-1 text-gold-200 hover:text-white transition bg-white/10 px-2.5 py-1 rounded-lg">خروج</button>
       </div>
     </div>
   </div>
@@ -132,107 +107,50 @@
   <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm transition">
     <div class="container mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-900 flex items-center justify-center text-gold-300 shadow-md border border-gold-500/40">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2L14.4 7.6L20.5 8.1L15.8 12.2L17.2 18.2L12 15L6.8 18.2L8.2 12.2L3.5 8.1L9.6 7.6L12 2Z"/>
-          </svg>
-        </div>
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-900 flex items-center justify-center text-gold-300 shadow-md border border-gold-500/40">🕌</div>
         <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-lg md:text-xl font-bold text-emerald-900 dark:text-emerald-400 leading-tight">موقع الصدقة الجارية</h1>
-          </div>
+          <h1 class="text-lg md:text-xl font-bold text-emerald-900 dark:text-emerald-400 leading-tight">موقع الصدقة الجارية</h1>
           <p class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
             <span>ثواب الموقع مهداة لـ:</span>
             <span id="nav-active-deceased-name" class="font-bold text-gold-600 dark:text-gold-400">...</span>
           </p>
         </div>
       </div>
+
       <nav class="hidden lg:flex items-center gap-1 text-sm font-semibold">
-        <button data-tab="home" class="nav-btn active px-3 py-2 rounded-xl transition text-emerald-800 bg-emerald-100/70 dark:bg-emerald-900/40 dark:text-emerald-300">الرئيسية</button>
-        <button data-tab="khatma" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800">ختمة القرآن المشتركة</button>
-        <button data-tab="tasbeeh" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800">المسبحة الذكية</button>
-        <button data-tab="quran" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800">سور الصدقة والمصحف</button>
-        <button data-tab="duas" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800">الأدعية المأثورة</button>
-        <button data-tab="athkar" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-800">أذكار المسلم</button>
+        <button data-tab="home" class="nav-btn active px-3 py-2 rounded-xl transition text-emerald-800 bg-emerald-100/70">الرئيسية</button>
+        <button data-tab="khatma" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100">ختمة القرآن</button>
+        <button data-tab="tasbeeh" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100">المسبحة</button>
       </nav>
+
       <div class="flex items-center gap-2">
-        <button id="btn-toggle-sound" title="كتم / تفعيل الصوت" class="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition">
-          <svg id="icon-sound-on" class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
-          <svg id="icon-sound-off" class="w-5 h-5 text-gray-400 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/></svg>
-        </button>
-        <button id="btn-toggle-dark" title="تبديل الوضع الليلي" class="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition">
-          <svg id="icon-moon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-          <svg id="icon-sun" class="w-5 h-5 hidden text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-        </button>
-        <button id="btn-quick-share" class="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold shadow transition">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
-          <span>مشاركة رابط الصدقة</span>
+        <button id="btn-quick-share" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold shadow transition">
+          مشاركة الرابط
         </button>
       </div>
     </div>
-    <div class="lg:hidden flex items-center overflow-x-auto py-2 px-3 border-t border-gray-100 dark:border-slate-800 gap-1.5 text-xs font-bold scrollbar-none">
-      <button data-tab="home" class="nav-btn active whitespace-nowrap px-3 py-1.5 rounded-full text-emerald-800 bg-emerald-100 dark:bg-emerald-900/40 dark:text-emerald-300">الرئيسية</button>
-      <button data-tab="khatma" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800">ختمة القرآن</button>
-      <button data-tab="tasbeeh" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800">المسبحة</button>
-      <button data-tab="quran" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800">القرآن الكريم</button>
-      <button data-tab="duas" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800">الأدعية</button>
-      <button data-tab="athkar" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800">الأذكار</button>
+    <!-- Mobile Nav -->
+    <div class="lg:hidden flex items-center overflow-x-auto py-2 px-3 border-t border-gray-100 gap-1.5 text-xs font-bold scrollbar-none">
+      <button data-tab="home" class="nav-btn active whitespace-nowrap px-3 py-1.5 rounded-full text-emerald-800 bg-emerald-100">الرئيسية</button>
+      <button data-tab="khatma" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 hover:bg-gray-100">ختمة القرآن</button>
+      <button data-tab="tasbeeh" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 hover:bg-gray-100">المسبحة</button>
     </div>
   </header>
 
+  <!-- MAIN BODY -->
   <main class="flex-grow">
+    
     <!-- TAB 1: HOME -->
     <section id="tab-content-home" class="tab-pane active pb-12">
-      <div class="relative overflow-hidden bg-emerald-950 text-white min-h-[460px] flex items-center justify-center">
-        <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/70 to-emerald-900/60"></div>
+      <div class="relative overflow-hidden bg-emerald-950 text-white min-h-[400px] flex items-center justify-center">
         <div class="relative container mx-auto px-4 py-12 text-center max-w-4xl z-10">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/20 text-gold-300 border border-gold-400/30 text-xs md:text-sm font-semibold mb-6">
-            <span>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
-          </div>
           <h2 class="text-3xl md:text-5xl font-extrabold mb-4 font-quran tracking-wide text-white leading-relaxed">صدقة جارية مباركة</h2>
-          <div class="bg-white/10 dark:bg-black/30 backdrop-blur-md rounded-2xl p-5 md:p-6 border border-gold-500/30 shadow-2xl mb-8 max-w-2xl mx-auto">
-            <div class="flex items-center justify-center gap-2 mb-2">
-              <span class="text-gold-400 text-xs md:text-sm font-semibold">إهداء إلى روح المغفور له بإذن الله:</span>
-            </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 md:p-6 border border-gold-500/30 shadow-2xl mb-8 max-w-2xl mx-auto">
+            <div class="text-gold-400 text-sm font-semibold mb-2">إهداء إلى روح المغفور له بإذن الله:</div>
             <div id="hero-deceased-title" class="text-2xl md:text-4xl font-bold text-gold-300 mb-3 font-quran">...</div>
-            <p id="hero-prayer-text" class="text-sm md:text-base text-gray-200 font-quran leading-relaxed">
-              «اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ، وَعَافِهِ وَاعْفُ عَنْهُ، وَأَكْرِمْ نُزُلَهُ، وَوَسِّعْ مُدْخَلَهُ، وَاجْعَلْ قَبْرَهُ رَوْضَةً مِنْ رِيَاضِ الْجَنَّةِ، وَاجْعَلْ ثَوَابَ هَذَا الْمَوْقِعِ نُوراً وَضِيَاءً فِي مِيزَانِ حَسَنَاتِهِ»
+            <p class="text-sm md:text-base text-gray-200 font-quran leading-relaxed">
+              «اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ، وَعَافِهِ وَاعْفُ عَنْهُ، وَأَكْرِمْ نُزُلَهُ...»
             </p>
-          </div>
-          <div class="flex flex-wrap justify-center gap-3 md:gap-4">
-            <button id="btn-quick-pray" class="px-6 py-3 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-gray-900 font-bold shadow-lg shadow-gold-500/20 hover:scale-105 active:scale-95 transition flex items-center gap-2">
-              <span class="text-lg">🤲</span><span>أهدي دعاءً الآن (آمـين)</span>
-            </button>
-            <button data-switch-to="khatma" class="quick-nav-btn px-6 py-3 rounded-xl bg-purple-700/80 hover:bg-purple-600 text-white font-semibold backdrop-blur border border-purple-500/40 hover:scale-105 active:scale-95 transition flex items-center gap-2">
-              <span class="text-lg">📗</span><span>إكمال ختمة القرآن</span>
-            </button>
-            <button data-switch-to="tasbeeh" class="quick-nav-btn px-6 py-3 rounded-xl bg-emerald-700/80 hover:bg-emerald-600 text-white font-semibold backdrop-blur border border-emerald-500/40 hover:scale-105 active:scale-95 transition flex items-center gap-2">
-              <span class="text-lg">📿</span><span>المسبحة الذكية</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="container mx-auto px-4 -mt-8 relative z-20">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 md:p-5 shadow-lg border border-gray-100 dark:border-slate-700 text-center transition hover:-translate-y-1">
-            <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-400 flex items-center justify-center text-xl">📗</div>
-            <div id="stat-khatma-progress" class="text-2xl md:text-3xl font-extrabold text-purple-600 dark:text-purple-400">0 / 30</div>
-            <div class="text-xs text-gray-500 dark:text-gray-400 font-medium" id="stat-khatma-label">أجزاء الختمة الحالية</div>
-          </div>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 md:p-5 shadow-lg border border-gray-100 dark:border-slate-700 text-center transition hover:-translate-y-1">
-            <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 flex items-center justify-center text-xl">📿</div>
-            <div id="stat-tasbeeh" class="text-2xl md:text-3xl font-extrabold text-emerald-800 dark:text-emerald-400">0</div>
-            <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">تسبيحة مهداة</div>
-          </div>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 md:p-5 shadow-lg border border-gray-100 dark:border-slate-700 text-center transition hover:-translate-y-1">
-            <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xl">🤲</div>
-            <div id="stat-duas" class="text-2xl md:text-3xl font-extrabold text-amber-600 dark:text-amber-400">0</div>
-            <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">دعاء وتأمين بالرحمة</div>
-          </div>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 md:p-5 shadow-lg border border-gray-100 dark:border-slate-700 text-center transition hover:-translate-y-1">
-            <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-400 flex items-center justify-center text-xl">🏆</div>
-            <div id="stat-completed-khatmas" class="text-2xl md:text-3xl font-extrabold text-blue-600 dark:text-blue-400">0</div>
-            <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">ختمات سابقة مكتملة</div>
           </div>
         </div>
       </div>
@@ -242,513 +160,332 @@
     <section id="tab-content-khatma" class="tab-pane hidden py-8">
       <div class="container mx-auto px-4 max-w-4xl">
         <div class="text-center mb-8">
-          <div class="inline-block p-3 rounded-2xl bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 mb-2 text-3xl">📗</div>
-          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">ختمة القرآن المشتركة لروح <span id="khatma-page-deceased-name" class="text-purple-600 dark:text-purple-400">...</span></h2>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900">ختمة القرآن المشتركة</h2>
+          <p class="text-sm text-gray-500 mt-1">اختر جزءاً لحجزه وقراءته لتكتمل الختمة المباركة</p>
         </div>
-        <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-md border border-gray-200 dark:border-slate-700 mb-8">
-          <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-            <div>
-              <div class="flex items-center gap-2 mb-1">
-                <span id="khatma-badge-title" class="px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 font-bold text-xs">الختمة الحالية: رقم 1</span>
-                <span id="khatma-completed-pill" class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 text-xs font-semibold">مكتمل 0 من 30</span>
-              </div>
-            </div>
-          </div>
-          <div class="w-full bg-gray-100 dark:bg-slate-700 rounded-full h-3 overflow-hidden mb-3">
-            <div id="khatma-page-bar" class="bg-gradient-to-r from-purple-600 to-indigo-600 h-full w-0 transition-all duration-300"></div>
-          </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3" id="khatma-grid-container">
+          <!-- سيتم إضافة الأجزاء هنا بواسطة جافاسكريبت -->
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3" id="khatma-grid-container"></div>
       </div>
     </section>
 
     <!-- TAB 3: TASBEEH -->
     <section id="tab-content-tasbeeh" class="tab-pane hidden py-8">
-      <div class="container mx-auto px-4 max-w-4xl">
-        <div class="text-center mb-8">
-          <div class="inline-block p-3 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 mb-2 text-3xl">📿</div>
-          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">المسبحة الإلكترونية الذكية</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-          <div class="md:col-span-7 flex flex-col items-center">
-            <div class="w-full bg-emerald-800 text-white dark:bg-slate-800 dark:text-emerald-300 py-3 px-5 rounded-2xl text-center shadow-md mb-6 border border-emerald-600/30">
-              <div id="current-dhikr-text" class="text-lg md:text-xl font-bold font-quran">سُبْحَانَ اللَّهِ</div>
-            </div>
-            <div class="relative flex items-center justify-center my-2">
-              <div class="w-64 h-64 md:w-72 md:h-72 rounded-full border-8 border-emerald-600/20 dark:border-emerald-500/20 flex items-center justify-center p-3 transition-all duration-200">
-                <button id="btn-tasbeeh-tap" class="w-full h-full rounded-full bg-gradient-to-b from-emerald-600 via-emerald-700 to-emerald-900 text-white shadow-2xl flex flex-col items-center justify-center select-none active:scale-95 transition-transform duration-100 border-4 border-gold-400/40 relative overflow-hidden group focus:outline-none">
-                  <span id="tasbeeh-counter-number" class="text-6xl md:text-7xl font-extrabold font-mono tracking-tight text-white drop-shadow-md">0</span>
-                </button>
-              </div>
-            </div>
-            <div class="flex items-center gap-3 mt-6">
-              <button id="btn-tasbeeh-reset" class="px-4 py-2 rounded-xl bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200 text-xs font-bold transition">تصفير العداد</button>
-              <button id="btn-gift-tasbeeh" class="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 text-white text-xs font-bold shadow-md transition">إهداء الثواب الآن 🤍</button>
-            </div>
-          </div>
-          <div class="md:col-span-5 bg-white dark:bg-slate-800 rounded-2xl p-5 border border-gray-200 dark:border-slate-700 shadow-sm">
-            <div class="space-y-2 max-h-[360px] overflow-y-auto pr-1">
-              <button class="dhikr-item w-full text-right p-3 rounded-xl border font-bold text-gray-800 dark:text-gray-200 hover:bg-gray-50 transition" data-dhikr="سُبْحَانَ اللَّهِ">سُبْحَانَ اللَّهِ</button>
-              <button class="dhikr-item w-full text-right p-3 rounded-xl border font-bold text-gray-800 dark:text-gray-200 hover:bg-gray-50 transition" data-dhikr="الْحَمْدُ لِلَّهِ">الْحَمْدُ لِلَّهِ</button>
-              <button class="dhikr-item w-full text-right p-3 rounded-xl border font-bold text-gray-800 dark:text-gray-200 hover:bg-gray-50 transition" data-dhikr="اللَّهُ أَكْبَرُ">اللَّهُ أَكْبَرُ</button>
-            </div>
-          </div>
+      <div class="container mx-auto px-4 max-w-4xl text-center">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-6">المسبحة الإلكترونية الذكية</h2>
+        <div class="flex justify-center mb-6">
+          <button id="btn-tasbeeh-tap" class="w-64 h-64 rounded-full bg-gradient-to-b from-emerald-600 to-emerald-900 text-white shadow-2xl flex flex-col items-center justify-center border-4 border-gold-400/40 active:scale-95 transition-transform">
+            <span class="text-xs text-emerald-200 uppercase mb-1">اضغط للتسبيح</span>
+            <span id="tasbeeh-counter-number" class="text-6xl font-extrabold font-mono text-white">0</span>
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: QURAN -->
-    <section id="tab-content-quran" class="tab-pane hidden py-8">
-      <div class="container mx-auto px-4 max-w-4xl">
-        <div class="text-center mb-6">
-          <div class="inline-block p-3 rounded-2xl bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 mb-2 text-3xl">📖</div>
-          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">القرآن الكريم</h2>
-        </div>
-        <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-slate-700 mb-6 flex flex-wrap items-center justify-between gap-3">
-          <div class="flex items-center gap-2">
-            <label class="text-xs font-bold text-gray-600 dark:text-gray-300">السورة:</label>
-            <select id="surah-select" class="text-sm font-semibold bg-gray-50 dark:bg-slate-900 border rounded-xl px-3 py-2"></select>
-          </div>
-          <div class="flex items-center gap-1 bg-gray-100 dark:bg-slate-900 p-1 rounded-xl text-xs">
-            <button id="btn-font-decrease" class="w-7 h-7 rounded-lg bg-white dark:bg-slate-800 font-bold">-</button>
-            <button id="btn-font-increase" class="w-7 h-7 rounded-lg bg-white dark:bg-slate-800 font-bold">+</button>
-          </div>
-        </div>
-        <div class="bg-[#fcfaf7] dark:bg-slate-850 rounded-3xl p-6 md:p-10 shadow-lg border-2 border-[#e6dcce] dark:border-slate-700 relative overflow-hidden">
-          <div id="bismillah-header" class="text-center mb-8 font-quran text-2xl md:text-3xl text-emerald-900 dark:text-emerald-400 font-bold">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-          <div id="quran-verses-container" class="font-quran leading-[2.6] text-gray-900 dark:text-gray-100 text-xl md:text-2xl text-justify transition-all duration-200"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 5: DUAS -->
-    <section id="tab-content-duas" class="tab-pane hidden py-8">
-      <div class="container mx-auto px-4 max-w-4xl">
-        <div class="text-center mb-8">
-          <div class="inline-block p-3 rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 mb-2 text-3xl">🤲</div>
-          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">أدعية مأثورة</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="duas-cards-container"></div>
-      </div>
-    </section>
-
-    <!-- TAB 6: ATHKAR -->
-    <section id="tab-content-athkar" class="tab-pane hidden py-8">
-      <div class="container mx-auto px-4 max-w-4xl">
-        <div class="text-center mb-8">
-          <div class="inline-block p-3 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 mb-2 text-3xl">🕌</div>
-          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">حصن المسلم</h2>
-        </div>
-        <div class="flex items-center justify-center flex-wrap gap-2 mb-6">
-          <button data-athkar-cat="morning" class="athkar-cat-btn active px-4 py-2 rounded-xl bg-emerald-700 text-white font-bold text-xs md:text-sm">أذكار الصباح</button>
-          <button data-athkar-cat="evening" class="athkar-cat-btn px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-gray-700 font-bold text-xs border">أذكار المساء</button>
-        </div>
-        <div id="athkar-list-container" class="space-y-4"></div>
-      </div>
-    </section>
   </main>
 
-  <!-- JUZ MODAL -->
-  <div id="modal-reserve-juz" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden" style="z-index: 100;">
-    <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-gray-200 dark:border-slate-700">
-      <h3 class="text-base font-bold text-gray-900 dark:text-white mb-1" id="modal-juz-title">حجز الجزء</h3>
-      <input id="input-reader-name" type="text" placeholder="اسم القارئ..." class="w-full text-xs px-3 py-2 rounded-xl border bg-gray-50 mb-3">
-      <button id="btn-action-reserve" class="w-full py-2.5 rounded-xl bg-amber-600 text-white font-bold text-xs mb-2">حجز الجزء الآن</button>
-      <button id="btn-action-complete" class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs mb-2">تمت القراءة بحمد الله</button>
-      <button id="btn-action-unreserve" class="w-full py-2 rounded-xl text-gray-500 hover:text-red-500 text-xs hidden mb-2">إلغاء الحجز</button>
-      <div class="text-center"><button id="btn-close-juz-modal" class="text-xs text-gray-400">إلغاء</button></div>
-    </div>
-  </div>
-
   <!-- ADMIN AUTH MODAL -->
-  <div id="modal-admin-auth" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden" style="z-index: 100;">
-    <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-amber-500/50 text-center">
-      <h3 class="text-base font-bold text-gray-900 dark:text-white mb-4">تسجيل دخول مسؤول العائلة</h3>
-      <input id="input-admin-auth-pin" type="password" placeholder="رمز المشرف..." class="w-full text-center text-sm px-4 py-2.5 rounded-xl border bg-gray-50 mb-4">
+  <div id="modal-admin-auth" class="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center">
+      <h3 class="text-base font-bold mb-4">تسجيل دخول المشرف</h3>
+      <input id="input-admin-auth-pin" type="password" placeholder="رمز المشرف..." class="w-full text-center px-4 py-2.5 rounded-xl border mb-4">
       <div class="flex gap-2">
-        <button id="btn-cancel-admin-auth" class="w-1/2 py-2 rounded-xl text-xs font-bold text-gray-500 bg-gray-100">إلغاء</button>
-        <button id="btn-confirm-admin-auth" class="w-1/2 py-2 rounded-xl bg-amber-600 text-white text-xs font-bold">دخول</button>
+        <button id="btn-cancel-admin-auth" class="w-1/2 py-2 rounded-xl bg-gray-200">إلغاء</button>
+        <button id="btn-confirm-admin-auth" class="w-1/2 py-2 rounded-xl bg-amber-600 text-white">دخول</button>
       </div>
     </div>
   </div>
 
   <!-- ADMIN DASHBOARD MODAL -->
-  <div id="modal-admin-dashboard" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden" style="z-index: 100;">
-    <div class="bg-white dark:bg-slate-850 rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl border border-amber-500/50 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100 dark:border-slate-700">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-white">لوحة تحكم مسؤول العائلة</h3>
-        <button id="btn-close-admin-dashboard" class="text-gray-400 p-1">X</button>
+  <div id="modal-admin-dashboard" class="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4 pb-4 border-b">
+        <h3 class="text-lg font-bold">لوحة تحكم المشرف</h3>
+        <button id="btn-close-admin-dashboard" class="text-gray-500 font-bold text-xl">X</button>
       </div>
-      <div class="space-y-5">
-        <div class="bg-gray-50 dark:bg-slate-800 p-4 rounded-2xl border">
-          <label class="block text-xs font-bold text-gray-800 mb-1">تعديل رمز الدخول (PIN):</label>
+      <div class="space-y-4">
+        <!-- تغيير رمز العائلة -->
+        <div class="bg-gray-50 p-4 rounded-xl border">
+          <label class="block text-xs font-bold mb-2">تغيير رمز العائلة (Family PIN):</label>
           <div class="flex gap-2">
-            <input id="input-admin-new-family-pin" type="text" class="w-full text-xs px-3 py-2 rounded-xl border bg-white">
-            <button id="btn-admin-save-family-pin" class="px-4 py-2 rounded-xl bg-emerald-700 text-white text-xs font-bold">حفظ</button>
+            <input id="input-admin-new-family-pin" type="text" class="w-full px-3 py-2 border rounded-xl">
+            <button id="btn-admin-save-family-pin" class="px-4 py-2 bg-emerald-700 text-white rounded-xl text-xs whitespace-nowrap">حفظ وإخراج الجميع</button>
           </div>
-        </div>
-        <div class="bg-gray-50 dark:bg-slate-800 p-4 rounded-2xl border">
-          <label class="block text-xs font-bold text-gray-800 mb-1">تعديل رمز المشرف (Admin PIN):</label>
-          <div class="flex gap-2">
-            <input id="input-admin-new-admin-pin" type="text" class="w-full text-xs px-3 py-2 rounded-xl border bg-white">
-            <button id="btn-admin-save-admin-pin" class="px-4 py-2 rounded-xl bg-amber-600 text-white text-xs font-bold">حفظ</button>
-          </div>
-        </div>
-        <div class="bg-gray-50 dark:bg-slate-800 p-4 rounded-2xl border">
-          <h4 class="text-xs font-bold text-gray-800 mb-2">إدارة الختمة:</h4>
-          <button id="btn-admin-clear-reserved-only" class="px-3 py-2 rounded-xl bg-purple-100 text-purple-800 text-xs font-bold">إلغاء حجز الأجزاء المعلقة</button>
-          <button id="btn-admin-reset-full-khatma" class="px-3 py-2 rounded-xl bg-gray-200 text-gray-800 text-xs font-bold mt-2">تصفير الختمة الحالية</button>
+          <p class="text-[10px] text-red-500 mt-2">ملاحظة: تغيير هذا الرمز سيقوم بطرد جميع المتصلين حالياً ليقوموا بتسجيل الدخول بالرمز الجديد.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- FIREBASE & CORE SCRIPT -->
+  <!-- FIREBASE & JAVASCRIPT LOGIC -->
   <script type="module">
+    // 1. استدعاء مكتبات Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, get, set, update, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getDatabase, ref, set, get, update, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    // إعدادات Firebase الخاصة بك
+    // 2. إعدادات Firebase الخاصة بك
     const firebaseConfig = {
-      apiKey: "AIzaSyDsVp4BvZo3J0FCqS-TAPH-xr5saNeOYmY",
+      apiKey: "AIzaSyD...TAPM-xr5saNeOYmY", // تأكد من وضع المفتاح الصحيح هنا
       authDomain: "sadaqah-de763.firebaseapp.com",
+      databaseURL: "https://sadaqah-de763-default-rtdb.firebaseio.com", 
       projectId: "sadaqah-de763",
-      storageBucket: "sadaqah-de763.firebasestorage.app",
+      storageBucket: "sadaqah-de763.appspot.com",
       messagingSenderId: "939364721333",
-      appId: "1:939364721333:web:68ef77b1493f82195714fc",
-      measurementId: "G-SB5WVMBVVD"
+      appId: "1:939364721333:web:68ef77b1493f82195714fc"
     };
 
+    // 3. تهيئة التطبيق وقاعدة البيانات
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // ==========================================
-    // DATA CONSTANTS (القرآن والأذكار والأدعية)
-    // ==========================================
-    const QURAN_SURAHS = [{"id": "fatihah", "name": "سورة الفاتحة", "type": "مكية", "ayahCount": 7, "virtue": "أم الكتاب والسبع المثاني والشفاء التام بإذن الله", "verses": ["بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "الرَّحْمَٰنِ الرَّحِيمِ", "مَالِكِ يَوْمِ الدِّينِ", "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ", "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ", "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ"]}, {"id": "mulk", "name": "سورة الملك", "type": "مكية", "ayahCount": 30, "virtue": "المانعة المنجية من عذاب القبر تشفع لصاحبها حتى يغفر له", "verses": ["تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ", "الَّذِي خَلَقَ الْمَوْتَ وَالْحَيَاةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا ۚ وَهُوَ الْعَزِيزُ الْغَفُورُ", "الَّذِي خَلَقَ سَبْعَ سَمَاوَاتٍ طِبَاقًا ۖ مَّا تَرَىٰ فِي خَلْقِ الرَّحْمَٰنِ مِن تَفَاوُتٍ ۖ فَارْجِعِ الْبَصَرَ هَلْ تَرَىٰ مِن فُطُورٍ", "ثُمَّ ارْجِعِ الْبَصَرَ كَرَّتَيْنِ يَنقَلِبْ إِلَيْكَ الْبَصَرُ خَاسِئًا وَهُوَ حَسِيرٌ", "وَلَقَدْ زَيَّنَّا السَّمَاءَ الدُّنْيَا بِمَصَابِيحَ وَجَعَلْنَاهَا رُجُومًا لِّلشَّيَاطِينِ ۖ وَأَعْتَدْنَا لَهُمْ عَذَابَ السَّعِيرِ", "وَلِلَّذِينَ كَفَرُوا بِرَبِّهِمْ عَذَابُ جَهَنَّمَ ۖ وَبِئْسَ الْمَصِيرُ", "إِذَا أُلْقُوا فِيهَا سَمِعُوا لَهَا شَهِيقًا وَهِيَ تَفُورُ", "تَكَادُ تَمَيَّزُ مِنَ الْغَيْظِ ۖ كُلَّمَا أُلْقِيَ فِيهَا فَوْجٌ سَأَلَهُمْ خَزَنَتُهَا أَلَمْ يَأْتِكُمْ نَذِيرٌ", "قَالُوا بَلَىٰ قَدْ جَاءَنَا نَذِيرٌ فَكَذَّبْنَا وَقُلْنَا مَا نَزَّلَ اللَّهُ مِن شَيْءٍ إِنْ أَنتُمْ إِلَّا فِي ضَلَالٍ كَبِيرٍ", "وَقَالُوا لَوْ كُنَّا نَسْمَعُ أَوْ نَعْقِلُ مَا كُنَّا فِي أَصْحَابِ السَّعِيرِ", "فَاعْتَرَفُوا بِذَنبِهِمْ فَسُحْقًا لِّأَصْحَابِ السَّعِيرِ", "إِنَّ الَّذِينَ يَخْشَوْنَ رَبَّهُم بِالْغَيْبِ لَهُم مَّغْفِرَةٌ وَأَجْرٌ كَبِيرٌ", "وَأَسِرُّوا قَوْلَكُمْ أَوِ اجْهَرُوا بِهِ ۖ إِنَّهُ عَلِيمٌ بِذَاتِ الصُّدُورِ", "أَلَا يَعْلَمُ مَنْ خَلَقَ وَهُوَ اللَّطِيفُ الْخَبِيرُ", "هُوَ الَّذِي جَعَلَ لَكُمُ الْأَرْضَ ذَلُولًا فَامْشُوا فِي مَنَاكِبِهَا وَكُلُوا مِن رِّزْقِهِ ۖ وَإِلَيْهِ النُّشُورُ", "أَأَمِنتُم مَّن فِي السَّمَاءِ أَن يَخْسِفَ بِكُمُ الْأَرْضَ فَإِذَا هِيَ تَمُورُ", "أَمْ أَمِنتُم مَّن فِي السَّمَاءِ أَن يُرْسِلَ عَلَيْكُمْ حَاصِبًا ۖ فَسَتَعْلَمُونَ كَيْفَ نَذِيرِ", "وَلَقَدْ كَذَّبَ الَّذِينَ مِن قَبْلِهِمْ فَكَيْفَ كَانَ نَكِيرِ", "أَوَلَمْ يَرَوْا إِلَى الطَّيْرِ فَوْقَهُمْ صَافَّاتٍ وَيَقْبِضْنَ ۚ مَا يُمْسِكُهُنَّ إِلَّا الرَّحْمَٰنُ ۚ إِنَّهُ بِكُلِّ شَيْءٍ بَصِيرٌ", "أَمَّنْ هَٰذَا الَّذِي هُوَ جُندٌ لَّكُمْ يَنصُرُكُم مِّن دُونِ الرَّحْمَٰنِ ۚ إِنِ الْكَافِرُونَ إِلَّا فِي غُرُورٍ", "أَمَّنْ هَٰذَا الَّذِي يَرْزُقُكُمْ إِنْ أَمْسَكَ رِزْقَهُ ۚ بَل لَّجُّوا فِي عُتُوٍّ وَنُفُورٍ", "أَفَمَن يَمْشِي مُكِبًّا عَلَىٰ وَجْهِهِ أَهْدَىٰ أَمَّن يَمْشِي سَوِيًّا عَلَىٰ صِرَاطٍ مُّسْتَقِيمٍ", "قُلْ هُوَ الَّذِي أَنشَأَكُمْ وَجَعَلَ لَكُمُ السَّمْعَ وَالْأَبْصَارَ وَالْأَفْئِدَةَ ۖ قَلِيلًا مَّا تَشْكُرُونَ", "قُلْ هُوَ الَّذِي ذَرَأَكُمْ فِي الْأَرْضِ وَإِلَيْهِ تُحْشَرُونَ", "وَيَقُولُونَ مَتَىٰ هَٰذَا الْوَعْدُ إِن كُنتُمْ صَادِقِينَ", "قُلْ إِنَّمَا الْعِلْمُ عِندَ اللَّهِ وَإِنَّمَا أَنَا نَذِيرٌ مُّبِينٌ", "فَلَمَّا رَأَوْهُ زُلْفَةً سِيئَتْ وُجُوهُ الَّذِينَ كَفَرُوا وَقِيلَ هَٰذَا الَّذِي كُنتُم بِهِ تَدَّعُونَ", "قُلْ أَرَأَيْتُمْ إِنْ أَهْلَكَنِيَ اللَّهُ وَمَن مَّعِيَ أَوْ رَحِمَنَا فَمَن يُجِيرُ الْكَافِرِينَ مِنْ عَذَابٍ أَلِيمٍ", "قُلْ هُوَ الرَّحْمَٰنُ آمَنَّا بِهِ وَعَلَيْهِ تَوَكَّلْنَا ۖ فَسَتَعْلَمُونَ مَنْ هُوَ فِي ضَلَالٍ مُّبِينٍ", "قُلْ أَرَأَيْتُمْ إِنْ أَصْبَحَ مَاؤُكُمْ غَوْرًا فَمَن يَأْتِيكُم بِمَاءٍ مَّعِينٍ"]}];
-    const ATHKAR_DATA = {"morning": [{"text": "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ...", "count": 1, "virtue": "يُحفظ في يومه"}], "evening": [{"text": "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ...", "count": 1, "virtue": "يُحفظ في ليلته"}]};
-    const DUAS_TEMPLATE = [{"title": "دعاء الرحمة", "male_text": "اللَّهُمَّ اغْفِرْ لـ ({NAME}) وَارْحَمْهُ.", "female_text": "اللَّهُمَّ اغْفِرْ لـ ({NAME}) وَارْحَمْهَا.", "source": "مأثور"}];
-    const AJZAA_DATA = [{"juz": 1, "name": "الجزء الأول", "surahs": "الفاتحة والبقرة"}, {"juz": 2, "name": "الجزء الثاني", "surahs": "البقرة"}, {"juz": 3, "name": "الجزء الثالث", "surahs": "البقرة وآل عمران"}];
+    // متغيرات الجلسة
+    let currentDeceased = "";
+    let currentFamilyPin = "";
+    let isAdmin = false;
 
-    const AppState = {
-      soundEnabled: true,
-      currentDeceasedName: "",
-      profile: null,
-      isAdmin: false,
-      currentTasbeeh: 0
-    };
-
-    // ==========================================
-    // UTILS & SOUND
-    // ==========================================
-    function showToast(message, type = 'success') {
-      const container = document.getElementById('toast-container');
-      if (!container) return;
-      const toast = document.createElement('div');
-      toast.className = `p-3.5 rounded-xl shadow-xl text-sm text-white flex gap-2 transition transform translate-y-[-10px] opacity-0 ${type === 'success' ? 'bg-emerald-600' : 'bg-red-600'}`;
-      toast.innerHTML = `<span>${type === 'success' ? '✨' : '⚠️'}</span><span>${message}</span>`;
-      container.appendChild(toast);
-      requestAnimationFrame(() => toast.classList.remove('translate-y-[-10px]', 'opacity-0'));
-      setTimeout(() => {
-        toast.classList.add('opacity-0');
-        setTimeout(() => toast.remove(), 300);
-      }, 3000);
-    }
-
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
-      document.getElementById('tab-content-' + tabId).classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // ==========================================
-    // FIREBASE SYNC & AUTH
-    // ==========================================
-    
-    // فحص الرابط المخصص عند تحميل الصفحة
+    // 4. قراءة اللينك لتخطي تسجيل الدخول
     const urlParams = new URLSearchParams(window.location.search);
     const sharedName = urlParams.get('d');
-    
+
     if (sharedName) {
-        // إخفاء حقول تسجيل الاسم والصيغة والأدمن لأننا سنعتمد على الرابط
-        document.getElementById('wrapper-deceased-name').style.display = 'none';
-        document.getElementById('wrapper-gender').style.display = 'none';
-        document.getElementById('wrapper-admin-pin').style.display = 'none';
+        // إخفاء حقل الاسم والصيغة ورمز الأدمن
+        document.getElementById('name-input-group').style.display = 'none';
+        document.getElementById('gender-input-group').style.display = 'none';
+        document.getElementById('admin-pin-group').style.display = 'none';
         
-        // إجبار الاسم من الرابط
+        // وضع الاسم في المتغير والحقل المخفي
+        currentDeceased = sharedName;
         document.getElementById('input-portal-deceased-name').value = sharedName;
+
+        // تعديل نصوص الترحيب
         document.getElementById('gateway-title').innerText = `الدخول لصدقة: ${sharedName}`;
-        document.getElementById('gateway-subtitle').innerText = "برجاء إدخال رمز العائلة السري (PIN) للمتابعة";
+        document.getElementById('gateway-desc').innerText = "أدخل الرمز السري (PIN) الخاص بالعائلة للبدء";
     }
 
-    // زر الدخول (سواء جديد أو من رابط)
+    // 5. زر الدخول (تسجيل الدخول / إنشاء حساب جديد للمتوفى)
     document.getElementById('btn-portal-enter').addEventListener('click', async () => {
-      const name = document.getElementById('input-portal-deceased-name').value.trim();
-      const familyPin = document.getElementById('input-portal-family-pin').value.trim();
-      const gender = document.querySelector('input[name="portal-gender"]:checked').value;
-      const adminPin = document.getElementById('input-portal-admin-pin') ? document.getElementById('input-portal-admin-pin').value.trim() : "";
-      
-      if (!name) return showToast("الاسم مطلوب", "error");
-      if (!familyPin) return showToast("رمز العائلة مطلوب", "error");
+        const nameInput = document.getElementById('input-portal-deceased-name').value.trim();
+        const familyPinInput = document.getElementById('input-portal-family-pin').value.trim();
+        const adminPinInput = document.getElementById('input-portal-admin-pin').value.trim();
 
-      const profileRef = ref(db, 'sadaqah/' + name);
-      const snapshot = await get(profileRef);
-
-      if (snapshot.exists()) {
-        // حساب موجود، تحقق من الباسورد
-        const data = snapshot.val();
-        if (data.pin !== familyPin && data.adminPin !== familyPin) {
-          return showToast("الرمز السري غير صحيح!", "error");
-        }
-        // حفظ الباسورد المستخدم في المتصفح حالياً عشان الطرد
-        localStorage.setItem(`active_pin_${name}`, familyPin);
-        setupRealtimeListener(name);
-      } else {
-        // حساب جديد
-        if(sharedName) {
-            return showToast("هذه الصدقة غير موجودة أو تم حذفها", "error");
-        }
-        if (!adminPin) return showToast("رمز المشرف مطلوب لإنشاء صدقة جديدة", "error");
-        
-        const newData = {
-          name: name,
-          gender: gender,
-          pin: familyPin,
-          adminPin: adminPin,
-          totalTasbeeh: 0,
-          totalDuas: 0,
-          currentKhatmaNumber: 1,
-          khatmaAjzaa: {}
-        };
-        await set(profileRef, newData);
-        localStorage.setItem(`active_pin_${name}`, familyPin);
-        setupRealtimeListener(name);
-      }
-      
-      document.getElementById('gateway-screen').classList.add('hidden');
-      showToast(`تم الدخول بنجاح لصدقة ${name}`);
-    });
-
-    // المستمع اللحظي (Firebase onValue)
-    let unsubscribeCurrent = null;
-    function setupRealtimeListener(name) {
-      if (unsubscribeCurrent) unsubscribeCurrent();
-      AppState.currentDeceasedName = name;
-      
-      const profileRef = ref(db, 'sadaqah/' + name);
-      unsubscribeCurrent = onValue(profileRef, (snapshot) => {
-        if (!snapshot.exists()) {
-            alert("تم حذف هذه الصدقة من قبل المسؤول.");
-            window.location.href = window.location.pathname; // Reload without query params
+        if (!nameInput || !familyPinInput) {
+            alert("يرجى إدخال البيانات المطلوبة والرمز السري.");
             return;
         }
 
-        const data = snapshot.val();
-        const localPin = localStorage.getItem(`active_pin_${name}`);
+        const deceasedRef = ref(db, `sadaqah/${nameInput}`);
+        const snapshot = await get(deceasedRef);
+
+        if (snapshot.exists()) {
+            // المتوفى مسجل مسبقاً، نتحقق من الرمز
+            const data = snapshot.val();
+            if (data.familyPin === familyPinInput) {
+                // دخول ناجح
+                loginSuccess(nameInput, familyPinInput);
+            } else {
+                alert("الرمز السري غير صحيح!");
+            }
+        } else {
+            // صدقة جديدة (يجب إدخال رمز مشرف لإنشائها)
+            if(!adminPinInput && !sharedName) {
+                alert("لإنشاء صدقة جديدة، يجب إدخال رمز للمشرف.");
+                return;
+            }
+            if(sharedName) {
+                 alert("هذا الرابط غير صالح أو تم حذفه من قبل المشرف.");
+                 return;
+            }
+            
+            // إنشاء السجل في Firebase
+            await set(deceasedRef, {
+                familyPin: familyPinInput,
+                adminPin: adminPinInput,
+                tasbeehCount: 0,
+                khatma: initKhatma()
+            });
+            alert("تم إنشاء صدقة جارية جديدة بنجاح!");
+            loginSuccess(nameInput, familyPinInput);
+        }
+    });
+
+    // دالة تهيئة أجزاء الختمة بـ 30 جزء فارغ
+    function initKhatma() {
+        let parts = {};
+        for(let i=1; i<=30; i++) {
+            parts[`part_${i}`] = { status: "available", reader: "" };
+        }
+        return parts;
+    }
+
+    // دالة الدخول الناجح
+    function loginSuccess(name, pin) {
+        currentDeceased = name;
+        currentFamilyPin = pin;
         
-        // نظام الطرد عند تغيير الباسورد:
-        // إذا كان الباسورد المُخزن في الداتابيز (pin) لا يطابق الباسورد المحلي للمستخدم (localPin)
-        // والمستخدم ليس هو الأدمن (لا يملك adminPin) => يتم طرده
-        if (data.pin !== localPin && data.adminPin !== localPin && !AppState.isAdmin) {
-            localStorage.removeItem(`active_pin_${name}`);
-            alert("تم تغيير رمز العائلة السري بواسطة المسؤول. سيتم تسجيل خروجك.");
-            window.location.reload();
+        document.getElementById('gateway-screen').style.display = 'none';
+        document.getElementById('top-bar-deceased-name').innerText = name;
+        document.getElementById('hero-deceased-title').innerText = name;
+        document.getElementById('nav-active-deceased-name').innerText = name;
+        document.getElementById('khatma-page-deceased-name').innerText = name;
+        document.getElementById('tasbeeh-page-deceased-name').innerText = name;
+
+        // بدء الاستماع للتحديثات اللحظية ومراقبة الباسورد
+        startRealtimeSync();
+    }
+
+    // 6. المزامنة اللحظية ومراقبة طرد المستخدم (Kick Out)
+    function startRealtimeSync() {
+        // الاستماع للباسورد عشان لو الأدمن غيره نطرد اليوزر
+        const pinRef = ref(db, `sadaqah/${currentDeceased}/familyPin`);
+        onValue(pinRef, (snapshot) => {
+            const livePin = snapshot.val();
+            // لو الباسورد اتغير ومابقاش بيساوي الباسورد اللي اليوزر دخل بيه
+            if (livePin && currentFamilyPin && livePin !== currentFamilyPin) {
+                alert("تم تغيير الرمز السري بواسطة المشرف. سيتم تسجيل خروجك الآن.");
+                window.location.href = window.location.origin + window.location.pathname + '?d=' + encodeURIComponent(currentDeceased);
+            } else if (livePin === null && currentDeceased !== "") {
+                alert("تم حذف سجل هذا المتوفى.");
+                window.location.href = window.location.origin + window.location.pathname;
+            }
+        });
+
+        // مزامنة المسبحة
+        const tasbeehRef = ref(db, `sadaqah/${currentDeceased}/tasbeehCount`);
+        onValue(tasbeehRef, (snapshot) => {
+            const count = snapshot.val() || 0;
+            document.getElementById('tasbeeh-counter-number').innerText = count;
+            document.getElementById('stat-tasbeeh').innerText = count;
+        });
+
+        // مزامنة الختمة وبناء الأزرار
+        const khatmaRef = ref(db, `sadaqah/${currentDeceased}/khatma`);
+        onValue(khatmaRef, (snapshot) => {
+            const khatmaData = snapshot.val();
+            if(khatmaData) renderKhatmaGrid(khatmaData);
+        });
+    }
+
+    // بناء شبكة الختمة (الجزء 1 إلى 30)
+    function renderKhatmaGrid(data) {
+        const container = document.getElementById('khatma-grid-container');
+        container.innerHTML = '';
+        let completedCount = 0;
+
+        for(let i=1; i<=30; i++) {
+            const part = data[`part_${i}`];
+            const btn = document.createElement('button');
+            btn.className = `p-3 rounded-xl border font-bold text-sm transition ${
+                part.status === 'completed' ? 'bg-emerald-100 text-emerald-800 border-emerald-500' :
+                part.status === 'reserved' ? 'bg-amber-100 text-amber-800 border-amber-500' :
+                'bg-white text-gray-700 hover:bg-gray-50'
+            }`;
+            btn.innerText = `الجزء ${i}`;
+            if(part.status === 'completed') completedCount++;
+            
+            btn.onclick = () => handleJuzClick(i, part.status);
+            container.appendChild(btn);
+        }
+        document.getElementById('stat-khatma-progress').innerText = `${completedCount} / 30`;
+    }
+
+    function handleJuzClick(partNumber, status) {
+        if(status === 'completed') {
+            alert("تمت قراءة هذا الجزء بالفعل. في ميزان الحسنات!");
             return;
         }
-
-        AppState.profile = data;
-        updateUI();
-      });
-    }
-
-    // تسجيل الخروج وتبديل المتوفى
-    document.getElementById('btn-top-switch-deceased').addEventListener('click', () => {
-        if(AppState.currentDeceasedName) {
-            localStorage.removeItem(`active_pin_${AppState.currentDeceasedName}`);
-        }
-        window.location.href = window.location.pathname; // Refresh to clean gateway
-    });
-
-    // ==========================================
-    // UI UPDATES & FEATURES
-    // ==========================================
-    function updateUI() {
-      const p = AppState.profile;
-      if (!p) return;
-
-      document.getElementById('top-bar-deceased-name').textContent = p.name;
-      document.getElementById('top-bar-khatma-badge').textContent = 'الختمة #' + p.currentKhatmaNumber;
-      document.getElementById('nav-active-deceased-name').textContent = p.name;
-      document.getElementById('hero-deceased-title').textContent = p.name;
-      
-      document.getElementById('stat-tasbeeh').textContent = p.totalTasbeeh || 0;
-      document.getElementById('stat-duas').textContent = p.totalDuas || 0;
-      
-      renderKhatmaGrid();
-    }
-
-    // نظام المسبحة اللحظي مع Firebase
-    let tasbeehDebounce;
-    document.getElementById('btn-tasbeeh-tap').addEventListener('click', () => {
-      if(!AppState.profile) return;
-      playBeadSound();
-      
-      const newTotal = (AppState.profile.totalTasbeeh || 0) + 1;
-      
-      // التحديث اللحظي في الواجهة للشعور بالسرعة
-      document.getElementById('tasbeeh-counter-number').textContent = 
-        (parseInt(document.getElementById('tasbeeh-counter-number').textContent) || 0) + 1;
-
-      // إرسال التحديث لـ Firebase (Debounced لتقليل الضغط)
-      clearTimeout(tasbeehDebounce);
-      tasbeehDebounce = setTimeout(() => {
-          update(ref(db, 'sadaqah/' + AppState.profile.name), {
-              totalTasbeeh: newTotal
-          });
-      }, 300);
-    });
-
-    // نظام الختمة اللحظي
-    function renderKhatmaGrid() {
-      const p = AppState.profile;
-      const container = document.getElementById('khatma-grid-container');
-      container.innerHTML = '';
-      
-      let completedCount = 0;
-      AJZAA_DATA.forEach(item => {
-        const statusObj = (p.khatmaAjzaa && p.khatmaAjzaa[item.juz]) ? p.khatmaAjzaa[item.juz] : { state: 'available', reader: '' };
-        if (statusObj.state === 'completed') completedCount++;
-
-        const card = document.createElement('div');
-        card.className = `p-3.5 rounded-2xl border text-center cursor-pointer ${statusObj.state === 'completed' ? 'bg-emerald-50 border-emerald-400' : statusObj.state === 'reserved' ? 'bg-amber-50 border-amber-400' : 'bg-white'}`;
-        card.innerHTML = `<div class="font-bold text-sm">${item.name}</div><div class="text-[10px]">${statusObj.state === 'completed' ? 'مكتمل ✓' : statusObj.state === 'reserved' ? 'محجوز: ' + statusObj.reader : 'متاح للحجز'}</div>`;
         
-        card.onclick = () => openJuzModal(item.juz, statusObj);
-        container.appendChild(card);
-      });
-
-      document.getElementById('stat-khatma-progress').textContent = completedCount + ' / 30';
-      if(completedCount === 30) alert('مبارك! تم اكتمال الختمة رقم ' + p.currentKhatmaNumber);
+        const action = confirm(status === 'reserved' ? 
+            `الجزء ${partNumber} محجوز. هل أتممت قراءته؟ (اضغط OK لتأكيد الإتمام)` : 
+            `هل تريد حجز الجزء ${partNumber} لقراءته؟`);
+            
+        if(action) {
+            const newStatus = status === 'reserved' ? 'completed' : 'reserved';
+            update(ref(db, `sadaqah/${currentDeceased}/khatma/part_${partNumber}`), {
+                status: newStatus
+            });
+        }
     }
 
-    let selectedJuz = null;
-    function openJuzModal(juzNum, statusObj) {
-      selectedJuz = juzNum;
-      document.getElementById('modal-juz-title').textContent = "الجزء " + juzNum;
-      document.getElementById('input-reader-name').value = statusObj.reader || '';
-      
-      if(statusObj.state !== 'available') {
-          document.getElementById('btn-action-unreserve').classList.remove('hidden');
-      } else {
-          document.getElementById('btn-action-unreserve').classList.add('hidden');
-      }
-      
-      document.getElementById('modal-reserve-juz').classList.remove('hidden');
-    }
+    // 7. زر المسبحة
+    document.getElementById('btn-tasbeeh-tap').addEventListener('click', async () => {
+        if(!currentDeceased) return;
+        const tasbeehRef = ref(db, `sadaqah/${currentDeceased}/tasbeehCount`);
+        const snapshot = await get(tasbeehRef);
+        const currentCount = snapshot.val() || 0;
+        
+        await set(tasbeehRef, currentCount + 1);
+    });
 
-    document.getElementById('btn-close-juz-modal').onclick = () => document.getElementById('modal-reserve-juz').classList.add('hidden');
-
-    document.getElementById('btn-action-reserve').onclick = () => {
-      const reader = document.getElementById('input-reader-name').value || 'فاعل خير';
-      update(ref(db, `sadaqah/${AppState.profile.name}/khatmaAjzaa/${selectedJuz}`), { state: 'reserved', reader });
-      document.getElementById('modal-reserve-juz').classList.add('hidden');
-    };
-
-    document.getElementById('btn-action-complete').onclick = () => {
-      const reader = document.getElementById('input-reader-name').value || 'فاعل خير';
-      update(ref(db, `sadaqah/${AppState.profile.name}/khatmaAjzaa/${selectedJuz}`), { state: 'completed', reader });
-      document.getElementById('modal-reserve-juz').classList.add('hidden');
-      playSuccessChime();
-    };
-
-    document.getElementById('btn-action-unreserve').onclick = () => {
-      update(ref(db, `sadaqah/${AppState.profile.name}/khatmaAjzaa/${selectedJuz}`), null);
-      document.getElementById('modal-reserve-juz').classList.add('hidden');
-    };
-
-
-    // زر المشاركة (توليد اللينك المخصص)
+    // 8. زر مشاركة اللينك המخصص
     document.getElementById('btn-quick-share').addEventListener('click', () => {
-        if(!AppState.profile) return;
-        const shareUrl = window.location.origin + window.location.pathname + '?d=' + encodeURIComponent(AppState.profile.name);
+        if(!currentDeceased) return;
+        const shareUrl = window.location.origin + window.location.pathname + '?d=' + encodeURIComponent(currentDeceased);
         
         if (navigator.share) {
             navigator.share({
                 title: 'صدقة جارية',
-                text: `شارك في الصدقة الجارية لروح ${AppState.profile.name} بالختمة والتسبيح.`,
+                text: `شارك في الصدقة الجارية لروح ${currentDeceased}`,
                 url: shareUrl
-            }).catch(e => {});
+            }).catch(err => console.log('خطأ في المشاركة:', err));
         } else {
             navigator.clipboard.writeText(shareUrl).then(() => {
-                showToast('تم نسخ رابط المتوفى المخصص بنجاح! شاركه مع العائلة');
+                alert('تم نسخ الرابط المخصص بنجاح! يمكنك إرساله للعائلة الآن ليدخلوا بكلمة المرور فقط.');
             });
         }
     });
 
-    // ==========================================
-    // ADMIN PANEL
-    // ==========================================
-    document.getElementById('btn-open-admin-panel').onclick = () => {
-        document.getElementById('input-admin-auth-pin').value = '';
-        document.getElementById('modal-admin-auth').classList.remove('hidden');
-    };
-    
-    document.getElementById('btn-cancel-admin-auth').onclick = () => document.getElementById('modal-admin-auth').classList.add('hidden');
+    // 9. لوحة الأدمن (تغيير الباسورد والطرد)
+    document.getElementById('btn-open-admin-panel').addEventListener('click', () => {
+        document.getElementById('modal-admin-auth').style.display = 'flex';
+    });
+    document.getElementById('btn-cancel-admin-auth').addEventListener('click', () => {
+        document.getElementById('modal-admin-auth').style.display = 'none';
+    });
 
-    document.getElementById('btn-confirm-admin-auth').onclick = () => {
-        const pin = document.getElementById('input-admin-auth-pin').value;
-        if(AppState.profile && AppState.profile.adminPin === pin) {
-            AppState.isAdmin = true;
-            document.getElementById('modal-admin-auth').classList.add('hidden');
-            document.getElementById('modal-admin-dashboard').classList.remove('hidden');
-            
-            // تعبئة البيانات
-            document.getElementById('input-admin-new-family-pin').value = AppState.profile.pin;
-            document.getElementById('input-admin-new-admin-pin').value = AppState.profile.adminPin;
+    // تسجيل دخول الأدمن
+    document.getElementById('btn-confirm-admin-auth').addEventListener('click', async () => {
+        const adminPin = document.getElementById('input-admin-auth-pin').value;
+        const adminRef = ref(db, `sadaqah/${currentDeceased}/adminPin`);
+        const snap = await get(adminRef);
+        
+        if(snap.val() === adminPin) {
+            document.getElementById('modal-admin-auth').style.display = 'none';
+            document.getElementById('modal-admin-dashboard').style.display = 'flex';
+            document.getElementById('input-admin-auth-pin').value = '';
         } else {
-            showToast("رمز المشرف غير صحيح", "error");
+            alert("رمز المشرف غير صحيح!");
         }
-    };
+    });
 
-    document.getElementById('btn-close-admin-dashboard').onclick = () => {
-        AppState.isAdmin = false;
-        document.getElementById('modal-admin-dashboard').classList.add('hidden');
-    };
+    document.getElementById('btn-close-admin-dashboard').addEventListener('click', () => {
+        document.getElementById('modal-admin-dashboard').style.display = 'none';
+    });
 
-    // تغيير باسورد العائلة (سيؤدي لطرد من لا يملكون الباسورد الجديد بفضل OnValue)
-    document.getElementById('btn-admin-save-family-pin').onclick = () => {
-        const newPin = document.getElementById('input-admin-new-family-pin').value;
-        if(newPin) {
-            update(ref(db, 'sadaqah/' + AppState.profile.name), { pin: newPin });
-            // تحديثه في جهاز الأدمن حتى لا يُطرد
-            localStorage.setItem(`active_pin_${AppState.profile.name}`, newPin); 
-            showToast("تم تغيير رمز العائلة بنجاح");
-        }
-    };
+    // تغيير الباسورد العائلي (وطرد الباقين)
+    document.getElementById('btn-admin-save-family-pin').addEventListener('click', async () => {
+        const newPin = document.getElementById('input-admin-new-family-pin').value.trim();
+        if(!newPin) return alert("أدخل الرمز الجديد");
+        
+        await update(ref(db, `sadaqah/${currentDeceased}`), { familyPin: newPin });
+        alert("تم تغيير الرمز بنجاح. سيتم طرد جميع الأجهزة الأخرى المتصلة الآن لتسجيل الدخول بالرمز الجديد.");
+        document.getElementById('modal-admin-dashboard').style.display = 'none';
+    });
 
-    // تغيير باسورد الأدمن
-    document.getElementById('btn-admin-save-admin-pin').onclick = () => {
-        const newAdminPin = document.getElementById('input-admin-new-admin-pin').value;
-        if(newAdminPin) {
-            update(ref(db, 'sadaqah/' + AppState.profile.name), { adminPin: newAdminPin });
-            showToast("تم تغيير رمز المشرف بنجاح");
-        }
-    };
+    // التبديل بين التابات
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('text-emerald-800', 'bg-emerald-100'));
+            e.target.classList.add('text-emerald-800', 'bg-emerald-100');
+            
+            document.querySelectorAll('.tab-pane').forEach(tab => tab.style.display = 'none');
+            const target = e.target.getAttribute('data-tab');
+            document.getElementById(`tab-content-${target}`).style.display = 'block';
+        });
+    });
 
-    // تصفير الختمة من الأدمن
-    document.getElementById('btn-admin-reset-full-khatma').onclick = () => {
-        if(confirm("هل أنت متأكد من تصفير أجزاء الختمة للبدء من جديد؟")) {
-            update(ref(db, 'sadaqah/' + AppState.profile.name), { khatmaAjzaa: null });
-            showToast("تم تصفير الختمة بنجاح");
-        }
-    };
-
-    // Navigation Tabs functionality
-    document.querySelectorAll('.nav-btn, .quick-nav-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const target = e.currentTarget.getAttribute('data-tab') || e.currentTarget.getAttribute('data-switch-to');
-        if (target) switchTab(target);
-      });
+    // زر الخروج
+    document.getElementById('btn-logout').addEventListener('click', () => {
+        window.location.href = window.location.origin + window.location.pathname;
     });
 
   </script>
