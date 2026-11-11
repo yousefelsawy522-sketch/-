@@ -1,493 +1,2385 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>منصة الصدقة الجارية</title>
+  <title>منصة قدراتي الشاملة | Qodrati - منصة التعلم والتواصل والتعبير للأطفال والطلاب ذوي الشلل الدماغي</title>
+  
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  
+  <!-- Canvas Confetti for accessible cheering -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Google Fonts for accessible, clear typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          colors: {
-            emerald: { 50: '#f0fdf4', 100: '#dcfce7', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d', 950: '#052e16' },
-            gold: { 100: '#fef3c7', 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' },
-            sand: { 50: '#faf8f5', 100: '#f5f0e8', 200: '#ebe2d5', 800: '#2d261e', 900: '#1c1712' }
+          fontFamily: {
+            sans: ['"Readex Pro"', '"Tajawal"', 'sans-serif'],
+            en: ['"Fredoka"', 'sans-serif'],
           },
-          fontFamily: { quran: ['Amiri', 'serif'], sans: ['Cairo', 'sans-serif'] }
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+            },
+            accent: {
+              amber: '#f59e0b',
+              sky: '#0284c7',
+              violet: '#7c3aed',
+              rose: '#e11d48',
+            }
+          }
         }
       }
     }
   </script>
+
   <style>
-    body { font-family: 'Cairo', sans-serif; }
-    .font-quran { font-family: 'Amiri', serif; }
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); }
-    ::-webkit-scrollbar-thumb { background: #c59b27; border-radius: 4px; }
-    .bead-pulse { animation: pulseBead 0.25s ease-out; }
-    @keyframes pulseBead { 0% { transform: scale(1); } 50% { transform: scale(0.94); } 100% { transform: scale(1); } }
+    body {
+      font-family: 'Readex Pro', 'Tajawal', sans-serif;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Accessibility Focus & Scanning Rings */
+    .scan-highlight {
+      outline: 6px solid #f59e0b !important;
+      outline-offset: 4px !important;
+      transform: scale(1.04);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.7) !important;
+      z-index: 40 !important;
+    }
+
+    /* High Contrast Theme Overrides */
+    body.high-contrast {
+      background-color: #000000 !important;
+      color: #ffff00 !important;
+    }
+    body.high-contrast .card-accessible {
+      background-color: #121212 !important;
+      border: 3px solid #ffff00 !important;
+      color: #ffffff !important;
+    }
+    body.high-contrast button {
+      border: 2px solid #ffff00 !important;
+    }
+    body.high-contrast .high-contrast-text {
+      color: #ffff00 !important;
+    }
+
+    /* Sensory Calm Mode */
+    body.sensory-calm {
+      background-color: #f7f9fa !important;
+    }
+    body.sensory-calm * {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    /* Large target minimum touch/click size */
+    .target-large {
+      min-height: 80px;
+    }
+
+    .btn-press:active {
+      transform: scale(0.96);
+    }
   </style>
 </head>
-<body class="bg-sand-50 text-gray-800 dark:bg-slate-900 dark:text-gray-100 min-h-screen flex flex-col transition-colors duration-300">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-brand-200">
 
-  <!-- Toast Notification Container -->
-  <div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none w-11/12 max-w-md"></div>
+  
 
-  <!-- GATEWAY / LOGIN SCREEN -->
-  <section id="gateway-screen" class="fixed inset-0 z-[90] bg-gradient-to-br from-emerald-950 via-slate-900 to-emerald-900 flex items-center justify-center p-4 overflow-y-auto" style="z-index: 90;">
-    <div class="bg-white dark:bg-slate-850 text-gray-900 dark:text-white rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl border border-gold-500/40 relative my-8">
-      <div class="text-center mb-5">
-        <div class="w-14 h-14 mx-auto mb-2 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-800 text-gold-300 flex items-center justify-center text-2xl shadow-md border border-gold-500/40">🕌</div>
-        <h2 id="gateway-title" class="text-xl font-bold text-emerald-900 dark:text-emerald-400 font-quran mb-0.5">تسجيل الدخول للصدقة الجارية</h2>
-        <p id="gateway-desc" class="text-xs text-gray-500 dark:text-gray-400">أدخل اسم المتوفى والرمز للمتابعة</p>
-      </div>
-
-      <div class="space-y-3.5 mb-5">
-        <div id="name-input-group">
-          <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">اسم المتوفى:</label>
-          <input id="input-portal-deceased-name" type="text" placeholder="اكتب اسم المتوفى..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600/20 transition font-medium">
-        </div>
-
-        <div id="gender-input-group">
-          <span class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">الصيغة:</span>
-          <div class="grid grid-cols-2 gap-2.5">
-            <label class="cursor-pointer">
-              <input type="radio" name="portal-gender" value="male" checked class="peer sr-only">
-              <div class="py-2 px-3 rounded-xl border border-gray-300 dark:border-slate-700 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 text-center text-xs font-bold text-gray-700 peer-checked:text-emerald-700 transition">ذكر</div>
-            </label>
-            <label class="cursor-pointer">
-              <input type="radio" name="portal-gender" value="female" class="peer sr-only">
-              <div class="py-2 px-3 rounded-xl border border-gray-300 dark:border-slate-700 peer-checked:border-emerald-600 peer-checked:bg-emerald-50 text-center text-xs font-bold text-gray-700 peer-checked:text-emerald-700 transition">أنثى</div>
-            </label>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">رمز دخول العائلة (PIN):</label>
-          <div class="relative">
-            <input id="input-portal-family-pin" type="password" maxlength="12" placeholder="الرمز السري..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-900 focus:outline-none focus:border-emerald-600 font-mono tracking-widest text-center">
-          </div>
-        </div>
-
-        <div id="admin-pin-group">
-          <label class="block text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">رمز المشرف (اختياري لإنشاء صدقة جديدة):</label>
-          <input id="input-portal-admin-pin" type="password" maxlength="12" placeholder="رمز المشرف للتحكم..." class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-amber-300 dark:border-amber-700/60 bg-amber-50/40 dark:bg-slate-900 focus:outline-none focus:border-amber-600 font-mono tracking-widest text-center">
-        </div>
-
-        <button id="btn-portal-enter" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-700 to-emerald-800 hover:from-emerald-800 hover:to-emerald-900 text-white font-bold text-sm shadow-lg shadow-emerald-700/20 active:scale-98 transition flex items-center justify-center gap-2">
-          <span>دخول الموقع وبدء الصدقة الجارية</span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- TOP DECEASED PERSISTENT STATUS BAR -->
-  <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 text-gold-300 py-2 px-4 text-xs font-medium border-b border-gold-600/30 flex justify-between items-center shadow-inner">
-    <div class="container mx-auto flex flex-wrap justify-between items-center gap-2">
-      <div class="flex items-center gap-2">
-        <span class="inline-block w-2.5 h-2.5 rounded-full bg-gold-400 animate-pulse"></span>
-        <span>صدقة جارية مستمرة لروح:</span>
-        <span id="top-bar-deceased-name" class="font-bold text-white bg-emerald-800/80 px-2.5 py-0.5 rounded-full border border-gold-400/30">...</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <button id="btn-open-admin-panel" class="hover:underline flex items-center gap-1 text-amber-300 hover:text-amber-200 transition bg-amber-950/60 border border-amber-500/40 px-2.5 py-1 rounded-lg text-xs font-bold">
-          <span>👑</span><span>لوحة الأدمن</span>
-        </button>
-        <button id="btn-logout" class="hover:underline flex items-center gap-1 text-gold-200 hover:text-white transition bg-white/10 px-2.5 py-1 rounded-lg">خروج</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- WEBSITE NAVIGATION HEADER -->
-  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm transition">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+  <!-- ========================================================
+       ACCESSIBLE SCROLLING HEADER (متحرك مع الصفحة)
+       ======================================================== -->
+  <header class="bg-white border-b-2 border-slate-200 relative shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Brand Logo & Title -->
       <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-900 flex items-center justify-center text-gold-300 shadow-md border border-gold-500/40">🕌</div>
+        <div class="w-12 h-12 bg-gradient-to-tr from-brand-500 to-accent-sky rounded-2xl flex items-center justify-center text-white shadow-md text-2xl font-black">
+          🌱
+        </div>
         <div>
-          <h1 class="text-lg md:text-xl font-bold text-emerald-900 dark:text-emerald-400 leading-tight">موقع الصدقة الجارية</h1>
-          <p class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
-            <span>ثواب الموقع مهداة لـ:</span>
-            <span id="nav-active-deceased-name" class="font-bold text-gold-600 dark:text-gold-400">...</span>
+          <div class="flex items-center gap-2">
+            <h1 class="text-2xl font-black tracking-tight text-slate-900">مَنَصّة قُدراتي</h1>
+            <span class="bg-brand-100 text-brand-700 text-xs font-bold px-2.5 py-0.5 rounded-full border border-brand-200">
+              مهيأة للشلل الدماغي
+            </span>
+          </div>
+          <div class="flex items-center gap-2 mt-0.5">
+            <p class="text-xs text-slate-500 font-medium">التعلم والتواصل والتعبير للأبطال ذوي الهمم</p>
+            <span id="audio-speak-indicator" class="hidden bg-emerald-600 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full animate-pulse shadow-sm">🔊 ناطق</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Accessibility Switches Toolbar (Responsive Grid, Never Auto-Clicked) -->
+      <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 w-full md:w-auto mt-2 md:mt-0">
+        
+        <!-- Dwell Click Toggle (النقر بالتثبيت) -->
+        <button id="btn-toggle-dwell" data-custom-speak="true" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-bold border-2 transition-all bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200" title="النقر التلقائي بمجرد التوقف فوق بطاقات التعلم">
+          <span class="text-lg">⏱️</span>
+          <span>التثبيت البصري: <span id="dwell-status" class="text-rose-600 font-black">متوقف</span></span>
+        </button>
+
+        <!-- Auto Switch Scanning Toggle (المسح بزر المسافة) -->
+        <button id="btn-toggle-scan" data-custom-speak="true" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-bold border-2 transition-all bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200" title="التنقل التلقائي بين الأزرار، والضغط بمسطرة المسافة أو زر الفأرة">
+          <span class="text-lg">🔄</span>
+          <span>المسح الآلي: <span id="scan-status" class="text-rose-600 font-black">متوقف</span></span>
+        </button>
+
+        <!-- Text-to-Speech Toggle (القراءة الصوتية الناطقة) -->
+        <button id="btn-toggle-tts" data-custom-speak="true" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-bold border-2 transition-all bg-brand-50 border-brand-300 text-brand-800 hover:bg-brand-100" title="تشغيل أو إيقاف قراءة النصوص صوتياً">
+          <span class="text-lg">🔊</span>
+          <span>الصوت: <span id="tts-status" class="text-brand-700 font-black">مُفعل</span></span>
+        </button>
+
+        <!-- High Contrast Toggle -->
+        <button id="btn-toggle-contrast" data-custom-speak="true" class="flex items-center justify-center p-2 rounded-xl text-sm font-bold border-2 bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200" title="نمط التباين العالي (أصفر وأسود)">
+          <span class="text-lg">👁️</span>
+        </button>
+
+        <!-- Settings Modal Trigger -->
+        <button id="btn-open-settings" data-custom-speak="true" class="col-span-2 sm:col-span-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-bold bg-amber-500 text-white hover:bg-amber-600 shadow-sm" title="إعدادات سرعة المسح والتثبيت والأصوات">
+          <span>⚙️</span>
+          <span>إعدادات التيسير</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Active Scanning Helper Banner -->
+    <div id="assistive-banner" class="hidden bg-amber-100 border-t border-amber-300 text-amber-900 px-4 py-1.5 text-xs font-bold text-center flex items-center justify-center gap-2">
+      <span class="animate-pulse">⚡</span>
+      <span id="assistive-banner-text">وضع المسح التلقائي قيد التشغيل: اضغط مسطرة المسافة (Space) أو انقر بأي مكان للاختيار</span>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       EXPANDED MAIN NAVIGATION TABS (تبويبات التعلم الشاملة)
+       ======================================================== -->
+  <nav class="bg-white border-b border-slate-200 py-2.5 px-4 relative shadow-sm">
+    <div class="max-w-7xl mx-auto flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-1">
+      <button data-tab="home" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-brand-600 text-white shadow-md shrink-0">
+        <span>🏠</span>
+        <span>الرئيسية</span>
+      </button>
+      <button data-tab="aac" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
+        <span>🗣️</span>
+        <span>لوحة التعبير (AAC)</span>
+      </button>
+      <button data-tab="arabic-letters" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
+        <span>🔤</span>
+        <span>الحروف العربية</span>
+      </button>
+      <button data-tab="english-letters" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
+        <span class="font-en font-black text-indigo-600">ABC</span>
+        <span>الحروف الإنجليزية</span>
+      </button>
+      <button data-tab="numbers" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
+        <span>🔢</span>
+        <span>الأرقام والعدّ</span>
+      </button>
+      <button data-tab="drawing" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
+        <span>🎨</span>
+        <span>مرسم الرسم</span>
+      </button>
+      <button data-tab="animals" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
+        <span>🦁</span>
+        <span>عالم الحيوانات</span>
+      </button>
+      <button data-tab="games" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
+        <span>🎮</span>
+        <span>ألعاب التناسق</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- ========================================================
+       CONTENT CONTAINER
+       ======================================================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6">
+
+    <!-- ==============================================
+         TAB 1: HOME (الرئيسية ولوحة الترحيب التفاعلية)
+         ============================================== -->
+    <section id="tab-home" class="tab-content space-y-6">
+      
+      <!-- Welcome Hero Banner with Audio -->
+      <div class="bg-gradient-to-r from-emerald-500 via-teal-600 to-sky-600 text-white rounded-3xl p-6 md:p-8 shadow-lg relative overflow-hidden">
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3.5 py-1.5 rounded-full text-sm font-semibold mb-3">
+            <span>✨</span>
+            <span>أهلاً بك يا بطل المستقبل في عالمك الممتع!</span>
+          </div>
+          <h2 class="text-3xl md:text-5xl font-black mb-3 leading-tight">
+            تَعَلّم، تَوَاصَل، وَانْطَلِق بِإِبْدَاع!
+          </h2>
+          <p class="text-emerald-50 text-base md:text-lg mb-6 font-medium leading-relaxed">
+            منصة مخصصة لتمكين الأبطال من التعلم باللغتين العربية والإنجليزية، والتعبير عن الاحتياجات بالصوت، مع أدوات تيسير كالمسح التلقائي بزر المسافة والنقر بالتثبيت، ومرسم تفاعلي مبسط.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <button id="btn-hero-speak" class="accessible-target flex items-center gap-2.5 bg-white text-emerald-800 px-6 py-3.5 rounded-2xl font-black text-lg shadow-md hover:bg-emerald-50 target-large transition-all">
+              <span class="text-2xl">🔊</span>
+              <span>استمع إلى رسالة الترحيب</span>
+            </button>
+            <button id="btn-hero-aac-quick" class="accessible-target flex items-center gap-2.5 bg-emerald-800/80 hover:bg-emerald-800 text-white px-6 py-3.5 rounded-2xl font-black text-lg shadow-md target-large transition-all border border-emerald-400/40">
+              <span class="text-2xl">🗣️</span>
+              <span>تحدث وعبر عن احتياجاتك الآن</span>
+            </button>
+          </div>
+        </div>
+        <div class="absolute -bottom-10 -left-10 text-[180px] opacity-15 pointer-events-none select-none">
+          🌟
+        </div>
+      </div>
+
+      <!-- Quick Interactive Needs (AAC Quick Bar on Home) -->
+      <div class="bg-white rounded-3xl p-5 border-2 border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">⚡</span>
+            <h3 class="text-xl font-bold text-slate-900">رسائل سريعة (انقر للتحدث فوراً):</h3>
+          </div>
+          <span class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">نطق فوري بالصوت</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          <button data-phrase="أريد شرب ماء من فضلك" class="quick-say-btn accessible-target card-accessible bg-sky-50 border-2 border-sky-300 hover:bg-sky-100 text-sky-950 p-4 rounded-2xl flex flex-col items-center justify-center gap-2 target-large text-center shadow-sm">
+            <span class="text-4xl">💧</span>
+            <span class="font-bold text-base">أريد ماء</span>
+          </button>
+          <button data-phrase="أنا مستعد للتعلم ومتحمس" class="quick-say-btn accessible-target card-accessible bg-amber-50 border-2 border-amber-300 hover:bg-amber-100 text-amber-950 p-4 rounded-2xl flex flex-col items-center justify-center gap-2 target-large text-center shadow-sm">
+            <span class="text-4xl">🌟</span>
+            <span class="font-bold text-base">أنا مستعد!</span>
+          </button>
+          <button data-phrase="أحتاج إلى مساعدة من فضلك" class="quick-say-btn accessible-target card-accessible bg-rose-50 border-2 border-rose-300 hover:bg-rose-100 text-rose-950 p-4 rounded-2xl flex flex-col items-center justify-center gap-2 target-large text-center shadow-sm">
+            <span class="text-4xl">🙋‍♂️</span>
+            <span class="font-bold text-base">أحتاج مساعدة</span>
+          </button>
+          <button data-phrase="نعم بالتأكيد" class="quick-say-btn accessible-target card-accessible bg-emerald-50 border-2 border-emerald-300 hover:bg-emerald-100 text-emerald-950 p-4 rounded-2xl flex flex-col items-center justify-center gap-2 target-large text-center shadow-sm">
+            <span class="text-4xl">✅</span>
+            <span class="font-bold text-base">نعم</span>
+          </button>
+          <button data-phrase="لا، شكراً لك" class="quick-say-btn accessible-target card-accessible bg-slate-100 border-2 border-slate-300 hover:bg-slate-200 text-slate-800 p-4 rounded-2xl flex flex-col items-center justify-center gap-2 target-large text-center shadow-sm">
+            <span class="text-4xl">❌</span>
+            <span class="font-bold text-base">لا</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Learning Gateway Cards -->
+      <div>
+        <h3 class="text-2xl font-black text-slate-900 mb-4 flex items-center gap-2">
+          <span>🚀</span>
+          <span>محطات التعلم والاكتشاف:</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          
+          <!-- Card: AAC Communication -->
+          <div class="card-accessible bg-white border-2 border-indigo-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                🗣️
+              </div>
+              <h4 class="text-2xl font-black text-slate-900 mb-2">لوحة التواصل البديل (AAC)</h4>
+              <p class="text-slate-600 font-medium mb-4 text-sm leading-relaxed">
+                بطاقات تعبيرية متكاملة تساعد الطلاب الذين يواجهون صعوبة في نطق الكلمات على بناء جُمل كاملة ونطقها بنقرة واحدة.
+              </p>
+            </div>
+            <button data-goto="aac" class="accessible-target w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-3.5 px-4 rounded-2xl target-large flex items-center justify-center gap-2 shadow-sm">
+              <span>افتح لوحة التعبير</span>
+              <span>⬅️</span>
+            </button>
+          </div>
+
+          <!-- Card: Arabic Alphabet -->
+          <div class="card-accessible bg-white border-2 border-emerald-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                🔤
+              </div>
+              <h4 class="text-2xl font-black text-slate-900 mb-2">عالم الحروف العربية</h4>
+              <p class="text-slate-600 font-medium mb-4 text-sm leading-relaxed">
+                استكشف الحروف الأبجدية الـ 28 بأصواتها، مع أمثلة مصورة وتحديات تفاعلية تعزز الفهم الصوتي والبصري.
+              </p>
+            </div>
+            <button data-goto="arabic-letters" class="accessible-target w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 px-4 rounded-2xl target-large flex items-center justify-center gap-2 shadow-sm">
+              <span>ابدأ رحلة الحروف العربية</span>
+              <span>⬅️</span>
+            </button>
+          </div>
+
+          <!-- Card: English Alphabet (NEW) -->
+          <div class="card-accessible bg-white border-2 border-blue-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center text-3xl font-en font-black mb-4">
+                ABC
+              </div>
+              <h4 class="text-2xl font-black text-slate-900 mb-2">الحروف الإنجليزية (A-Z)</h4>
+              <p class="text-slate-600 font-medium mb-4 text-sm leading-relaxed">
+                تعلم جميع الحروف الإنجليزية الـ 26 بالصوت الإنجليزي الواضح، مع كلمات مصورة وأسئلة تفاعلية ذكية.
+              </p>
+            </div>
+            <button data-goto="english-letters" class="accessible-target w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 px-4 rounded-2xl target-large flex items-center justify-center gap-2 shadow-sm">
+              <span>تعلم English Alphabet</span>
+              <span>⬅️</span>
+            </button>
+          </div>
+
+          <!-- Card: Drawing Studio (NEW) -->
+          <div class="card-accessible bg-white border-2 border-pink-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 bg-pink-100 text-pink-700 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                🎨
+              </div>
+              <h4 class="text-2xl font-black text-slate-900 mb-2">مرسم الرسم والإبداع</h4>
+              <p class="text-slate-600 font-medium mb-4 text-sm leading-relaxed">
+                لوحة رسم حرة ميسرة بحركات بسيطة، مع أختام جاهزة (نجوم، قلوب، زهور) بضغطة واحدة، وخاصية حفظ اللوحة.
+              </p>
+            </div>
+            <button data-goto="drawing" class="accessible-target w-full bg-pink-600 hover:bg-pink-700 text-white font-black py-3.5 px-4 rounded-2xl target-large flex items-center justify-center gap-2 shadow-sm">
+              <span>افتح مرسم الرسم</span>
+              <span>⬅️</span>
+            </button>
+          </div>
+
+          <!-- Card: Numbers & Math -->
+          <div class="card-accessible bg-white border-2 border-amber-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                🔢
+              </div>
+              <h4 class="text-2xl font-black text-slate-900 mb-2">الأرقام والعدّ التفاعلي</h4>
+              <p class="text-slate-600 font-medium mb-4 text-sm leading-relaxed">
+                تعلم الأرقام من 1 إلى 20، مع مسائل جمع مبسطة مدعومة بأزرار لمس كبيرة وواضحة ونطق رقمي صوتي.
+              </p>
+            </div>
+            <button data-goto="numbers" class="accessible-target w-full bg-amber-600 hover:bg-amber-700 text-white font-black py-3.5 px-4 rounded-2xl target-large flex items-center justify-center gap-2 shadow-sm">
+              <span>هيا نعد ونحسب</span>
+              <span>⬅️</span>
+            </button>
+          </div>
+
+          <!-- Card: Animals & Nature (NEW) -->
+          <div class="card-accessible bg-white border-2 border-teal-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 bg-teal-100 text-teal-700 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                🦁
+              </div>
+              <h4 class="text-2xl font-black text-slate-900 mb-2">عالم الحيوانات وأصواتها</h4>
+              <p class="text-slate-600 font-medium mb-4 text-sm leading-relaxed">
+                استكشف حيوانات المزرعة والغابة بأشكالها الكبيرة وأصواتها ومعلومات ناطقة عنها بطريقة مرحة.
+              </p>
+            </div>
+            <button data-goto="animals" class="accessible-target w-full bg-teal-600 hover:bg-teal-700 text-white font-black py-3.5 px-4 rounded-2xl target-large flex items-center justify-center gap-2 shadow-sm">
+              <span>استكشف الحيوانات</span>
+              <span>⬅️</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==============================================
+         TAB 2: AAC BOARD (لوحة التواصل البديل والمعزز)
+         ============================================== -->
+    <section id="tab-aac" class="tab-content hidden space-y-5">
+      
+      <!-- Sentence Strip (شريط تكوين الجملة والتحدث) -->
+      <div class="bg-white border-4 border-indigo-300 rounded-3xl p-5 shadow-md">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">📝</span>
+            <h3 class="text-xl font-bold text-slate-900">جُملتي الحالية (انقر على البطاقات بالأسفل لإضافتها):</h3>
+          </div>
+          <span class="text-xs font-semibold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">
+            تواصل معبر وسهل
+          </span>
+        </div>
+
+        <div id="sentence-strip-items" class="min-h-[75px] bg-indigo-50/50 border-2 border-dashed border-indigo-200 rounded-2xl p-3 flex flex-wrap items-center gap-2 mb-4">
+          <span id="sentence-placeholder" class="text-slate-400 font-medium text-base mr-2">
+            اضغط على أي بطاقة لإضافتها هنا ونطقها كجملة كاملة...
+          </span>
+        </div>
+
+        <!-- Sentence Control Actions -->
+        <div class="flex flex-wrap items-center gap-3">
+          <button id="btn-speak-sentence" class="accessible-target flex-1 min-w-[200px] bg-indigo-600 hover:bg-indigo-700 text-white font-black py-3.5 px-6 rounded-2xl target-large flex items-center justify-center gap-3 text-lg shadow-md transition-all">
+            <span class="text-3xl">🔊</span>
+            <span>انطق الجملة كاملة الآن</span>
+          </button>
+          <button id="btn-clear-sentence" class="accessible-target bg-rose-100 hover:bg-rose-200 text-rose-800 border-2 border-rose-300 font-bold py-3.5 px-6 rounded-2xl target-large flex items-center justify-center gap-2 text-base transition-all">
+            <span class="text-2xl">🗑️</span>
+            <span>مسح الشريط</span>
+          </button>
+          <button id="btn-repeat-last" class="accessible-target bg-slate-100 hover:bg-slate-200 text-slate-800 border-2 border-slate-300 font-bold py-3.5 px-5 rounded-2xl target-large flex items-center justify-center gap-2 text-base transition-all">
+            <span class="text-2xl">🔁</span>
+            <span>إعادة آخر كلمة</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Categories Filter Tabs -->
+      <div class="flex flex-wrap items-center gap-2 pb-1">
+        <button data-aac-cat="all" class="aac-cat-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow-sm">
+          🌟 الكل
+        </button>
+        <button data-aac-cat="needs" class="aac-cat-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-100">
+          💧 احتياجاتي
+        </button>
+        <button data-aac-cat="feelings" class="aac-cat-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-100">
+          😊 مشاعري
+        </button>
+        <button data-aac-cat="school" class="aac-cat-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-100">
+          🏫 في الفصل
+        </button>
+        <button data-aac-cat="activities" class="aac-cat-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-100">
+          🎨 أنشطة
+        </button>
+        <button data-aac-cat="family" class="aac-cat-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-100">
+          👨‍👩‍👧 الأسرة والمنزل
+        </button>
+        <button id="btn-add-custom-card" class="accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-emerald-50 border-2 border-emerald-300 text-emerald-800 hover:bg-emerald-100 mr-auto">
+          ➕ أضف بطاقة خاصة بي
+        </button>
+      </div>
+
+      <!-- AAC Cards Grid -->
+      <div id="aac-cards-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5">
+        <!-- Injected via JS -->
+      </div>
+
+    </section>
+
+    <!-- ==============================================
+         TAB 3: ARABIC LETTERS (الحروف العربية الـ 28)
+         ============================================== -->
+    <section id="tab-arabic-letters" class="tab-content hidden space-y-6">
+      
+      <!-- Letters Intro & Challenge Banner -->
+      <div class="bg-emerald-50 border-2 border-emerald-200 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-2xl font-black text-emerald-950 flex items-center gap-2">
+            <span>🔤</span>
+            <span>بستان الحروف الأبجدية العربية (28 حرفاً)</span>
+          </h3>
+          <p class="text-emerald-800 font-medium text-sm mt-1">
+            اضغط على أي حرف لسماع اسمه وصوته، مع مثال مصور وكلمة مميزة!
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-start-letter-quiz" class="accessible-target bg-emerald-600 hover:bg-emerald-700 text-white font-black px-5 py-3 rounded-2xl shadow-md target-large flex items-center gap-2 text-base">
+            <span class="text-2xl">🎯</span>
+            <span>تحدي الحرف العربي الذكي!</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Interactive Letter Quiz Modal / Section -->
+      <div id="letter-quiz-box" class="hidden bg-white border-4 border-emerald-400 rounded-3xl p-6 shadow-xl relative animate-fadeIn">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🏆</span>
+            <h4 class="text-xl font-black text-slate-900">سؤال التحدي العربي:</h4>
+          </div>
+          <button id="btn-close-letter-quiz" class="text-slate-500 hover:text-slate-800 text-2xl font-bold px-3 py-1">
+            ✕
+          </button>
+        </div>
+
+        <div class="text-center py-4">
+          <div id="letter-quiz-prompt" class="text-2xl md:text-3xl font-black text-emerald-800 mb-6">
+            أين هو الحرف الذي تبدأ به كلمة: <span id="quiz-word" class="text-amber-600 underline">أسد 🦁</span> ؟
+          </div>
+          <button id="btn-quiz-speak" class="accessible-target mb-6 inline-flex items-center gap-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 px-5 py-2.5 rounded-xl font-bold text-base">
+            <span>🔊</span>
+            <span>استمع إلى السؤال مرة أخرى</span>
+          </button>
+
+          <div id="quiz-options-grid" class="grid grid-cols-3 gap-4 max-w-xl mx-auto">
+            <!-- Options injected by JS -->
+          </div>
+          <div id="quiz-feedback" class="mt-4 text-xl font-black min-h-[32px]"></div>
+        </div>
+      </div>
+
+      <!-- Letters Grid -->
+      <div id="arabic-letters-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
+        <!-- Injected via JS -->
+      </div>
+
+    </section>
+
+    <!-- ==============================================
+         TAB 4: ENGLISH ALPHABET (الحروف الإنجليزية A to Z)
+         ============================================== -->
+    <section id="tab-english-letters" class="tab-content hidden space-y-6">
+      
+      <!-- English Alphabet Header -->
+      <div class="bg-blue-50 border-2 border-blue-200 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-2xl font-black text-blue-950 flex items-center gap-2 font-en">
+            <span>🔤</span>
+            <span>English Alphabet & Phonics (A - Z)</span>
+          </h3>
+          <p class="text-blue-800 font-medium text-sm mt-1">
+            Click any letter to listen to clear English phonics and vocabulary!
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-start-en-quiz" class="accessible-target bg-blue-600 hover:bg-blue-700 text-white font-black px-5 py-3 rounded-2xl shadow-md target-large flex items-center gap-2 text-base font-en">
+            <span class="text-2xl">🎯</span>
+            <span>English Quiz!</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- English Quiz Box -->
+      <div id="en-quiz-box" class="hidden bg-white border-4 border-blue-400 rounded-3xl p-6 shadow-xl relative animate-fadeIn">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2 font-en">
+            <span class="text-2xl">🌟</span>
+            <h4 class="text-xl font-black text-slate-900">Phonics Challenge:</h4>
+          </div>
+          <button id="btn-close-en-quiz" class="text-slate-500 hover:text-slate-800 text-2xl font-bold px-3 py-1">
+            ✕
+          </button>
+        </div>
+
+        <div class="text-center py-4 font-en">
+          <div id="en-quiz-prompt" class="text-2xl md:text-3xl font-black text-blue-800 mb-6">
+            Find the letter for: <span id="en-quiz-word" class="text-amber-600 underline">Apple 🍎</span>
+          </div>
+          <button id="btn-en-quiz-speak" class="accessible-target mb-6 inline-flex items-center gap-2 bg-blue-100 hover:bg-blue-200 text-blue-900 px-5 py-2.5 rounded-xl font-bold text-base">
+            <span>🔊</span>
+            <span>Listen Again</span>
+          </button>
+          <div id="en-quiz-options-grid" class="grid grid-cols-3 gap-4 max-w-xl mx-auto"></div>
+          <div id="en-quiz-feedback" class="mt-4 text-xl font-black min-h-[32px]"></div>
+        </div>
+      </div>
+
+      <!-- English Letters Grid -->
+      <div id="english-letters-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5">
+        <!-- Injected via JS -->
+      </div>
+
+    </section>
+
+    <!-- ==============================================
+         TAB 5: ACCESSIBLE DRAWING STUDIO (مرسم الرسم الحر)
+         ============================================== -->
+    <section id="tab-drawing" class="tab-content hidden space-y-5">
+      
+      <!-- Drawing Studio Header & Tools Bar -->
+      <div class="bg-pink-50 border-2 border-pink-200 rounded-3xl p-4 md:p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-2xl font-black text-pink-950 flex items-center gap-2">
+            <span>🎨</span>
+            <span>مرسم الإبداع والرسم الميسر</span>
+          </h3>
+          <p class="text-pink-800 font-medium text-xs md:text-sm mt-0.5">
+            ارسم بحرية، أو اختر ختماً واضغط في أي مكان لوضع أشكال جميلة فوراً!
+          </p>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2">
+          <button id="btn-clear-drawing" class="accessible-target bg-white border-2 border-rose-300 text-rose-700 hover:bg-rose-50 font-bold px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-1.5">
+            <span>🗑️</span>
+            <span>مسح اللوحة</span>
+          </button>
+          <button id="btn-download-drawing" class="accessible-target bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-1.5">
+            <span>💾</span>
+            <span>حفظ رسمتي</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tool Palette & Stamp Selector -->
+      <div class="bg-white border-2 border-slate-200 rounded-3xl p-4 shadow-sm space-y-4">
+        
+        <!-- Row 1: Mode Switch & Colors -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+          
+          <!-- Mode (Brush vs Stamp) -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-500">الأداة:</span>
+            <button id="tool-brush-btn" class="accessible-target px-3.5 py-1.5 rounded-xl font-bold text-xs bg-pink-600 text-white shadow-sm">
+              🖌️ فرشاة رسم
+            </button>
+            <button id="tool-stamp-btn" class="accessible-target px-3.5 py-1.5 rounded-xl font-bold text-xs bg-slate-100 text-slate-700 hover:bg-slate-200">
+              ⭐ أختام سريعة
+            </button>
+          </div>
+
+          <!-- Brush Thickness -->
+          <div id="brush-sizes-box" class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-500">حجم الخط:</span>
+            <button data-size="18" class="brush-size-btn accessible-target px-3 py-1.5 rounded-xl font-bold text-xs bg-pink-600 text-white">عريض جداً</button>
+            <button data-size="10" class="brush-size-btn accessible-target px-3 py-1.5 rounded-xl font-bold text-xs bg-slate-100 text-slate-700">متوسط</button>
+            <button data-size="4" class="brush-size-btn accessible-target px-3 py-1.5 rounded-xl font-bold text-xs bg-slate-100 text-slate-700">دقيق</button>
+          </div>
+
+          <!-- Color Swatches -->
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-xs font-bold text-slate-500">اللون:</span>
+            <button data-color="#e11d48" class="color-btn accessible-target w-8 h-8 rounded-full bg-rose-600 ring-2 ring-offset-2 ring-rose-600" title="أحمر"></button>
+            <button data-color="#0284c7" class="color-btn accessible-target w-8 h-8 rounded-full bg-sky-600" title="أزرق"></button>
+            <button data-color="#16a34a" class="color-btn accessible-target w-8 h-8 rounded-full bg-emerald-600" title="أخضر"></button>
+            <button data-color="#f59e0b" class="color-btn accessible-target w-8 h-8 rounded-full bg-amber-500" title="أصفر"></button>
+            <button data-color="#9333ea" class="color-btn accessible-target w-8 h-8 rounded-full bg-purple-600" title="بنفسجي"></button>
+            <button data-color="#ea580c" class="color-btn accessible-target w-8 h-8 rounded-full bg-orange-600" title="برتقالي"></button>
+            <button data-color="#0f172a" class="color-btn accessible-target w-8 h-8 rounded-full bg-slate-900" title="أسود"></button>
+            <button data-color="#ffffff" class="color-btn accessible-target w-8 h-8 rounded-full bg-white border-2 border-slate-300" title="ممحاة"></button>
+          </div>
+        </div>
+
+        <!-- Row 2: Stamp Selector (shows when stamp mode is clicked) -->
+        <div id="stamps-selector-bar" class="hidden flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-slate-600">اختر الختم لوضعه بنقرة:</span>
+          <button data-stamp="⭐" class="stamp-pick-btn accessible-target px-3 py-1.5 rounded-xl text-xl bg-amber-100 border-2 border-amber-300">⭐</button>
+          <button data-stamp="💖" class="stamp-pick-btn accessible-target px-3 py-1.5 rounded-xl text-xl bg-pink-100 border-2 border-pink-300">💖</button>
+          <button data-stamp="☀️" class="stamp-pick-btn accessible-target px-3 py-1.5 rounded-xl text-xl bg-yellow-100 border-2 border-yellow-300">☀️</button>
+          <button data-stamp="🌸" class="stamp-pick-btn accessible-target px-3 py-1.5 rounded-xl text-xl bg-rose-100 border-2 border-rose-300">🌸</button>
+          <button data-stamp="😊" class="stamp-pick-btn accessible-target px-3 py-1.5 rounded-xl text-xl bg-emerald-100 border-2 border-emerald-300">😊</button>
+          <button data-stamp="🚗" class="stamp-pick-btn accessible-target px-3 py-1.5 rounded-xl text-xl bg-blue-100 border-2 border-blue-300">🚗</button>
+          <button data-stamp="🦋" class="stamp-pick-btn accessible-target px-3 py-1.5 rounded-xl text-xl bg-purple-100 border-2 border-purple-300">🦋</button>
+        </div>
+
+      </div>
+
+      <!-- Canvas Frame -->
+      <div class="bg-white border-4 border-dashed border-pink-300 rounded-3xl p-2 shadow-inner overflow-hidden relative">
+        <canvas id="drawingCanvas" class="w-full h-[420px] md:h-[480px] bg-white rounded-2xl cursor-crosshair block touch-none"></canvas>
+      </div>
+
+    </section>
+
+    <!-- ==============================================
+         TAB 6: NUMBERS & COUNTING (الأرقام والعد)
+         ============================================== -->
+    <section id="tab-numbers" class="tab-content hidden space-y-6">
+      
+      <!-- Numbers Header -->
+      <div class="bg-amber-50 border-2 border-amber-200 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-2xl font-black text-amber-950 flex items-center gap-2">
+            <span>🔢</span>
+            <span>عالم الأرقام والعد الممتع (من 1 إلى 20)</span>
+          </h3>
+          <p class="text-amber-800 font-medium text-sm mt-1">
+            اختر رقماً لمعاينته، أو اضغط على الفواكه للعد بالصوت!
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-toggle-math-mode" class="accessible-target bg-amber-600 hover:bg-amber-700 text-white font-black px-5 py-3 rounded-2xl shadow-md target-large flex items-center gap-2 text-base">
+            <span class="text-2xl">➕</span>
+            <span id="math-mode-btn-label">انتقل إلى تحدي الجمع البسيط</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Counting Playground -->
+      <div id="counting-playground" class="space-y-6">
+        
+        <!-- Big Number Selector Row -->
+        <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto p-2">
+          <div id="number-selector-buttons" class="flex gap-2"></div>
+        </div>
+
+        <!-- Visual Counter Stage -->
+        <div class="bg-white border-2 border-amber-300 rounded-3xl p-6 md:p-8 shadow-sm text-center">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div class="flex items-center gap-3">
+              <span id="current-number-badge" class="w-16 h-16 bg-amber-500 text-white font-black text-3xl rounded-2xl flex items-center justify-center shadow-md">
+                1
+              </span>
+              <div class="text-right">
+                <h4 id="current-number-word" class="text-2xl font-black text-slate-900">الرقم واحد</h4>
+                <p class="text-slate-500 text-sm font-semibold">انقر على الأيقونات لعدها بصوت مسموع</p>
+              </div>
+            </div>
+            <button id="btn-speak-number-info" class="accessible-target bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold px-4 py-2.5 rounded-xl flex items-center gap-2">
+              <span>🔊</span>
+              <span>نطق الرقم</span>
+            </button>
+          </div>
+
+          <!-- Items to Count Container -->
+          <div id="counting-items-container" class="min-h-[160px] bg-amber-50/60 border-2 border-dashed border-amber-200 rounded-3xl p-6 flex flex-wrap items-center justify-center gap-4"></div>
+
+          <div id="counter-readout" class="mt-4 text-xl font-bold text-amber-800 min-h-[30px]">
+            اضغط على أي تفاحة لبدء العد!
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Simple Addition Challenge -->
+      <div id="math-challenge-box" class="hidden bg-white border-4 border-amber-400 rounded-3xl p-6 md:p-8 shadow-lg text-center space-y-6">
+        <h4 class="text-2xl font-black text-slate-900">تحدي الجمع البصري الميسر:</h4>
+        
+        <div class="flex flex-wrap items-center justify-center gap-4 text-3xl md:text-5xl font-black text-slate-800">
+          <div id="math-num1-box" class="bg-amber-100 px-6 py-4 rounded-3xl border-2 border-amber-300 flex flex-col items-center gap-2">
+            <span id="math-num1-text">2</span>
+            <div id="math-num1-icons" class="text-2xl flex gap-1">🍎🍎</div>
+          </div>
+          <span class="text-amber-500 font-black">+</span>
+          <div id="math-num2-box" class="bg-amber-100 px-6 py-4 rounded-3xl border-2 border-amber-300 flex flex-col items-center gap-2">
+            <span id="math-num2-text">1</span>
+            <div id="math-num2-icons" class="text-2xl flex gap-1">🍎</div>
+          </div>
+          <span class="text-amber-500 font-black">=</span>
+          <div class="bg-slate-100 px-8 py-5 rounded-3xl border-2 border-dashed border-slate-300 text-amber-600 font-black">
+            ❓
+          </div>
+        </div>
+
+        <div class="max-w-md mx-auto">
+          <p class="text-slate-600 font-bold mb-4 text-lg">اختر الناتج الصحيح:</p>
+          <div id="math-answers-grid" class="grid grid-cols-3 gap-4"></div>
+          <div id="math-feedback" class="mt-4 text-xl font-black min-h-[32px]"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==============================================
+         TAB 7: ANIMALS & NATURE (عالم الحيوانات)
+         ============================================== -->
+    <section id="tab-animals" class="tab-content hidden space-y-6">
+      
+      <!-- Animals Header -->
+      <div class="bg-teal-50 border-2 border-teal-200 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-2xl font-black text-teal-950 flex items-center gap-2">
+            <span>🦁</span>
+            <span>واحة الحيوانات وأصوات الطبيعة</span>
+          </h3>
+          <p class="text-teal-800 font-medium text-sm mt-1">
+            اضغط على أي حيوان لسماع اسمه وصوته ومعلومة ممتعة عنه!
           </p>
         </div>
       </div>
 
-      <nav class="hidden lg:flex items-center gap-1 text-sm font-semibold">
-        <button data-tab="home" class="nav-btn active px-3 py-2 rounded-xl transition text-emerald-800 bg-emerald-100/70">الرئيسية</button>
-        <button data-tab="khatma" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100">ختمة القرآن</button>
-        <button data-tab="tasbeeh" class="nav-btn px-3 py-2 rounded-xl transition text-gray-600 hover:text-emerald-700 hover:bg-gray-100">المسبحة</button>
-      </nav>
-
-      <div class="flex items-center gap-2">
-        <button id="btn-quick-share" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold shadow transition">
-          مشاركة الرابط
-        </button>
+      <!-- Animals Grid -->
+      <div id="animals-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <!-- Injected via JS -->
       </div>
-    </div>
-    <!-- Mobile Nav -->
-    <div class="lg:hidden flex items-center overflow-x-auto py-2 px-3 border-t border-gray-100 gap-1.5 text-xs font-bold scrollbar-none">
-      <button data-tab="home" class="nav-btn active whitespace-nowrap px-3 py-1.5 rounded-full text-emerald-800 bg-emerald-100">الرئيسية</button>
-      <button data-tab="khatma" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 hover:bg-gray-100">ختمة القرآن</button>
-      <button data-tab="tasbeeh" class="nav-btn whitespace-nowrap px-3 py-1.5 rounded-full text-gray-600 hover:bg-gray-100">المسبحة</button>
-    </div>
-  </header>
 
-  <!-- MAIN BODY -->
-  <main class="flex-grow">
-    
-    <!-- TAB 1: HOME -->
-    <section id="tab-content-home" class="tab-pane active pb-12">
-      <div class="relative overflow-hidden bg-emerald-950 text-white min-h-[400px] flex items-center justify-center">
-        <div class="relative container mx-auto px-4 py-12 text-center max-w-4xl z-10">
-          <h2 class="text-3xl md:text-5xl font-extrabold mb-4 font-quran tracking-wide text-white leading-relaxed">صدقة جارية مباركة</h2>
-          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 md:p-6 border border-gold-500/30 shadow-2xl mb-8 max-w-2xl mx-auto">
-            <div class="text-gold-400 text-sm font-semibold mb-2">إهداء إلى روح المغفور له بإذن الله:</div>
-            <div id="hero-deceased-title" class="text-2xl md:text-4xl font-bold text-gold-300 mb-3 font-quran">...</div>
-            <p class="text-sm md:text-base text-gray-200 font-quran leading-relaxed">
-              «اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ، وَعَافِهِ وَاعْفُ عَنْهُ، وَأَكْرِمْ نُزُلَهُ...»
-            </p>
+    </section>
+
+    <!-- ==============================================
+         TAB 8: COGNITIVE & MOTOR GAMES (ألعاب التناسق)
+         ============================================== -->
+    <section id="tab-games" class="tab-content hidden space-y-6">
+      
+      <!-- Games Header -->
+      <div class="bg-sky-50 border-2 border-sky-200 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-2xl font-black text-sky-950 flex items-center gap-2">
+            <span>🎮</span>
+            <span>لعبة مطابقة الصور وتدريب الذاكرة</span>
+          </h3>
+          <p class="text-sky-800 font-medium text-sm mt-1">
+            لعبة ميسرة ببطاقات كبيرة وبدون قيود زمنية، تدعم النقر بالتثبيت والمسح بزر المسافة.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="bg-white px-4 py-2 rounded-xl border border-sky-300 font-bold text-sky-900 text-sm">
+            النجاحات: <span id="game-matches-count" class="text-sky-600 text-lg">0</span> / 3
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 2: KHATMA -->
-    <section id="tab-content-khatma" class="tab-pane hidden py-8">
-      <div class="container mx-auto px-4 max-w-4xl">
-        <div class="text-center mb-8">
-          <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900">ختمة القرآن المشتركة</h2>
-          <p class="text-sm text-gray-500 mt-1">اختر جزءاً لحجزه وقراءته لتكتمل الختمة المباركة</p>
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3" id="khatma-grid-container">
-          <!-- سيتم إضافة الأجزاء هنا بواسطة جافاسكريبت -->
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 3: TASBEEH -->
-    <section id="tab-content-tasbeeh" class="tab-pane hidden py-8">
-      <div class="container mx-auto px-4 max-w-4xl text-center">
-        <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-6">المسبحة الإلكترونية الذكية</h2>
-        <div class="flex justify-center mb-6">
-          <button id="btn-tasbeeh-tap" class="w-64 h-64 rounded-full bg-gradient-to-b from-emerald-600 to-emerald-900 text-white shadow-2xl flex flex-col items-center justify-center border-4 border-gold-400/40 active:scale-95 transition-transform">
-            <span class="text-xs text-emerald-200 uppercase mb-1">اضغط للتسبيح</span>
-            <span id="tasbeeh-counter-number" class="text-6xl font-extrabold font-mono text-white">0</span>
+          <button id="btn-restart-game" class="accessible-target bg-sky-600 hover:bg-sky-700 text-white font-black px-4 py-2.5 rounded-xl shadow-sm target-large flex items-center gap-1.5 text-sm">
+            <span>🔄</span>
+            <span>لعبة جديدة</span>
           </button>
         </div>
       </div>
+
+      <!-- Memory Game Board -->
+      <div id="memory-game-board" class="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto"></div>
+
+      <div id="game-congrats" class="hidden bg-emerald-100 border-2 border-emerald-400 text-emerald-900 rounded-3xl p-6 text-center max-w-lg mx-auto shadow-md">
+        <div class="text-5xl mb-2">🎉</div>
+        <h4 class="text-2xl font-black mb-1">أحسنت يا بطل الذكاء!</h4>
+        <p class="font-bold mb-4">لقد قمت بمطابقة جميع البطاقات بنجاح رائع!</p>
+        <button id="btn-game-again" class="accessible-target bg-emerald-600 hover:bg-emerald-700 text-white font-black px-6 py-3 rounded-2xl shadow-md target-large">
+          العب جولة أخرى 🌟
+        </button>
+      </div>
+
     </section>
 
-  </main>
+    </main>
 
-  <!-- ADMIN AUTH MODAL -->
-  <div id="modal-admin-auth" class="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center">
-      <h3 class="text-base font-bold mb-4">تسجيل دخول المشرف</h3>
-      <input id="input-admin-auth-pin" type="password" placeholder="رمز المشرف..." class="w-full text-center px-4 py-2.5 rounded-xl border mb-4">
-      <div class="flex gap-2">
-        <button id="btn-cancel-admin-auth" class="w-1/2 py-2 rounded-xl bg-gray-200">إلغاء</button>
-        <button id="btn-confirm-admin-auth" class="w-1/2 py-2 rounded-xl bg-amber-600 text-white">دخول</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADMIN DASHBOARD MODAL -->
-  <div id="modal-admin-dashboard" class="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center mb-4 pb-4 border-b">
-        <h3 class="text-lg font-bold">لوحة تحكم المشرف</h3>
-        <button id="btn-close-admin-dashboard" class="text-gray-500 font-bold text-xl">X</button>
-      </div>
-      <div class="space-y-4">
-        <!-- تغيير رمز العائلة -->
-        <div class="bg-gray-50 p-4 rounded-xl border">
-          <label class="block text-xs font-bold mb-2">تغيير رمز العائلة (Family PIN):</label>
-          <div class="flex gap-2">
-            <input id="input-admin-new-family-pin" type="text" class="w-full px-3 py-2 border rounded-xl">
-            <button id="btn-admin-save-family-pin" class="px-4 py-2 bg-emerald-700 text-white rounded-xl text-xs whitespace-nowrap">حفظ وإخراج الجميع</button>
-          </div>
-          <p class="text-[10px] text-red-500 mt-2">ملاحظة: تغيير هذا الرمز سيقوم بطرد جميع المتصلين حالياً ليقوموا بتسجيل الدخول بالرمز الجديد.</p>
+  <!-- ========================================================
+       ACCESSIBILITY SETTINGS MODAL
+       ======================================================== -->
+  <div id="settings-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white border-4 border-amber-400 rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between border-b pb-3 border-slate-200">
+        <div class="flex items-center gap-2">
+          <span class="text-3xl">⚙️</span>
+          <h3 class="text-2xl font-black text-slate-900">إعدادات تيسير الوصول (للشخص أو المعلم)</h3>
         </div>
+        <button id="btn-close-settings" class="text-slate-400 hover:text-slate-700 text-3xl font-bold px-2">
+          ✕
+        </button>
+      </div>
+
+      <!-- Setting 1: Dwell Time Slider -->
+      <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+        <div class="flex items-center justify-between">
+          <label class="font-bold text-slate-800 text-sm flex items-center gap-2">
+            <span>⏱️</span>
+            <span>مدة التثبيت للنقر التلقائي (Dwell Time):</span>
+          </label>
+          <span id="dwell-val-display" class="font-black text-amber-600 text-base">1.5 ثانية</span>
+        </div>
+        <input type="range" id="input-dwell-time" min="0.8" max="3.0" step="0.2" value="1.5" class="w-full accent-amber-500 cursor-pointer">
+        <p class="text-xs text-slate-500">المدة التي يقف فيها المؤشر فوق بطاقة التعلم قبل أن تنقر تلقائياً.</p>
+      </div>
+
+      <!-- Setting 2: Scanning Speed Slider -->
+      <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+        <div class="flex items-center justify-between">
+          <label class="font-bold text-slate-800 text-sm flex items-center gap-2">
+            <span>🔄</span>
+            <span>سرعة المسح التلقائي بين الأزرار:</span>
+          </label>
+          <span id="scan-val-display" class="font-black text-amber-600 text-base">2.0 ثانية</span>
+        </div>
+        <input type="range" id="input-scan-speed" min="1.0" max="4.0" step="0.5" value="2.0" class="w-full accent-amber-500 cursor-pointer">
+        <p class="text-xs text-slate-500">الفترة الزمنية بين انتقال التحديد التلقائي من زر لآخر عند استخدام مفتاح الوصول الواحد.</p>
+      </div>
+
+      <!-- Setting 3: Tremor Delay Filter -->
+      <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+        <div class="flex items-center justify-between">
+          <label class="font-bold text-slate-800 text-sm flex items-center gap-2">
+            <span>🛡️</span>
+            <span>فلتر منع النقرات العرضية (حماية الارتجاف):</span>
+          </label>
+          <input type="checkbox" id="input-tremor-filter" checked class="w-6 h-6 accent-brand-600 rounded">
+        </div>
+        <p class="text-xs text-slate-500">يتجاهل النقرات السريعة المتكررة غير المقصودة الناتجة عن التشنج العضلي أو الارتعاش.</p>
+      </div>
+
+      <!-- Setting 4: Sensory Calm Mode -->
+      <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+        <div class="flex items-center justify-between">
+          <label class="font-bold text-slate-800 text-sm flex items-center gap-2">
+            <span>🧘</span>
+            <span>نمط الهدوء الحسي (Sensory Calm):</span>
+          </label>
+          <input type="checkbox" id="input-sensory-calm" class="w-6 h-6 accent-brand-600 rounded">
+        </div>
+        <p class="text-xs text-slate-500">يقلل المؤثرات الحركية والألوان الساطعة للأطفال ذوي الحساسية البصرية المفرطة.</p>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button id="btn-save-settings" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow-md text-base">
+          حفظ وتطبيق
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       CUSTOM AAC CARD MODAL
+       ======================================================== -->
+  <div id="custom-card-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white border-4 border-emerald-400 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b pb-2 border-slate-200">
+        <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+          <span>➕</span>
+          <span>إضافة بطاقة تواصل مخصصة</span>
+        </h3>
+        <button id="btn-close-custom-card" class="text-slate-400 hover:text-slate-700 text-2xl font-bold px-2">✕</button>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">الرمز التعبيري (Emoji):</label>
+        <input type="text" id="custom-emoji-input" value="🌟" class="w-full border-2 border-slate-300 rounded-xl p-2 text-2xl text-center">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">العبارة التي تُنطق عند النقر:</label>
+        <input type="text" id="custom-text-input" placeholder="مثال: أحتاج وسادتي المفضلة" class="w-full border-2 border-slate-300 rounded-xl p-3 text-sm font-bold">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">التصنيف:</label>
+        <select id="custom-cat-select" class="w-full border-2 border-slate-300 rounded-xl p-2.5 text-sm font-bold bg-white">
+          <option value="needs">💧 احتياجاتي</option>
+          <option value="feelings">😊 مشاعري</option>
+          <option value="school">🏫 في الفصل</option>
+          <option value="activities">🎨 أنشطة</option>
+          <option value="family">👨‍👩‍👧 الأسرة والمنزل</option>
+        </select>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="btn-save-custom-card" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl shadow-md text-sm">
+          إضافة إلى اللوحة
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- FIREBASE & JAVASCRIPT LOGIC -->
-  <script type="module">
-    // 1. استدعاء مكتبات Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, set, get, update, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+  <!-- Dwell Visual SVG Circle -->
+  <svg id="dwell-svg" class="hidden fixed pointer-events-none z-[9999] w-12 h-12" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="16" fill="none" stroke="#e2e8f0" stroke-width="4"></circle>
+    <circle id="dwell-circle-progress" cx="20" cy="20" r="16" fill="none" stroke="#22c55e" stroke-width="4" stroke-dasharray="100.53" stroke-dashoffset="100.53" stroke-linecap="round" transform="rotate(-90 20 20)"></circle>
+  </svg>
 
-    // 2. إعدادات Firebase الخاصة بك
-    const firebaseConfig = {
-      apiKey: "AIzaSyD...TAPM-xr5saNeOYmY", // تأكد من وضع المفتاح الصحيح هنا
-      authDomain: "sadaqah-de763.firebaseapp.com",
-      databaseURL: "https://sadaqah-de763-default-rtdb.firebaseio.com", 
-      projectId: "sadaqah-de763",
-      storageBucket: "sadaqah-de763.appspot.com",
-      messagingSenderId: "939364721333",
-      appId: "1:939364721333:web:68ef77b1493f82195714fc"
+  <!-- ========================================================
+       FOOTER
+       ======================================================== -->
+  <footer class="bg-white border-t border-slate-200 py-4 px-4 text-center text-xs text-slate-500 font-medium">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="text-base">❤️</span>
+        <span>منصة قدراتي الشاملة — مصممة لتمكين كل طالب بطل من التعلم والتواصل والإبداع.</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-brand-700 font-bold">معايير إتاحة WCAG 2.1 AAA</span>
+        <span>•</span>
+        <span>دعم كامل لأجهزة التبديل وتتبع العين</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       JAVASCRIPT LOGIC, AUDIO ENGINE & ALL MODULES
+       ======================================================== -->
+  <script>
+    // --- Application State ---
+    const state = {
+      dwellEnabled: false,
+      dwellTime: 1.5,
+                  ttsEnabled: true,
+      highContrast: false,
+      sensoryCalm: false,
+      tremorFilter: true,
+      lastClickTime: 0,
+      activeTab: 'home',
+      sentenceItems: [],
+                  dwellTimer: null,
+      dwellTarget: null,
+      currentNumber: 1,
+      mathChallengeActive: false,
+      activePalette: 'rainbow',
+      audioUnlocked: false,
+      drawingTool: 'brush', // 'brush' or 'stamp'
+      brushColor: '#e11d48',
+      brushSize: 18,
+      activeStamp: '⭐',
+      isDrawing: false,
+      lastX: 0,
+      lastY: 0
     };
 
-    // 3. تهيئة التطبيق وقاعدة البيانات
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // متغيرات الجلسة
-    let currentDeceased = "";
-    let currentFamilyPin = "";
-    let isAdmin = false;
-
-    // 4. قراءة اللينك لتخطي تسجيل الدخول
-    const urlParams = new URLSearchParams(window.location.search);
-    const sharedName = urlParams.get('d');
-
-    if (sharedName) {
-        // إخفاء حقل الاسم والصيغة ورمز الأدمن
-        document.getElementById('name-input-group').style.display = 'none';
-        document.getElementById('gender-input-group').style.display = 'none';
-        document.getElementById('admin-pin-group').style.display = 'none';
-        
-        // وضع الاسم في المتغير والحقل المخفي
-        currentDeceased = sharedName;
-        document.getElementById('input-portal-deceased-name').value = sharedName;
-
-        // تعديل نصوص الترحيب
-        document.getElementById('gateway-title').innerText = `الدخول لصدقة: ${sharedName}`;
-        document.getElementById('gateway-desc').innerText = "أدخل الرمز السري (PIN) الخاص بالعائلة للبدء";
+    // --- Dual Speech Engine (ResponsiveVoice + WebSpeech) & Animal Sound Synthesizer ---
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(() => {});
+      }
+      return audioCtx;
     }
 
-    // 5. زر الدخول (تسجيل الدخول / إنشاء حساب جديد للمتوفى)
-    document.getElementById('btn-portal-enter').addEventListener('click', async () => {
-        const nameInput = document.getElementById('input-portal-deceased-name').value.trim();
-        const familyPinInput = document.getElementById('input-portal-family-pin').value.trim();
-        const adminPinInput = document.getElementById('input-portal-admin-pin').value.trim();
+    function unlockAudio() {
+      getAudioContext();
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.resume();
+        } catch (e) {}
+      }
+    }
+    window.addEventListener('touchstart', unlockAudio, { passive: true });
+    window.addEventListener('pointerdown', unlockAudio, { passive: true });
+    window.addEventListener('click', unlockAudio, { passive: true });
 
-        if (!nameInput || !familyPinInput) {
-            alert("يرجى إدخال البيانات المطلوبة والرمز السري.");
-            return;
+    let globalVoices = [];
+    function populateVoices() {
+      if ('speechSynthesis' in window) {
+        globalVoices = window.speechSynthesis.getVoices() || [];
+      }
+    }
+    if ('speechSynthesis' in window) {
+      populateVoices();
+      window.speechSynthesis.onvoiceschanged = populateVoices;
+    }
+
+    function cleanSpeechText(txt) {
+      if (!txt) return '';
+      return txt
+        .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1FA70}-\u{1FAFF}]/gu, '')
+        .replace(/[•★\-\–]/g, '')
+        .trim();
+    }
+
+    window._lastSpokenText = '';
+    window._lastSpokenTime = 0;
+    window._activeUtterances = [];
+
+    // Pronounces text inside any clicked box
+    function speak(rawText, lang = 'ar') {
+      if (!state.ttsEnabled) return;
+      const text = cleanSpeechText(rawText);
+      if (!text) return;
+
+      const now = Date.now();
+      if (text === window._lastSpokenText && now - window._lastSpokenTime < 350) {
+        return;
+      }
+      window._lastSpokenText = text;
+      window._lastSpokenTime = now;
+
+      // Update on-screen subtitle banner with exact words
+      const indicator = document.getElementById('audio-speak-indicator');
+      if (indicator) {
+        indicator.textContent = `🔊 ${text}`;
+        indicator.classList.remove('hidden');
+        clearTimeout(window._indicatorTimer);
+        window._indicatorTimer = setTimeout(() => {
+          indicator.classList.add('hidden');
+        }, 3500);
+      }
+
+      unlockAudio();
+
+      // Primary Engine: ResponsiveVoice
+      if (window.responsiveVoice && typeof window.responsiveVoice.speak === 'function') {
+        try {
+          const voiceName = lang === 'en' ? 'US English Female' : 'Arabic Female';
+          window.responsiveVoice.speak(text, voiceName);
+          return;
+        } catch (e) {
+          console.warn('ResponsiveVoice fallback:', e);
         }
+      }
 
-        const deceasedRef = ref(db, `sadaqah/${nameInput}`);
-        const snapshot = await get(deceasedRef);
+      // Secondary Fallback: Native Web Speech API
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.resume();
 
-        if (snapshot.exists()) {
-            // المتوفى مسجل مسبقاً، نتحقق من الرمز
-            const data = snapshot.val();
-            if (data.familyPin === familyPinInput) {
-                // دخول ناجح
-                loginSuccess(nameInput, familyPinInput);
-            } else {
-                alert("الرمز السري غير صحيح!");
-            }
-        } else {
-            // صدقة جديدة (يجب إدخال رمز مشرف لإنشائها)
-            if(!adminPinInput && !sharedName) {
-                alert("لإنشاء صدقة جديدة، يجب إدخال رمز للمشرف.");
-                return;
-            }
-            if(sharedName) {
-                 alert("هذا الرابط غير صالح أو تم حذفه من قبل المشرف.");
-                 return;
-            }
-            
-            // إنشاء السجل في Firebase
-            await set(deceasedRef, {
-                familyPin: familyPinInput,
-                adminPin: adminPinInput,
-                tasbeehCount: 0,
-                khatma: initKhatma()
+          const utterance = new SpeechSynthesisUtterance(text);
+          const isEn = lang === 'en';
+          utterance.lang = isEn ? 'en-US' : 'ar-SA';
+          utterance.rate = 0.9;
+          utterance.pitch = 1.0;
+          utterance.volume = 1.0;
+
+          if (!globalVoices.length) populateVoices();
+
+          if (globalVoices.length) {
+            const matchLang = isEn ? 'en' : 'ar';
+            const matchedVoice = globalVoices.find(v => {
+              const l = (v.lang || '').toLowerCase().replace('_', '-');
+              return l.startsWith(matchLang);
             });
-            alert("تم إنشاء صدقة جارية جديدة بنجاح!");
-            loginSuccess(nameInput, familyPinInput);
-        }
-    });
-
-    // دالة تهيئة أجزاء الختمة بـ 30 جزء فارغ
-    function initKhatma() {
-        let parts = {};
-        for(let i=1; i<=30; i++) {
-            parts[`part_${i}`] = { status: "available", reader: "" };
-        }
-        return parts;
-    }
-
-    // دالة الدخول الناجح
-    function loginSuccess(name, pin) {
-        currentDeceased = name;
-        currentFamilyPin = pin;
-        
-        document.getElementById('gateway-screen').style.display = 'none';
-        document.getElementById('top-bar-deceased-name').innerText = name;
-        document.getElementById('hero-deceased-title').innerText = name;
-        document.getElementById('nav-active-deceased-name').innerText = name;
-        document.getElementById('khatma-page-deceased-name').innerText = name;
-        document.getElementById('tasbeeh-page-deceased-name').innerText = name;
-
-        // بدء الاستماع للتحديثات اللحظية ومراقبة الباسورد
-        startRealtimeSync();
-    }
-
-    // 6. المزامنة اللحظية ومراقبة طرد المستخدم (Kick Out)
-    function startRealtimeSync() {
-        // الاستماع للباسورد عشان لو الأدمن غيره نطرد اليوزر
-        const pinRef = ref(db, `sadaqah/${currentDeceased}/familyPin`);
-        onValue(pinRef, (snapshot) => {
-            const livePin = snapshot.val();
-            // لو الباسورد اتغير ومابقاش بيساوي الباسورد اللي اليوزر دخل بيه
-            if (livePin && currentFamilyPin && livePin !== currentFamilyPin) {
-                alert("تم تغيير الرمز السري بواسطة المشرف. سيتم تسجيل خروجك الآن.");
-                window.location.href = window.location.origin + window.location.pathname + '?d=' + encodeURIComponent(currentDeceased);
-            } else if (livePin === null && currentDeceased !== "") {
-                alert("تم حذف سجل هذا المتوفى.");
-                window.location.href = window.location.origin + window.location.pathname;
+            if (matchedVoice) {
+              utterance.voice = matchedVoice;
+              utterance.lang = matchedVoice.lang;
             }
-        });
+          }
 
-        // مزامنة المسبحة
-        const tasbeehRef = ref(db, `sadaqah/${currentDeceased}/tasbeehCount`);
-        onValue(tasbeehRef, (snapshot) => {
-            const count = snapshot.val() || 0;
-            document.getElementById('tasbeeh-counter-number').innerText = count;
-            document.getElementById('stat-tasbeeh').innerText = count;
-        });
+          window._activeUtterances.push(utterance);
+          utterance.onend = () => {
+            const idx = window._activeUtterances.indexOf(utterance);
+            if (idx !== -1) window._activeUtterances.splice(idx, 1);
+          };
+          utterance.onerror = (e) => {
+            console.warn('Speech error:', e);
+            const idx = window._activeUtterances.indexOf(utterance);
+            if (idx !== -1) window._activeUtterances.splice(idx, 1);
+          };
 
-        // مزامنة الختمة وبناء الأزرار
-        const khatmaRef = ref(db, `sadaqah/${currentDeceased}/khatma`);
-        onValue(khatmaRef, (snapshot) => {
-            const khatmaData = snapshot.val();
-            if(khatmaData) renderKhatmaGrid(khatmaData);
-        });
+          window.speechSynthesis.speak(utterance);
+
+        } catch (err) {
+          console.warn('Speech exception:', err);
+        }
+      }
     }
 
-    // بناء شبكة الختمة (الجزء 1 إلى 30)
-    function renderKhatmaGrid(data) {
-        const container = document.getElementById('khatma-grid-container');
-        container.innerHTML = '';
-        let completedCount = 0;
+    // --- Authentic Animal Sound Synthesizer (Web Audio API) ---
+    function playAnimalSound(type) {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        if (ctx.state === 'suspended') ctx.resume();
 
-        for(let i=1; i<=30; i++) {
-            const part = data[`part_${i}`];
-            const btn = document.createElement('button');
-            btn.className = `p-3 rounded-xl border font-bold text-sm transition ${
-                part.status === 'completed' ? 'bg-emerald-100 text-emerald-800 border-emerald-500' :
-                part.status === 'reserved' ? 'bg-amber-100 text-amber-800 border-amber-500' :
-                'bg-white text-gray-700 hover:bg-gray-50'
-            }`;
-            btn.innerText = `الجزء ${i}`;
-            if(part.status === 'completed') completedCount++;
-            
-            btn.onclick = () => handleJuzClick(i, part.status);
-            container.appendChild(btn);
+        const t = ctx.currentTime;
+
+        if (type === 'cat') {
+          // Meow: pitch sweep 580Hz -> 820Hz -> 450Hz
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(580, t);
+          osc.frequency.exponentialRampToValueAtTime(820, t + 0.15);
+          osc.frequency.exponentialRampToValueAtTime(450, t + 0.7);
+          gain.gain.setValueAtTime(0.01, t);
+          gain.gain.linearRampToValueAtTime(0.4, t + 0.15);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.7);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.75);
+        } else if (type === 'dog') {
+          // Dog Bark: woof woof
+          [0, 0.22].forEach(offset => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(240, t + offset);
+            osc.frequency.exponentialRampToValueAtTime(90, t + offset + 0.15);
+            gain.gain.setValueAtTime(0.45, t + offset);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + offset + 0.15);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t + offset);
+            osc.stop(t + offset + 0.16);
+          });
+        } else if (type === 'bird') {
+          // Bird Chirp: fast chirps
+          [0, 0.12, 0.24].forEach(offset => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(2200, t + offset);
+            osc.frequency.linearRampToValueAtTime(3300, t + offset + 0.05);
+            osc.frequency.linearRampToValueAtTime(2400, t + offset + 0.09);
+            gain.gain.setValueAtTime(0.35, t + offset);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + offset + 0.09);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t + offset);
+            osc.stop(t + offset + 0.1);
+          });
+        } else if (type === 'cow') {
+          // Cow Moo: low resonance 140Hz -> 95Hz
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(140, t);
+          osc.frequency.linearRampToValueAtTime(125, t + 0.4);
+          osc.frequency.linearRampToValueAtTime(95, t + 1.2);
+          gain.gain.setValueAtTime(0.01, t);
+          gain.gain.linearRampToValueAtTime(0.45, t + 0.2);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 1.2);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(t);
+          osc.stop(t + 1.25);
+        } else if (type === 'lion') {
+          // Lion Roar: powerful low rumble 125Hz -> 45Hz
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(125, t);
+          osc.frequency.linearRampToValueAtTime(75, t + 0.5);
+          osc.frequency.exponentialRampToValueAtTime(45, t + 1.1);
+          gain.gain.setValueAtTime(0.01, t);
+          gain.gain.linearRampToValueAtTime(0.5, t + 0.2);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 1.1);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(t);
+          osc.stop(t + 1.15);
+        } else if (type === 'duck') {
+          // Duck Quack: two nasal bursts
+          [0, 0.22].forEach(offset => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(420, t + offset);
+            osc.frequency.exponentialRampToValueAtTime(280, t + offset + 0.15);
+            gain.gain.setValueAtTime(0.3, t + offset);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + offset + 0.15);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t + offset);
+            osc.stop(t + offset + 0.16);
+          });
+        } else if (type === 'horse') {
+          // Horse Neigh: vibrato sweep 650Hz -> 350Hz
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(650, t);
+          osc.frequency.linearRampToValueAtTime(800, t + 0.3);
+          osc.frequency.exponentialRampToValueAtTime(350, t + 0.9);
+          gain.gain.setValueAtTime(0.01, t);
+          gain.gain.linearRampToValueAtTime(0.35, t + 0.2);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.9);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.95);
+        } else if (type === 'elephant') {
+          // Elephant Trumpet: brassy blast 220Hz -> 360Hz -> 180Hz
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, t);
+          osc.frequency.linearRampToValueAtTime(360, t + 0.25);
+          osc.frequency.exponentialRampToValueAtTime(180, t + 0.9);
+          gain.gain.setValueAtTime(0.01, t);
+          gain.gain.linearRampToValueAtTime(0.45, t + 0.25);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.9);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.95);
         }
-        document.getElementById('stat-khatma-progress').innerText = `${completedCount} / 30`;
+      } catch (err) {
+        console.warn('Animal sound error:', err);
+      }
     }
 
-    function handleJuzClick(partNumber, status) {
-        if(status === 'completed') {
-            alert("تمت قراءة هذا الجزء بالفعل. في ميزان الحسنات!");
-            return;
-        }
-        
-        const action = confirm(status === 'reserved' ? 
-            `الجزء ${partNumber} محجوز. هل أتممت قراءته؟ (اضغط OK لتأكيد الإتمام)` : 
-            `هل تريد حجز الجزء ${partNumber} لقراءته؟`);
-            
-        if(action) {
-            const newStatus = status === 'reserved' ? 'completed' : 'reserved';
-            update(ref(db, `sadaqah/${currentDeceased}/khatma/part_${partNumber}`), {
-                status: newStatus
-            });
-        }
-    }
+    // No-op stubs so any legacy calls remain safe without sound/beeps
+    function playChimeSound() {}
+    function playPopSound() {}
+    function playSuccessSound() {}
+    function playScanTick() {}
+    function playSelectBeep() {}
+    function playTone() {}
 
-    // 7. زر المسبحة
-    document.getElementById('btn-tasbeeh-tap').addEventListener('click', async () => {
-        if(!currentDeceased) return;
-        const tasbeehRef = ref(db, `sadaqah/${currentDeceased}/tasbeehCount`);
-        const snapshot = await get(tasbeehRef);
-        const currentCount = snapshot.val() || 0;
-        
-        await set(tasbeehRef, currentCount + 1);
-    });
+    // --- AAC Cards Initial Database (Expanded) ---
+    let aacCards = [
+      // Needs
+      { id: 'n1', cat: 'needs', text: 'أريد شرب ماء 💧', speech: 'أريد أن أشرب ماء من فضلك', icon: '💧', bg: 'bg-sky-50', border: 'border-sky-300' },
+      { id: 'n2', cat: 'needs', text: 'أنا جائع 🍎', speech: 'أنا جائع وأريد أن آكل طعاماً شهياً', icon: '🍎', bg: 'bg-amber-50', border: 'border-amber-300' },
+      { id: 'n3', cat: 'needs', text: 'أحتاج للحمام 🚻', speech: 'أحتاج إلى الذهاب للحمام من فضلك', icon: '🚻', bg: 'bg-indigo-50', border: 'border-indigo-300' },
+      { id: 'n4', cat: 'needs', text: 'أشعر بالتعب 🛌', speech: 'أشعر بالتعب وأحتاج إلى الراحة والنوم', icon: '🛌', bg: 'bg-purple-50', border: 'border-purple-300' },
+      { id: 'n5', cat: 'needs', text: 'أحتاج مساعدة 🙋‍♂️', speech: 'أحتاج إلى مساعدة من فضلك', icon: '🙋‍♂️', bg: 'bg-rose-50', border: 'border-rose-300' },
+      { id: 'n6', cat: 'needs', text: 'أشعر بالبرد ❄️', speech: 'أشعر بالبرد وأريد غطاء دافئاً', icon: '❄️', bg: 'bg-blue-50', border: 'border-blue-300' },
+      { id: 'n7', cat: 'needs', text: 'الجو حار ☀️', speech: 'الجو حار وأحتاج تخفيف ملابسي', icon: '☀️', bg: 'bg-orange-50', border: 'border-orange-300' },
+      
+      // Feelings
+      { id: 'f1', cat: 'feelings', text: 'أنا سعيد ومتحمس 😊', speech: 'أنا سعيد جداً ومتحمس للتعلم', icon: '😊', bg: 'bg-emerald-50', border: 'border-emerald-300' },
+      { id: 'f2', cat: 'feelings', text: 'أنا حزين 😢', speech: 'أنا حزين قليلاً الآن وأحتاج دعماً', icon: '😢', bg: 'bg-slate-100', border: 'border-slate-300' },
+      { id: 'f3', cat: 'feelings', text: 'أنا فخور بنفسي 🌟', speech: 'أنا فخور بما قمت به اليوم من إنجاز', icon: '🌟', bg: 'bg-amber-50', border: 'border-amber-300' },
+      { id: 'f4', cat: 'feelings', text: 'أشعر بالهدوء 🕊️', speech: 'أشعر بالهدوء والراحة التامة', icon: '🕊️', bg: 'bg-teal-50', border: 'border-teal-300' },
+      { id: 'f5', cat: 'feelings', text: 'أشعر بألم 🤕', speech: 'أشعر ببعض الألم وأحتاج رعاية المعلم', icon: '🤕', bg: 'bg-red-50', border: 'border-red-300' },
 
-    // 8. زر مشاركة اللينك המخصص
-    document.getElementById('btn-quick-share').addEventListener('click', () => {
-        if(!currentDeceased) return;
-        const shareUrl = window.location.origin + window.location.pathname + '?d=' + encodeURIComponent(currentDeceased);
-        
-        if (navigator.share) {
-            navigator.share({
-                title: 'صدقة جارية',
-                text: `شارك في الصدقة الجارية لروح ${currentDeceased}`,
-                url: shareUrl
-            }).catch(err => console.log('خطأ في المشاركة:', err));
+      // School & Classroom
+      { id: 's1', cat: 'school', text: 'نعم بالتأكيد ✅', speech: 'نعم بالتأكيد', icon: '✅', bg: 'bg-emerald-50', border: 'border-emerald-300' },
+      { id: 's2', cat: 'school', text: 'لا، شكراً ❌', speech: 'لا، شكراً لك', icon: '❌', bg: 'bg-rose-50', border: 'border-rose-300' },
+      { id: 's3', cat: 'school', text: 'أعرف الإجابة! 💡', speech: 'أنا أعرف الإجابة الصحيحة يا معلمي!', icon: '💡', bg: 'bg-amber-50', border: 'border-amber-300' },
+      { id: 's4', cat: 'school', text: 'أعد الشرح 🔄', speech: 'من فضلك أعد الشرح مرة أخرى بهدوء', icon: '🔄', bg: 'bg-sky-50', border: 'border-sky-300' },
+      { id: 's5', cat: 'school', text: 'شكراً جزيلاً 💖', speech: 'شكراً جزيلاً لك على دعمك', icon: '💖', bg: 'bg-pink-50', border: 'border-pink-300' },
+      { id: 's6', cat: 'school', text: 'إنه دوري 🎯', speech: 'إنه دوري الآن في الإجابة والمشاركة', icon: '🎯', bg: 'bg-purple-50', border: 'border-purple-300' },
+
+      // Activities
+      { id: 'a1', cat: 'activities', text: 'أريد قراءة قصة 📖', speech: 'أريد أن أستمع إلى قصة ممتعة', icon: '📖', bg: 'bg-indigo-50', border: 'border-indigo-300' },
+      { id: 'a2', cat: 'activities', text: 'أريد أن أرسم 🎨', speech: 'أريد أن أرسم وألون في المرسم', icon: '🎨', bg: 'bg-pink-50', border: 'border-pink-300' },
+      { id: 'a3', cat: 'activities', text: 'أريد اللعب 🎮', speech: 'أريد أن ألعب لعبة مفيدة ومسلية', icon: '🎮', bg: 'bg-emerald-50', border: 'border-emerald-300' },
+      { id: 'a4', cat: 'activities', text: 'أريد سماع أصوات 🎵', speech: 'أريد أن أستمع لأصوات مهدئة وموسيقى', icon: '🎵', bg: 'bg-sky-50', border: 'border-sky-300' },
+
+      // Family & Home (NEW)
+      { id: 'm1', cat: 'family', text: 'أريد أمي 👩‍👧', speech: 'أريد أن أنادي أمي الحبيبة', icon: '👩‍👧', bg: 'bg-rose-50', border: 'border-rose-300' },
+      { id: 'm2', cat: 'family', text: 'أريد أبي 👨‍👧', speech: 'أريد أن أنادي أبي الغالي', icon: '👨‍👧', bg: 'bg-blue-50', border: 'border-blue-300' },
+      { id: 'm3', cat: 'family', text: 'أحب عائلتي 💖', speech: 'أنا أحب عائلتي كثيراً', icon: '💖', bg: 'bg-amber-50', border: 'border-amber-300' },
+    ];
+
+    // --- Arabic Letters Database (All 28 Letters) ---
+    const arabicLettersData = [
+      { letter: 'أ', word: 'أَسَد', icon: '🦁', soundDesc: 'ألف.. أسد ملك الغابة' },
+      { letter: 'ب', word: 'بَطَّة', icon: '🦆', soundDesc: 'باء.. بطة تسبح في الماء' },
+      { letter: 'ت', word: 'تُفَّاحَة', icon: '🍎', soundDesc: 'تاء.. تفاحة لذيذة ومفيدة' },
+      { letter: 'ث', word: 'ثَعْلَب', icon: '🦊', soundDesc: 'ثاء.. ثعلب ذكي ولطيف' },
+      { letter: 'ج', word: 'جَمَل', icon: '🐪', soundDesc: 'جيم.. جمل صبور في الصحراء' },
+      { letter: 'ح', word: 'حِصَان', icon: '🐎', soundDesc: 'حاء.. حصان سريع وأصيل' },
+      { letter: 'خ', word: 'خَرُوف', icon: '🐑', soundDesc: 'خاء.. خروف أبيض وجميل' },
+      { letter: 'د', word: 'دُلْفِين', icon: '🐬', soundDesc: 'دال.. دلفين ودود ومرح' },
+      { letter: 'ذ', word: 'ذُرَة', icon: '🌽', soundDesc: 'ذال.. ذرة شهية وطيبة' },
+      { letter: 'ر', word: 'رِيشَة', icon: '🪶', soundDesc: 'راء.. ريشة ملونة وخفيفة' },
+      { letter: 'ز', word: 'زَرَافَة', icon: '🦒', soundDesc: 'زاي.. زرافة طويلة ولطيفة' },
+      { letter: 'س', word: 'سَمَكَة', icon: '🐟', soundDesc: 'سين.. سمكة تسبح في البحر' },
+      { letter: 'ش', word: 'شَمْس', icon: '☀️', soundDesc: 'شين.. شمس تنير يومنا' },
+      { letter: 'ص', word: 'صَقْر', icon: '🦅', soundDesc: 'صاد.. صقر يطير عالياً' },
+      { letter: 'ض', word: 'ضِفْدَع', icon: '🐸', soundDesc: 'ضاد.. ضفدع يقفز بمرح' },
+      { letter: 'ط', word: 'طَيَّارَة', icon: '✈️', soundDesc: 'طاء.. طيارة تحلق في السماء' },
+      { letter: 'ظ', word: 'ظَبْي', icon: '🦌', soundDesc: 'ظاء.. ظبي رشيق وجميل' },
+      { letter: 'ع', word: 'عُصْفُور', icon: '🐦', soundDesc: 'عين.. عصفور يغرد بنشاط' },
+      { letter: 'غ', word: 'غَزَال', icon: '🦌', soundDesc: 'غين.. غزال سريع في البرية' },
+      { letter: 'ف', word: 'فِيل', icon: '🐘', soundDesc: 'فاء.. فيل ضخم وطيب القلب' },
+      { letter: 'ق', word: 'قِطَّة', icon: '🐱', soundDesc: 'قاف.. قطة لطيفة ووديعة' },
+      { letter: 'ك', word: 'كُرَة', icon: '⚽', soundDesc: 'كاف.. كرة نلعب بها معاً' },
+      { letter: 'ل', word: 'لَيْمُون', icon: '🍋', soundDesc: 'لام.. ليمون منعش ولذيذ' },
+      { letter: 'م', word: 'مَوْز', icon: '🍌', soundDesc: 'ميم.. موز مفيد وصحي' },
+      { letter: 'ن', word: 'نَجْمَة', icon: '⭐', soundDesc: 'نون.. نجمة تلمع في السماء' },
+      { letter: 'هـ', word: 'هِلال', icon: '🌙', soundDesc: 'هاء.. هلال ينير ليلنا' },
+      { letter: 'و', word: 'وَرْدَة', icon: '🌹', soundDesc: 'واو.. وردة عطرة ومبهجة' },
+      { letter: 'ي', word: 'يَد', icon: '✋', soundDesc: 'ياء.. يد نصنع بها الخير' },
+    ];
+
+    // --- English Alphabet Database (26 Letters A to Z) ---
+    const englishLettersData = [
+      { upper: 'A', lower: 'a', word: 'Apple', icon: '🍎', phonics: 'A is for Apple' },
+      { upper: 'B', lower: 'b', word: 'Ball', icon: '⚽', phonics: 'B is for Ball' },
+      { upper: 'C', lower: 'c', word: 'Cat', icon: '🐱', phonics: 'C is for Cat' },
+      { upper: 'D', lower: 'd', word: 'Dog', icon: '🐶', phonics: 'D is for Dog' },
+      { upper: 'E', lower: 'e', word: 'Elephant', icon: '🐘', phonics: 'E is for Elephant' },
+      { upper: 'F', lower: 'f', word: 'Fish', icon: '🐟', phonics: 'F is for Fish' },
+      { upper: 'G', lower: 'g', word: 'Giraffe', icon: '🦒', phonics: 'G is for Giraffe' },
+      { upper: 'H', lower: 'h', word: 'Horse', icon: '🐎', phonics: 'H is for Horse' },
+      { upper: 'I', lower: 'i', word: 'Ice Cream', icon: '🍦', phonics: 'I is for Ice Cream' },
+      { upper: 'J', lower: 'j', word: 'Juice', icon: '🧃', phonics: 'J is for Juice' },
+      { upper: 'K', lower: 'k', word: 'Kite', icon: '🪁', phonics: 'K is for Kite' },
+      { upper: 'L', lower: 'l', word: 'Lion', icon: '🦁', phonics: 'L is for Lion' },
+      { upper: 'M', lower: 'm', word: 'Monkey', icon: '🐵', phonics: 'M is for Monkey' },
+      { upper: 'N', lower: 'n', word: 'Nest', icon: '🪺', phonics: 'N is for Nest' },
+      { upper: 'O', lower: 'o', word: 'Orange', icon: '🍊', phonics: 'O is for Orange' },
+      { upper: 'P', lower: 'p', word: 'Pencil', icon: '✏️', phonics: 'P is for Pencil' },
+      { upper: 'Q', lower: 'q', word: 'Queen', icon: '👑', phonics: 'Q is for Queen' },
+      { upper: 'R', lower: 'r', word: 'Rabbit', icon: '🐰', phonics: 'R is for Rabbit' },
+      { upper: 'S', lower: 's', word: 'Sun', icon: '☀️', phonics: 'S is for Sun' },
+      { upper: 'T', lower: 't', word: 'Tree', icon: '🌳', phonics: 'T is for Tree' },
+      { upper: 'U', lower: 'u', word: 'Umbrella', icon: '☂️', phonics: 'U is for Umbrella' },
+      { upper: 'V', lower: 'v', word: 'Violin', icon: '🎻', phonics: 'V is for Violin' },
+      { upper: 'W', lower: 'w', word: 'Water', icon: '💧', phonics: 'W is for Water' },
+      { upper: 'X', lower: 'x', word: 'Xylophone', icon: '🎵', phonics: 'X is for Xylophone' },
+      { upper: 'Y', lower: 'y', word: 'Yacht', icon: '⛵', phonics: 'Y is for Yacht' },
+      { upper: 'Z', lower: 'z', word: 'Zebra', icon: '🦓', phonics: 'Z is for Zebra' },
+    ];
+
+    // --- Animals Database with IDs for Authentic Sounds ---
+    const animalsData = [
+      { id: 'lion', name: 'الأسد', sound: 'زئير الأسد', icon: '🦁', fact: 'الأسد يسمى ملك الغابة وهو قوي جداً' },
+      { id: 'cat', name: 'القطة', sound: 'مواء: مياو مياو', icon: '🐱', fact: 'القطة حيوان أليف ولطيف يحب اللعب' },
+      { id: 'dog', name: 'الكلب', sound: 'نباح: هو هو', icon: '🐶', fact: 'الكلب صديق مخلص ووفي للإنسان' },
+      { id: 'elephant', name: 'الفيل', sound: 'نهيم الفيل', icon: '🐘', fact: 'الفيل له خرطوم طويل وهو أضخم الحيوانات' },
+      { id: 'bird', name: 'العصفور', sound: 'تغريد: صوصو', icon: '🐦', fact: 'العصفور يطير عالياً ويغرد بألحان جميلة' },
+      { id: 'cow', name: 'البقرة', sound: 'خوار: موو', icon: '🐄', fact: 'البقرة تعطينا الحليب اللذيذ والمفيد' },
+      { id: 'horse', name: 'الحصان', sound: 'صهيل الحصان', icon: '🐎', fact: 'الحصان سريع جداً وله شعر جميل' },
+      { id: 'duck', name: 'البطة', sound: 'بطبطة: واك واك', icon: '🦆', fact: 'البطة تسبح برشاقة في البحيرة' },
+    ];
+
+    // --- Navigation System ---
+    function switchTab(tabId) {
+      state.activeTab = tabId;
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      const activeEl = document.getElementById(`tab-${tabId}`);
+      if (activeEl) activeEl.classList.remove('hidden');
+
+      // Update Nav Buttons
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.className = 'nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-brand-600 text-white shadow-md shrink-0';
         } else {
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                alert('تم نسخ الرابط المخصص بنجاح! يمكنك إرساله للعائلة الآن ليدخلوا بكلمة المرور فقط.');
-            });
+          btn.className = 'nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0';
         }
+      });
+
+      // Announce view change
+      const tabTitles = {
+        'home': 'الصفحة الرئيسية',
+        'aac': 'لوحة التواصل والتعبير',
+        'arabic-letters': 'عالم الحروف العربية',
+        'english-letters': 'English Alphabet',
+        'numbers': 'الأرقام والعد والحساب',
+        'drawing': 'مرسم الرسم والإبداع',
+        'animals': 'واحة الحيوانات وأصواتها',
+        'games': 'ألعاب التناسق والذاكرة',
+        'sensory': 'المرسم الحسي الموسيقي'
+      };
+      speak(tabTitles[tabId] || tabId);
+
+      // Re-initialize tab-specific dynamics
+      if (tabId === 'drawing') {
+        resizeDrawingCanvas();
+      }  else if (tabId === 'games') {
+        initMemoryGame();
+      }
+
+      
+    }
+
+    document.querySelectorAll('.nav-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.getAttribute('data-tab');
+        switchTab(tab);
+      });
     });
 
-    // 9. لوحة الأدمن (تغيير الباسورد والطرد)
-    document.getElementById('btn-open-admin-panel').addEventListener('click', () => {
-        document.getElementById('modal-admin-auth').style.display = 'flex';
-    });
-    document.getElementById('btn-cancel-admin-auth').addEventListener('click', () => {
-        document.getElementById('modal-admin-auth').style.display = 'none';
+    document.querySelectorAll('[data-goto]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-goto');
+        switchTab(target);
+      });
     });
 
-    // تسجيل دخول الأدمن
-    document.getElementById('btn-confirm-admin-auth').addEventListener('click', async () => {
-        const adminPin = document.getElementById('input-admin-auth-pin').value;
-        const adminRef = ref(db, `sadaqah/${currentDeceased}/adminPin`);
-        const snap = await get(adminRef);
-        
-        if(snap.val() === adminPin) {
-            document.getElementById('modal-admin-auth').style.display = 'none';
-            document.getElementById('modal-admin-dashboard').style.display = 'flex';
-            document.getElementById('input-admin-auth-pin').value = '';
-        } else {
-            alert("رمز المشرف غير صحيح!");
+    // --- Assistive Toolbar Listeners ---
+    const btnToggleDwell = document.getElementById('btn-toggle-dwell');
+    const dwellStatus = document.getElementById('dwell-status');
+            const btnToggleTts = document.getElementById('btn-toggle-tts');
+    const ttsStatus = document.getElementById('tts-status');
+    const btnToggleContrast = document.getElementById('btn-toggle-contrast');
+    
+    btnToggleDwell.addEventListener('click', (e) => {
+      e.stopPropagation();
+      state.dwellEnabled = !state.dwellEnabled;
+      cancelDwell();
+
+      dwellStatus.textContent = state.dwellEnabled ? 'مُفعل' : 'متوقف';
+      dwellStatus.className = state.dwellEnabled ? 'text-brand-600 font-black' : 'text-rose-600 font-black';
+      btnToggleDwell.classList.toggle('border-brand-500', state.dwellEnabled);
+      btnToggleDwell.classList.toggle('bg-brand-50', state.dwellEnabled);
+
+      playSelectBeep();
+      speak(state.dwellEnabled ? 'التثبيت البصري: تم التشغيل' : 'التثبيت البصري: تم الإيقاف');
+    });
+
+
+
+    btnToggleTts.addEventListener('click', () => {
+      state.ttsEnabled = !state.ttsEnabled;
+      ttsStatus.textContent = state.ttsEnabled ? 'مُفعل' : 'مكتوم';
+      ttsStatus.className = state.ttsEnabled ? 'text-brand-700 font-black' : 'text-slate-500 font-black';
+      playSelectBeep();
+      if (state.ttsEnabled) speak('الصوت وقراءة النصوص: مفعل الآن');
+    });
+
+    btnToggleContrast.addEventListener('click', () => {
+      state.highContrast = !state.highContrast;
+      document.body.classList.toggle('high-contrast', state.highContrast);
+      playSelectBeep();
+      speak(state.highContrast ? 'نمط التباين العالي مفعّل' : 'العرض العادي مفعّل');
+    });
+
+    // --- Settings Modal ---
+    const settingsModal = document.getElementById('settings-modal');
+    const btnOpenSettings = document.getElementById('btn-open-settings');
+    const btnCloseSettings = document.getElementById('btn-close-settings');
+    const btnSaveSettings = document.getElementById('btn-save-settings');
+    const inputDwellTime = document.getElementById('input-dwell-time');
+    const dwellValDisplay = document.getElementById('dwell-val-display');
+    const inputScanSpeed = document.getElementById('input-scan-speed');
+    const scanValDisplay = document.getElementById('scan-val-display');
+    const inputTremorFilter = document.getElementById('input-tremor-filter');
+    const inputSensoryCalm = document.getElementById('input-sensory-calm');
+
+    btnOpenSettings.addEventListener('click', () => {
+      settingsModal.classList.remove('hidden');
+      playSelectBeep();
+      speak('تم فتح إعدادات التيسير والتحكم');
+    });
+
+    function closeSettings() {
+      settingsModal.classList.add('hidden');
+    }
+    btnCloseSettings.addEventListener('click', () => {
+      closeSettings();
+      playSelectBeep();
+      speak('تم إغلاق الإعدادات');
+    });
+
+    inputDwellTime.addEventListener('input', (e) => {
+      state.dwellTime = parseFloat(e.target.value);
+      dwellValDisplay.textContent = `${state.dwellTime.toFixed(1)} ثانية`;
+    });
+
+    inputScanSpeed.addEventListener('input', (e) => {
+      state.scanSpeed = parseFloat(e.target.value);
+      scanValDisplay.textContent = `${state.scanSpeed.toFixed(1)} ثانية`;
+    });
+
+    btnSaveSettings.addEventListener('click', () => {
+      state.tremorFilter = inputTremorFilter.checked;
+      state.sensoryCalm = inputSensoryCalm.checked;
+      document.body.classList.toggle('sensory-calm', state.sensoryCalm);
+      closeSettings();
+      playSuccessSound();
+      speak('تم حفظ وتطبيق الإعدادات بنجاح');
+      
+    });
+
+    // --- Tremor Guard / Global Debouncer ---
+    document.addEventListener('click', (e) => {
+      if (state.tremorFilter) {
+        const now = Date.now();
+        if (now - state.lastClickTime < 280) {
+          e.stopPropagation();
+          return;
         }
+        state.lastClickTime = now;
+      }
+    }, true);
+
+    // --- Dwell Clicking System Implementation (التثبيت البصري) ---
+    const dwellSvg = document.getElementById('dwell-svg');
+    const dwellCircleProgress = document.getElementById('dwell-circle-progress');
+    const CIRCLE_LENGTH = 100.53;
+
+    function cancelDwell() {
+      if (state.dwellTimer) {
+        clearTimeout(state.dwellTimer);
+        state.dwellTimer = null;
+      }
+      if (dwellCircleProgress) {
+        dwellCircleProgress.style.transition = 'none';
+        dwellCircleProgress.style.strokeDashoffset = `${CIRCLE_LENGTH}`;
+      }
+      if (dwellSvg) {
+        dwellSvg.classList.add('hidden');
+      }
+      state.dwellTarget = null;
+    }
+
+    function handleDwellOver(el) {
+      if (!state.dwellEnabled) return;
+      if (!el) return;
+
+      // STRICT PROTECTION: Never trigger dwell click on controls, headers, navs, or modals!
+      if (el.closest('header, nav, #settings-modal, #custom-card-modal, #btn-toggle-dwell, #btn-toggle-scan, #btn-toggle-tts, #btn-toggle-contrast, #btn-open-settings')) {
+        return;
+      }
+
+      cancelDwell();
+      state.dwellTarget = el;
+
+      const rect = el.getBoundingClientRect();
+      dwellSvg.style.top = `${rect.top + 4}px`;
+      dwellSvg.style.left = `${rect.left + 4}px`;
+      dwellSvg.classList.remove('hidden');
+
+      dwellCircleProgress.style.transition = `stroke-dashoffset ${state.dwellTime}s linear`;
+      dwellCircleProgress.style.strokeDashoffset = '0';
+
+      const readText = el.getAttribute('data-phrase') || el.innerText || el.getAttribute('title');
+      if (readText) {
+        const clean = cleanSpeechText(readText);
+        if (clean.length > 0 && clean.length < 50) {
+          const isEn = el.closest('#tab-english-letters') !== null;
+          speak(clean, isEn ? 'en' : 'ar');
+        }
+      }
+
+      state.dwellTimer = setTimeout(() => {
+        if (state.dwellEnabled && state.dwellTarget === el) {
+          el.click();
+          playSuccessSound();
+        }
+        cancelDwell();
+      }, state.dwellTime * 1000);
+    }
+
+    document.addEventListener('mouseover', (e) => {
+      if (!state.dwellEnabled) return;
+      const target = e.target.closest('.card-accessible, #counting-items-container button, #memory-game-board button, #quiz-options-grid button, #en-quiz-options-grid button, #math-answers-grid button');
+      if (target && target !== state.dwellTarget) {
+        handleDwellOver(target);
+      }
     });
 
-    document.getElementById('btn-close-admin-dashboard').addEventListener('click', () => {
-        document.getElementById('modal-admin-dashboard').style.display = 'none';
+    document.addEventListener('mouseout', (e) => {
+      if (!state.dwellEnabled) return;
+      const target = e.target.closest('.card-accessible, #counting-items-container button, #memory-game-board button, #quiz-options-grid button, #en-quiz-options-grid button, #math-answers-grid button');
+      if (target && target === state.dwellTarget) {
+        cancelDwell();
+      }
     });
 
-    // تغيير الباسورد العائلي (وطرد الباقين)
-    document.getElementById('btn-admin-save-family-pin').addEventListener('click', async () => {
-        const newPin = document.getElementById('input-admin-new-family-pin').value.trim();
-        if(!newPin) return alert("أدخل الرمز الجديد");
-        
-        await update(ref(db, `sadaqah/${currentDeceased}`), { familyPin: newPin });
-        alert("تم تغيير الرمز بنجاح. سيتم طرد جميع الأجهزة الأخرى المتصلة الآن لتسجيل الدخول بالرمز الجديد.");
-        document.getElementById('modal-admin-dashboard').style.display = 'none';
+    // Universal Box Reader on Click (Reads words inside any clicked box/button)
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('.card-accessible, .accessible-target, .quick-say-btn, .nav-tab, button');
+      if (!target) return;
+
+      if (target.getAttribute('data-custom-speak') === 'true') {
+        return;
+      }
+
+      let text = target.getAttribute('data-phrase') || target.getAttribute('title') || target.innerText;
+      if (text) {
+        text = cleanSpeechText(text);
+        if (text.length > 0 && text.length < 80) {
+          const isEn = target.closest('#tab-english-letters') !== null;
+          speak(text, isEn ? 'en' : 'ar');
+        }
+      }
     });
 
-    // التبديل بين التابات
-    document.querySelectorAll('.nav-btn').forEach(btn => {
+    // --- AAC Module Implementation ---
+    const aacCardsGrid = document.getElementById('aac-cards-grid');
+    const sentenceStripItems = document.getElementById('sentence-strip-items');
+    const sentencePlaceholder = document.getElementById('sentence-placeholder');
+    const btnSpeakSentence = document.getElementById('btn-speak-sentence');
+    const btnClearSentence = document.getElementById('btn-clear-sentence');
+    const btnRepeatLast = document.getElementById('btn-repeat-last');
+
+    function renderAacCards(filter = 'all') {
+      aacCardsGrid.innerHTML = '';
+      const filtered = filter === 'all' ? aacCards : aacCards.filter(c => c.cat === filter);
+
+      filtered.forEach(card => {
+        const btn = document.createElement('button');
+        btn.className = `accessible-target card-accessible ${card.bg} border-2 ${card.border} hover:scale-[1.02] p-4 rounded-3xl flex flex-col items-center justify-center gap-2 target-large text-center shadow-sm transition-transform`;
+        btn.setAttribute('data-phrase', card.speech);
+        btn.innerHTML = `
+          <span class="text-4xl pointer-events-none">${card.icon}</span>
+          <span class="font-bold text-base text-slate-900 pointer-events-none">${card.text}</span>
+        `;
         btn.addEventListener('click', (e) => {
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('text-emerald-800', 'bg-emerald-100'));
-            e.target.classList.add('text-emerald-800', 'bg-emerald-100');
-            
-            document.querySelectorAll('.tab-pane').forEach(tab => tab.style.display = 'none');
-            const target = e.target.getAttribute('data-tab');
-            document.getElementById(`tab-content-${target}`).style.display = 'block';
+          e.stopPropagation();
+          addToSentenceStrip(card);
+          speak(card.speech);
         });
+        aacCardsGrid.appendChild(btn);
+      });
+    }
+
+    function addToSentenceStrip(card) {
+      state.sentenceItems.push(card);
+      renderSentenceStrip();
+    }
+
+    function renderSentenceStrip() {
+      sentenceStripItems.innerHTML = '';
+      if (!state.sentenceItems.length) {
+        sentenceStripItems.appendChild(sentencePlaceholder);
+        return;
+      }
+
+      state.sentenceItems.forEach((item, index) => {
+        const itemTag = document.createElement('div');
+        itemTag.className = 'bg-white border-2 border-indigo-300 px-3.5 py-2 rounded-2xl flex items-center gap-2 shadow-sm animate-fadeIn';
+        itemTag.innerHTML = `
+          <span class="text-2xl">${item.icon}</span>
+          <span class="font-bold text-slate-800 text-sm">${item.text}</span>
+          <button class="text-rose-500 hover:text-rose-700 text-sm font-black mr-1" title="حذف">✕</button>
+        `;
+        itemTag.querySelector('button').addEventListener('click', (e) => {
+          e.stopPropagation();
+          state.sentenceItems.splice(index, 1);
+          renderSentenceStrip();
+        });
+        sentenceStripItems.appendChild(itemTag);
+      });
+    }
+
+    btnSpeakSentence.addEventListener('click', () => {
+      if (!state.sentenceItems.length) {
+        speak('الشريط فارغ، اختر بطاقات للتحدث بها');
+        return;
+      }
+      const fullText = state.sentenceItems.map(i => i.speech).join('. ');
+      speak(fullText);
+      playSuccessSound();
+      confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 } });
     });
 
-    // زر الخروج
-    document.getElementById('btn-logout').addEventListener('click', () => {
-        window.location.href = window.location.origin + window.location.pathname;
+    btnClearSentence.addEventListener('click', () => {
+      state.sentenceItems = [];
+      renderSentenceStrip();
+      speak('تم مسح الشريط');
+      playTone(300, 'sine', 0.1);
     });
 
+    btnRepeatLast.addEventListener('click', () => {
+      if (state.sentenceItems.length) {
+        const last = state.sentenceItems[state.sentenceItems.length - 1];
+        speak(last.speech);
+      }
+    });
+
+    document.querySelectorAll('.aac-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.aac-cat-btn').forEach(b => {
+          b.className = 'aac-cat-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-100';
+        });
+        btn.className = 'aac-cat-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow-sm';
+        const cat = btn.getAttribute('data-aac-cat');
+        renderAacCards(cat);
+      });
+    });
+
+    // Custom Card Modal
+    const customCardModal = document.getElementById('custom-card-modal');
+    const btnAddCustomCard = document.getElementById('btn-add-custom-card');
+    const btnCloseCustomCard = document.getElementById('btn-close-custom-card');
+    const btnSaveCustomCard = document.getElementById('btn-save-custom-card');
+    const customEmojiInput = document.getElementById('custom-emoji-input');
+    const customTextInput = document.getElementById('custom-text-input');
+    const customCatSelect = document.getElementById('custom-cat-select');
+
+    btnAddCustomCard.addEventListener('click', () => {
+      customCardModal.classList.remove('hidden');
+    });
+    btnCloseCustomCard.addEventListener('click', () => {
+      customCardModal.classList.add('hidden');
+    });
+    btnSaveCustomCard.addEventListener('click', () => {
+      const text = customTextInput.value.trim();
+      const emoji = customEmojiInput.value.trim() || '⭐';
+      const cat = customCatSelect.value;
+      if (text) {
+        const newCard = {
+          id: 'c_' + Date.now(),
+          cat: cat,
+          text: `${text} ${emoji}`,
+          speech: text,
+          icon: emoji,
+          bg: 'bg-emerald-50',
+          border: 'border-emerald-300'
+        };
+        aacCards.unshift(newCard);
+        renderAacCards('all');
+        customTextInput.value = '';
+        customCardModal.classList.add('hidden');
+        playSuccessSound();
+        speak('تمت إضافة بطاقتك الجديدة بنجاح');
+      }
+    });
+
+    // Quick Say Buttons on Home
+    document.querySelectorAll('.quick-say-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const phrase = btn.getAttribute('data-phrase');
+        speak(phrase);
+      });
+    });
+
+    document.getElementById('btn-hero-speak').addEventListener('click', () => {
+      speak('أهلاً بك يا بطل في منصة قدراتي الشاملة! يسعدنا وجودك معنا. يمكنك استكشاف الحروف العربية والإنجليزية، والأرقام، والرسم، والتحدث بحرية متى شئت.');
+      playSuccessSound();
+    });
+
+    document.getElementById('btn-hero-aac-quick').addEventListener('click', () => {
+      switchTab('aac');
+    });
+
+    // --- Arabic Letters Module Implementation ---
+    const arabicLettersGrid = document.getElementById('arabic-letters-grid');
+    const btnStartLetterQuiz = document.getElementById('btn-start-letter-quiz');
+    const letterQuizBox = document.getElementById('letter-quiz-box');
+    const btnCloseLetterQuiz = document.getElementById('btn-close-letter-quiz');
+    const quizWord = document.getElementById('quiz-word');
+    const btnQuizSpeak = document.getElementById('btn-quiz-speak');
+    const quizOptionsGrid = document.getElementById('quiz-options-grid');
+    const quizFeedback = document.getElementById('quiz-feedback');
+
+    function renderArabicLetters() {
+      arabicLettersGrid.innerHTML = '';
+      arabicLettersData.forEach(item => {
+        const card = document.createElement('button');
+        card.className = 'accessible-target card-accessible bg-white border-2 border-emerald-200 hover:border-emerald-400 hover:scale-[1.03] rounded-3xl p-3 md:p-4 flex flex-col items-center justify-center gap-1.5 target-large text-center shadow-sm transition-all';
+        card.setAttribute('data-phrase', `${item.letter} .. ${item.word}`);
+        card.innerHTML = `
+          <span class="text-3xl md:text-5xl font-black text-emerald-700 pointer-events-none">${item.letter}</span>
+          <span class="text-2xl md:text-3xl pointer-events-none">${item.icon}</span>
+          <span class="font-bold text-xs md:text-sm text-slate-800 pointer-events-none">${item.word}</span>
+        `;
+        card.addEventListener('click', (e) => {
+          e.stopPropagation();
+          speak(`حرف ${item.letter} .. ${item.word}`);
+        });
+        arabicLettersGrid.appendChild(card);
+      });
+    }
+
+    let currentArabicQuiz = null;
+    function startArabicLetterQuiz() {
+      letterQuizBox.classList.remove('hidden');
+      const randomIdx = Math.floor(Math.random() * arabicLettersData.length);
+      currentArabicQuiz = arabicLettersData[randomIdx];
+      quizWord.textContent = `${currentArabicQuiz.word} ${currentArabicQuiz.icon}`;
+      quizFeedback.textContent = '';
+
+      const options = [currentArabicQuiz.letter];
+      while (options.length < 3) {
+        const otherLetter = arabicLettersData[Math.floor(Math.random() * arabicLettersData.length)].letter;
+        if (!options.includes(otherLetter)) options.push(otherLetter);
+      }
+      options.sort(() => Math.random() - 0.5);
+
+      quizOptionsGrid.innerHTML = '';
+      options.forEach(opt => {
+        const optBtn = document.createElement('button');
+        optBtn.className = 'accessible-target bg-emerald-50 border-3 border-emerald-300 hover:bg-emerald-100 text-emerald-950 font-black text-3xl md:text-4xl p-5 md:p-6 rounded-2xl target-large shadow-sm transition-all';
+        optBtn.textContent = opt;
+        optBtn.setAttribute('data-phrase', `حرف ${opt}`);
+        optBtn.addEventListener('click', () => checkArabicLetterAnswer(opt));
+        quizOptionsGrid.appendChild(optBtn);
+      });
+
+      speak(`أين هو الحرف الذي تبدأ به كلمة ${currentArabicQuiz.word}؟`);
+    }
+
+    function checkArabicLetterAnswer(selected) {
+      if (selected === currentArabicQuiz.letter) {
+        quizFeedback.textContent = '🎉 أحسنت يا بطل! إجابة صحيحة ورائعة!';
+        quizFeedback.className = 'mt-4 text-xl font-black text-emerald-700 animate-bounce';
+        playSuccessSound();
+        speak(`أحسنت! ${currentArabicQuiz.letter} هو الحرف الصحيح لكلمة ${currentArabicQuiz.word}`);
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+        setTimeout(startArabicLetterQuiz, 2500);
+      } else {
+        quizFeedback.textContent = 'حاول مرة أخرى بكل هدوء، أنت قادر على حلها! 💪';
+        quizFeedback.className = 'mt-4 text-xl font-black text-amber-600';
+        playTone(330, 'triangle', 0.2);
+        speak('حاول مرة أخرى بكل هدوء');
+      }
+    }
+
+    btnStartLetterQuiz.addEventListener('click', startArabicLetterQuiz);
+    btnCloseLetterQuiz.addEventListener('click', () => letterQuizBox.classList.add('hidden'));
+    btnQuizSpeak.addEventListener('click', () => {
+      if (currentArabicQuiz) speak(`أين هو الحرف الذي تبدأ به كلمة ${currentArabicQuiz.word}؟`);
+    });
+
+    // --- English Letters Module Implementation ---
+    const englishLettersGrid = document.getElementById('english-letters-grid');
+    const btnStartEnQuiz = document.getElementById('btn-start-en-quiz');
+    const enQuizBox = document.getElementById('en-quiz-box');
+    const btnCloseEnQuiz = document.getElementById('btn-close-en-quiz');
+    const enQuizWord = document.getElementById('en-quiz-word');
+    const btnEnQuizSpeak = document.getElementById('btn-en-quiz-speak');
+    const enQuizOptionsGrid = document.getElementById('en-quiz-options-grid');
+    const enQuizFeedback = document.getElementById('en-quiz-feedback');
+
+    function renderEnglishLetters() {
+      englishLettersGrid.innerHTML = '';
+      englishLettersData.forEach(item => {
+        const card = document.createElement('button');
+        card.className = 'accessible-target card-accessible bg-white border-2 border-blue-200 hover:border-blue-400 hover:scale-[1.03] rounded-3xl p-3 md:p-4 flex flex-col items-center justify-center gap-1.5 target-large text-center shadow-sm transition-all font-en';
+        card.setAttribute('data-phrase', `${item.upper} ${item.lower} .. ${item.word}`);
+        card.innerHTML = `
+          <div class="flex items-baseline gap-1">
+            <span class="text-3xl md:text-4xl font-black text-blue-700">${item.upper}</span>
+            <span class="text-xl md:text-2xl font-bold text-blue-500">${item.lower}</span>
+          </div>
+          <span class="text-2xl md:text-3xl">${item.icon}</span>
+          <span class="font-bold text-xs md:text-sm text-slate-800">${item.word}</span>
+        `;
+        card.addEventListener('click', (e) => {
+          e.stopPropagation();
+          speak(`Letter ${item.upper} .. ${item.word}`, 'en');
+        });
+        englishLettersGrid.appendChild(card);
+      });
+    }
+
+    let currentEnQuiz = null;
+    function startEnglishQuiz() {
+      enQuizBox.classList.remove('hidden');
+      const randomIdx = Math.floor(Math.random() * englishLettersData.length);
+      currentEnQuiz = englishLettersData[randomIdx];
+      enQuizWord.textContent = `${currentEnQuiz.word} ${currentEnQuiz.icon}`;
+      enQuizFeedback.textContent = '';
+
+      const options = [currentEnQuiz.upper];
+      while (options.length < 3) {
+        const dummy = englishLettersData[Math.floor(Math.random() * englishLettersData.length)].upper;
+        if (!options.includes(dummy)) options.push(dummy);
+      }
+      options.sort(() => Math.random() - 0.5);
+
+      enQuizOptionsGrid.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'accessible-target bg-blue-50 border-3 border-blue-300 hover:bg-blue-100 text-blue-950 font-black text-3xl md:text-4xl p-5 md:p-6 rounded-2xl target-large shadow-sm font-en';
+        btn.textContent = opt;
+        btn.setAttribute('data-phrase', `Letter ${opt}`);
+        btn.addEventListener('click', () => checkEnglishAnswer(opt));
+        enQuizOptionsGrid.appendChild(btn);
+      });
+
+      speak(`Find the letter for ${currentEnQuiz.word}`, 'en');
+    }
+
+    function checkEnglishAnswer(ans) {
+      if (ans === currentEnQuiz.upper) {
+        enQuizFeedback.textContent = '🌟 Excellent job! That is correct!';
+        enQuizFeedback.className = 'mt-4 text-xl font-black text-emerald-700 animate-bounce';
+        playSuccessSound();
+        speak(`Great! ${currentEnQuiz.upper} is for ${currentEnQuiz.word}`, 'en');
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+        setTimeout(startEnglishQuiz, 2500);
+      } else {
+        enQuizFeedback.textContent = 'Try again! You can do it! 💪';
+        enQuizFeedback.className = 'mt-4 text-xl font-black text-amber-600';
+        playTone(330, 'triangle', 0.2);
+        speak('Try again', 'en');
+      }
+    }
+
+    btnStartEnQuiz.addEventListener('click', startEnglishQuiz);
+    btnCloseEnQuiz.addEventListener('click', () => enQuizBox.classList.add('hidden'));
+    btnEnQuizSpeak.addEventListener('click', () => {
+      if (currentEnQuiz) speak(`Find the letter for ${currentEnQuiz.word}`, 'en');
+    });
+
+    // --- Accessible Drawing Studio (مرسم الرسم الحر) ---
+    const drawingCanvas = document.getElementById('drawingCanvas');
+    let dCtx = null;
+    const toolBrushBtn = document.getElementById('tool-brush-btn');
+    const toolStampBtn = document.getElementById('tool-stamp-btn');
+    const brushSizesBox = document.getElementById('brush-sizes-box');
+    const stampsSelectorBar = document.getElementById('stamps-selector-bar');
+    const btnClearDrawing = document.getElementById('btn-clear-drawing');
+    const btnDownloadDrawing = document.getElementById('btn-download-drawing');
+
+    function initDrawingStudio() {
+      if (!drawingCanvas) return;
+      dCtx = drawingCanvas.getContext('2d');
+      resizeDrawingCanvas();
+      window.addEventListener('resize', resizeDrawingCanvas);
+
+      // Mouse & Touch events on Drawing Canvas
+      drawingCanvas.addEventListener('pointerdown', startDraw);
+      drawingCanvas.addEventListener('pointermove', drawMove);
+      window.addEventListener('pointerup', endDraw);
+    }
+
+    function resizeDrawingCanvas() {
+      if (!drawingCanvas) return;
+      // Preserve drawing content on resize
+      const temp = document.createElement('canvas');
+      temp.width = drawingCanvas.width;
+      temp.height = drawingCanvas.height;
+      const tCtx = temp.getContext('2d');
+      if (tCtx && drawingCanvas.width > 0) {
+        tCtx.drawImage(drawingCanvas, 0, 0);
+      }
+
+      drawingCanvas.width = drawingCanvas.clientWidth || 800;
+      drawingCanvas.height = drawingCanvas.clientHeight || 450;
+
+      // Fill with white background
+      if (dCtx) {
+        dCtx.fillStyle = '#ffffff';
+        dCtx.fillRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+        if (temp.width > 0) {
+          dCtx.drawImage(temp, 0, 0);
+        }
+      }
+    }
+
+    function getCanvasCoords(e) {
+      const rect = drawingCanvas.getBoundingClientRect();
+      const scaleX = drawingCanvas.width / rect.width;
+      const scaleY = drawingCanvas.height / rect.height;
+      return {
+        x: (e.clientX - rect.left) * scaleX,
+        y: (e.clientY - rect.top) * scaleY
+      };
+    }
+
+    function startDraw(e) {
+      unlockAudio();
+      const pos = getCanvasCoords(e);
+      state.isDrawing = true;
+      state.lastX = pos.x;
+      state.lastY = pos.y;
+
+      if (state.drawingTool === 'stamp') {
+        placeStamp(pos.x, pos.y);
+      } else {
+        dCtx.beginPath();
+        dCtx.arc(pos.x, pos.y, state.brushSize / 2, 0, Math.PI * 2);
+        dCtx.fillStyle = state.brushColor;
+        dCtx.fill();
+        playTone(400, 'sine', 0.05, 0.05);
+      }
+    }
+
+    function drawMove(e) {
+      if (!state.isDrawing || state.drawingTool === 'stamp') return;
+      const pos = getCanvasCoords(e);
+      dCtx.beginPath();
+      dCtx.moveTo(state.lastX, state.lastY);
+      dCtx.lineTo(pos.x, pos.y);
+      dCtx.strokeStyle = state.brushColor;
+      dCtx.lineWidth = state.brushSize;
+      dCtx.lineCap = 'round';
+      dCtx.lineJoin = 'round';
+      dCtx.stroke();
+      state.lastX = pos.x;
+      state.lastY = pos.y;
+    }
+
+    function endDraw() {
+      state.isDrawing = false;
+    }
+
+    function placeStamp(x, y) {
+      if (!dCtx) return;
+      dCtx.font = '52px sans-serif';
+      dCtx.textAlign = 'center';
+      dCtx.textBaseline = 'middle';
+      dCtx.fillText(state.activeStamp, x, y);
+      playSuccessSound();
+      speak('ختم ' + state.activeStamp);
+    }
+
+    toolBrushBtn.addEventListener('click', () => {
+      state.drawingTool = 'brush';
+      toolBrushBtn.className = 'accessible-target px-3.5 py-1.5 rounded-xl font-bold text-xs bg-pink-600 text-white shadow-sm';
+      toolStampBtn.className = 'accessible-target px-3.5 py-1.5 rounded-xl font-bold text-xs bg-slate-100 text-slate-700 hover:bg-slate-200';
+      brushSizesBox.classList.remove('hidden');
+      stampsSelectorBar.classList.add('hidden');
+      speak('أداة الفرشاة');
+    });
+
+    toolStampBtn.addEventListener('click', () => {
+      state.drawingTool = 'stamp';
+      toolStampBtn.className = 'accessible-target px-3.5 py-1.5 rounded-xl font-bold text-xs bg-pink-600 text-white shadow-sm';
+      toolBrushBtn.className = 'accessible-target px-3.5 py-1.5 rounded-xl font-bold text-xs bg-slate-100 text-slate-700 hover:bg-slate-200';
+      brushSizesBox.classList.add('hidden');
+      stampsSelectorBar.classList.remove('hidden');
+      speak('أداة الأختام السريعة، اضغط على اللوحة لوضع الختم');
+    });
+
+    document.querySelectorAll('.brush-size-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.brush-size-btn').forEach(b => {
+          b.className = 'brush-size-btn accessible-target px-3 py-1.5 rounded-xl font-bold text-xs bg-slate-100 text-slate-700';
+        });
+        btn.className = 'brush-size-btn accessible-target px-3 py-1.5 rounded-xl font-bold text-xs bg-pink-600 text-white';
+        state.brushSize = parseInt(btn.getAttribute('data-size'));
+        speak('حجم الخط ' + btn.innerText);
+      });
+    });
+
+    document.querySelectorAll('.color-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('ring-2', 'ring-offset-2', 'ring-pink-600'));
+        btn.classList.add('ring-2', 'ring-offset-2', 'ring-pink-600');
+        state.brushColor = btn.getAttribute('data-color');
+        speak(btn.getAttribute('title') || 'لون');
+      });
+    });
+
+    document.querySelectorAll('.stamp-pick-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.stamp-pick-btn').forEach(b => b.classList.remove('border-pink-600', 'bg-pink-200'));
+        btn.classList.add('border-pink-600', 'bg-pink-200');
+        state.activeStamp = btn.getAttribute('data-stamp');
+        speak('تم اختيار ختم ' + state.activeStamp);
+      });
+    });
+
+    btnClearDrawing.addEventListener('click', () => {
+      if (dCtx) {
+        dCtx.fillStyle = '#ffffff';
+        dCtx.fillRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+      }
+      playSelectBeep();
+      speak('تم مسح لوحة الرسم بالكامل');
+    });
+
+    btnDownloadDrawing.addEventListener('click', () => {
+      try {
+        const link = document.createElement('a');
+        link.download = 'my_creative_drawing.png';
+        link.href = drawingCanvas.toDataURL('image/png');
+        link.click();
+        playSuccessSound();
+        speak('تم حفظ رسمتك الجميلة على جهازك!');
+        confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+      } catch (err) {
+        console.warn('Download error:', err);
+      }
+    });
+
+    // --- Animals & Nature Module Implementation ---
+    const animalsGrid = document.getElementById('animals-grid');
+    function renderAnimals() {
+      animalsGrid.innerHTML = '';
+      animalsData.forEach(item => {
+        const card = document.createElement('button');
+        card.className = 'accessible-target card-accessible bg-white border-2 border-teal-200 hover:border-teal-400 hover:scale-[1.03] rounded-3xl p-5 flex flex-col items-center justify-center gap-2 target-large text-center shadow-sm transition-all';
+        card.setAttribute('data-phrase', `${item.name}`);
+        card.innerHTML = `
+          <span class="text-5xl pointer-events-none">${item.icon}</span>
+          <span class="font-black text-xl text-teal-900 pointer-events-none">${item.name}</span>
+          <span class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full pointer-events-none">انقر لسماع الاسم والصوت</span>
+        `;
+        card.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Step 1: Pronounce animal name FIRST!
+          speak(item.name, 'ar');
+          // Step 2: Then play the authentic animal sound!
+          setTimeout(() => {
+            playAnimalSound(item.id);
+          }, 1100);
+        });
+        animalsGrid.appendChild(card);
+      });
+    }
+
+    // --- Numbers & Math Module Implementation (1 to 20) ---
+    const numberSelectorButtons = document.getElementById('number-selector-buttons');
+    const currentNumberBadge = document.getElementById('current-number-badge');
+    const currentNumberWord = document.getElementById('current-number-word');
+    const countingItemsContainer = document.getElementById('counting-items-container');
+    const counterReadout = document.getElementById('counter-readout');
+    const btnSpeakNumberInfo = document.getElementById('btn-speak-number-info');
+
+    const numberWords = {
+      1: 'واحد', 2: 'اثنان', 3: 'ثلاثة', 4: 'أربعة', 5: 'خمسة',
+      6: 'ستة', 7: 'سبعة', 8: 'ثمانية', 9: 'تسعة', 10: 'عشرة',
+      11: 'أحد عشر', 12: 'اثنا عشر', 13: 'ثلاثة عشر', 14: 'أربعة عشر', 15: 'خمسة عشر',
+      16: 'ستة عشر', 17: 'سبعة عشر', 18: 'ثمانية عشر', 19: 'تسعة عشر', 20: 'عشرون'
+    };
+
+    function renderNumberSelector() {
+      numberSelectorButtons.innerHTML = '';
+      for (let i = 1; i <= 20; i++) {
+        const btn = document.createElement('button');
+        const isActive = i === state.currentNumber;
+        btn.className = `accessible-target font-black text-base md:text-lg w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all ${
+          isActive ? 'bg-amber-500 text-white shadow-md scale-110' : 'bg-white border-2 border-amber-200 text-amber-900 hover:bg-amber-50'
+        }`;
+        btn.textContent = i;
+        btn.setAttribute('data-phrase', `الرقم ${numberWords[i]}`);
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          setNumber(i);
+          speak(`الرقم ${numberWords[i]}`);
+        });
+        numberSelectorButtons.appendChild(btn);
+      }
+    }
+
+    function setNumber(n) {
+      state.currentNumber = n;
+      renderNumberSelector();
+      currentNumberBadge.textContent = n;
+      currentNumberWord.textContent = `الرقم ${numberWords[n]}`;
+      counterReadout.textContent = `انقر على الفواكه لعدها بالصوت حتى الرقم ${numberWords[n]}!`;
+
+      countingItemsContainer.innerHTML = '';
+      for (let i = 1; i <= n; i++) {
+        const item = document.createElement('button');
+        item.className = 'accessible-target card-accessible bg-white border-2 border-amber-300 hover:scale-110 p-2.5 rounded-2xl text-3xl shadow-sm transition-transform flex flex-col items-center gap-1';
+        item.innerHTML = `
+          <span>🍎</span>
+          <span class="text-xs font-bold text-amber-800">${i}</span>
+        `;
+        item.setAttribute('data-phrase', `${numberWords[i]}`);
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          speak(`${numberWords[i]}`);
+          counterReadout.textContent = `وصلت إلى: ${numberWords[i]} (${i})`;
+          if (i === n) {
+            speak(`ممتاز! ${numberWords[n]}`);
+            confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 } });
+          }
+        });
+        countingItemsContainer.appendChild(item);
+      }
+
+      speak(`الرقم ${numberWords[n]}`);
+    }
+
+    btnSpeakNumberInfo.addEventListener('click', () => {
+      speak(`الرقم ${numberWords[state.currentNumber]}`);
+    });
+
+    const btnToggleMathMode = document.getElementById('btn-toggle-math-mode');
+    const mathModeBtnLabel = document.getElementById('math-mode-btn-label');
+    const countingPlayground = document.getElementById('counting-playground');
+    const mathChallengeBox = document.getElementById('math-challenge-box');
+    const mathNum1Text = document.getElementById('math-num1-text');
+    const mathNum2Text = document.getElementById('math-num2-text');
+    const mathNum1Icons = document.getElementById('math-num1-icons');
+    const mathNum2Icons = document.getElementById('math-num2-icons');
+    const mathAnswersGrid = document.getElementById('math-answers-grid');
+    const mathFeedback = document.getElementById('math-feedback');
+    let currentMathAnswer = 3;
+
+    btnToggleMathMode.addEventListener('click', () => {
+      state.mathChallengeActive = !state.mathChallengeActive;
+      if (state.mathChallengeActive) {
+        countingPlayground.classList.add('hidden');
+        mathChallengeBox.classList.remove('hidden');
+        mathModeBtnLabel.textContent = 'العودة إلى لوحة العدّ';
+        generateMathProblem();
+      } else {
+        countingPlayground.classList.remove('hidden');
+        mathChallengeBox.classList.add('hidden');
+        mathModeBtnLabel.textContent = 'انتقل إلى تحدي الجمع البسيط';
+      }
+    });
+
+    function generateMathProblem() {
+      const a = Math.floor(Math.random() * 4) + 1;
+      const b = Math.floor(Math.random() * 4) + 1;
+      currentMathAnswer = a + b;
+
+      mathNum1Text.textContent = a;
+      mathNum2Text.textContent = b;
+      mathNum1Icons.textContent = '🍎'.repeat(a);
+      mathNum2Icons.textContent = '🍎'.repeat(b);
+      mathFeedback.textContent = '';
+
+      const options = [currentMathAnswer];
+      while (options.length < 3) {
+        const dummy = Math.floor(Math.random() * 8) + 1;
+        if (!options.includes(dummy)) options.push(dummy);
+      }
+      options.sort(() => Math.random() - 0.5);
+
+      mathAnswersGrid.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'accessible-target bg-amber-50 border-3 border-amber-300 hover:bg-amber-100 text-amber-950 font-black text-3xl md:text-4xl p-5 rounded-2xl target-large shadow-sm';
+        btn.textContent = opt;
+        btn.setAttribute('data-phrase', `العدد ${opt}`);
+        btn.addEventListener('click', () => checkMathAnswer(opt));
+        mathAnswersGrid.appendChild(btn);
+      });
+
+      speak(`كم يساوي ${a} زائد ${b}؟`);
+    }
+
+    function checkMathAnswer(ans) {
+      if (ans === currentMathAnswer) {
+        mathFeedback.textContent = '🌟 إجابة عبقرية! أحسنت يا بطل الحساب!';
+        mathFeedback.className = 'mt-4 text-xl font-black text-emerald-700 animate-bounce';
+        playSuccessSound();
+        speak(`أحسنت! الناتج الصحيح هو ${currentMathAnswer}`);
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+        setTimeout(generateMathProblem, 2500);
+      } else {
+        mathFeedback.textContent = 'حاول مجدداً، اجمع التفاحات معاً بالعد! 🍎';
+        mathFeedback.className = 'mt-4 text-xl font-black text-amber-600';
+        playTone(300, 'triangle', 0.2);
+        speak('حاول مجدداً، عد التفاحات معاً');
+      }
+    }
+
+    // --- Memory Game Module Implementation ---
+    const memoryGameBoard = document.getElementById('memory-game-board');
+    const gameMatchesCount = document.getElementById('game-matches-count');
+    const btnRestartGame = document.getElementById('btn-restart-game');
+    const gameCongrats = document.getElementById('game-congrats');
+    const btnGameAgain = document.getElementById('btn-game-again');
+
+    let memoryCards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    const gameIcons = ['🦁', '🐬', '🍎'];
+
+    function initMemoryGame() {
+      matchedPairs = 0;
+      gameMatchesCount.textContent = '0';
+      gameCongrats.classList.add('hidden');
+      flippedCards = [];
+
+      const deck = [...gameIcons, ...gameIcons].sort(() => Math.random() - 0.5);
+      memoryCards = deck.map((icon, id) => ({ id, icon, flipped: false, matched: false }));
+
+      renderMemoryBoard();
+    }
+
+    function renderMemoryBoard() {
+      memoryGameBoard.innerHTML = '';
+      memoryCards.forEach((card, index) => {
+        const btn = document.createElement('button');
+        btn.className = `accessible-target font-black rounded-3xl p-6 min-h-[140px] flex items-center justify-center text-5xl shadow-md border-3 transition-all ${
+          card.matched
+            ? 'bg-emerald-100 border-emerald-400 opacity-90'
+            : card.flipped
+            ? 'bg-white border-sky-400 scale-105'
+            : 'bg-gradient-to-tr from-sky-500 to-indigo-600 border-indigo-400 text-white hover:scale-102'
+        }`;
+
+        btn.innerHTML = card.flipped || card.matched ? card.icon : '❓';
+        btn.setAttribute('data-phrase', card.flipped || card.matched ? `بطاقة ${card.icon}` : `بطاقة رقم ${index + 1}`);
+
+        btn.addEventListener('click', () => {
+          if (card.flipped || card.matched || flippedCards.length >= 2) return;
+          flipCard(index);
+        });
+
+        memoryGameBoard.appendChild(btn);
+      });
+    }
+
+    function flipCard(idx) {
+      const card = memoryCards[idx];
+      card.flipped = true;
+      flippedCards.push({ card, idx });
+      playSelectBeep();
+      renderMemoryBoard();
+
+      if (flippedCards.length === 2) {
+        const [c1, c2] = flippedCards;
+        if (c1.card.icon === c2.card.icon) {
+          c1.card.matched = true;
+          c2.card.matched = true;
+          flippedCards = [];
+          matchedPairs++;
+          gameMatchesCount.textContent = matchedPairs;
+          playSuccessSound();
+          speak(`مطابقة ممتازة! بطاقة ${c1.card.icon}`);
+          renderMemoryBoard();
+
+          if (matchedPairs === 3) {
+            gameCongrats.classList.remove('hidden');
+            speak('رائع جداً! لقد أكملت اللعبة بنجاح باهر!');
+            confetti({ particleCount: 80, spread: 80, origin: { y: 0.5 } });
+          }
+        } else {
+          setTimeout(() => {
+            c1.card.flipped = false;
+            c2.card.flipped = false;
+            flippedCards = [];
+            renderMemoryBoard();
+          }, 1200);
+        }
+      }
+    }
+
+    btnRestartGame.addEventListener('click', initMemoryGame);
+    btnGameAgain.addEventListener('click', initMemoryGame);
+
+    // --- Initial Application Bootstrapping ---
+    window.addEventListener('DOMContentLoaded', () => {
+      renderAacCards('all');
+      renderArabicLetters();
+      renderEnglishLetters();
+      renderAnimals();
+      renderNumberSelector();
+      setNumber(1);
+      initMemoryGame();
+      initDrawingStudio();
+    });
   </script>
 </body>
 </html>
