@@ -200,6 +200,18 @@
         <span>🌍</span>
         <span>الدول والأعلام</span>
       </button>
+      <button data-tab="computer" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
+        <span>💻</span>
+        <span>الحاسب الآلي</span>
+      </button>
+      <button data-tab="clothes" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
+        <span>👕</span>
+        <span>الملابس ولبسها</span>
+      </button>
+      <button data-tab="shoes" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
+        <span>👟</span>
+        <span>الأحذية ولبسها</span>
+      </button>
       <button data-tab="games" class="nav-tab accessible-target flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-sm md:text-base transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0">
         <span>🎮</span>
         <span>ألعاب التناسق</span>
@@ -403,6 +415,57 @@
             </div>
             <button data-goto="countries" class="accessible-target w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 px-4 rounded-2xl target-large flex items-center justify-center gap-2 shadow-sm">
               <span>اكتشف الدول والأعلام</span>
+              <span>⬅️</span>
+            </button>
+          </div>
+
+          <!-- Card: Computer Components -->
+          <div class="card-accessible bg-white border-2 border-cyan-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 bg-cyan-100 text-cyan-700 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                💻
+              </div>
+              <h4 class="text-2xl font-black text-slate-900 mb-2">مكونات الحاسب الآلي</h4>
+              <p class="text-slate-600 font-medium mb-4 text-sm leading-relaxed">
+                تعرف على الشاشة، لوحة المفاتيح، الفأرة، وحدة النظام، السماعات، والطابعة بالصوت والوصف المبسط.
+              </p>
+            </div>
+            <button data-goto="computer" class="accessible-target w-full bg-cyan-600 hover:bg-cyan-700 text-white font-black py-3.5 px-4 rounded-2xl target-large flex items-center justify-center gap-2 shadow-sm">
+              <span>استكشف الحاسب الآلي</span>
+              <span>⬅️</span>
+            </button>
+          </div>
+
+          <!-- Card: Clothes & Dressing -->
+          <div class="card-accessible bg-white border-2 border-violet-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 bg-violet-100 text-violet-700 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                👕
+              </div>
+              <h4 class="text-2xl font-black text-slate-900 mb-2">الملابس وطريقة لبسها</h4>
+              <p class="text-slate-600 font-medium mb-4 text-sm leading-relaxed">
+                تعلم أنواع الملابس اليومية وخطوات ارتدائها وخلعها خطوة بخطوة بالشرح الصوتي الميسر.
+              </p>
+            </div>
+            <button data-goto="clothes" class="accessible-target w-full bg-violet-600 hover:bg-violet-700 text-white font-black py-3.5 px-4 rounded-2xl target-large flex items-center justify-center gap-2 shadow-sm">
+              <span>تعلم ارتداء الملابس</span>
+              <span>⬅️</span>
+            </button>
+          </div>
+
+          <!-- Card: Shoes & Footwear -->
+          <div class="card-accessible bg-white border-2 border-rose-200 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-16 h-16 bg-rose-100 text-rose-700 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                👟
+              </div>
+              <h4 class="text-2xl font-black text-slate-900 mb-2">الأحذية ولبسها وخلعها</h4>
+              <p class="text-slate-600 font-medium mb-4 text-sm leading-relaxed">
+                نشاطات تفاعلية لأنواع الأحذية مع خطوات لبس الحذاء (٤ خطوات) وخلع الحذاء (٣ خطوات) بوضوح.
+              </p>
+            </div>
+            <button data-goto="shoes" class="accessible-target w-full bg-rose-600 hover:bg-rose-700 text-white font-black py-3.5 px-4 rounded-2xl target-large flex items-center justify-center gap-2 shadow-sm">
+              <span>تعلم لبس وخلع الحذاء</span>
               <span>⬅️</span>
             </button>
           </div>
@@ -901,6 +964,177 @@
 
     </section>
 
+
+    <!-- ==============================================
+         TAB 9: COMPUTER COMPONENTS (مكونات الحاسب الآلي)
+         ============================================== -->
+    <section id="tab-computer" class="tab-content hidden space-y-6">
+      <div class="bg-cyan-50 border-2 border-cyan-200 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-2xl font-black text-cyan-950 flex items-center gap-2">
+            <span>💻</span>
+            <span>عالم الحاسب الآلي ومكوناته</span>
+          </h3>
+          <p class="text-cyan-800 font-medium text-sm mt-1">
+            اضغط على أي جزء من مكونات الكمبيوتر لسماع اسمه ووظيفته بطريقة سهلة ومبسطة!
+          </p>
+        </div>
+        <button id="btn-start-comp-quiz" class="accessible-target bg-cyan-600 hover:bg-cyan-700 text-white font-black px-5 py-3 rounded-2xl shadow-md target-large flex items-center gap-2 text-base">
+          <span class="text-2xl">🎯</span>
+          <span>اختبر معرفتك بالحاسب!</span>
+        </button>
+      </div>
+
+      <!-- Computer Quiz Box -->
+      <div id="comp-quiz-box" class="hidden bg-white border-4 border-cyan-400 rounded-3xl p-6 shadow-xl relative">
+        <div class="flex items-center justify-between mb-4">
+          <h4 class="text-xl font-black text-slate-900 flex items-center gap-2"><span>🏆</span><span>تحدي مكونات الحاسب:</span></h4>
+          <button id="btn-close-comp-quiz" class="text-slate-500 hover:text-slate-800 text-2xl font-bold px-3 py-1">✕</button>
+        </div>
+        <div class="text-center py-3">
+          <div id="comp-quiz-prompt" class="text-2xl font-black text-cyan-900 mb-5">ما هو الجزء الذي نستخدمه لـ: <span id="comp-quiz-desc" class="text-amber-600 underline">عرض الصور والنصوص</span>؟</div>
+          <button id="btn-comp-quiz-speak" class="accessible-target mb-5 inline-flex items-center gap-2 bg-cyan-100 hover:bg-cyan-200 text-cyan-900 px-5 py-2.5 rounded-xl font-bold text-base">
+            <span>🔊</span><span>استمع للسؤال</span>
+          </button>
+          <div id="comp-quiz-options" class="grid grid-cols-3 gap-4 max-w-2xl mx-auto"></div>
+          <div id="comp-quiz-feedback" class="mt-4 text-xl font-black min-h-[32px]"></div>
+        </div>
+      </div>
+
+      <!-- Computer Components Grid -->
+      <div id="computer-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+    </section>
+
+    <!-- ==============================================
+         TAB 10: CLOTHES & DRESSING (أنواع الملابس ولبسها وخلعها)
+         ============================================== -->
+    <section id="tab-clothes" class="tab-content hidden space-y-6">
+      <div class="bg-violet-50 border-2 border-violet-200 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-2xl font-black text-violet-950 flex items-center gap-2">
+            <span>👕</span>
+            <span>أنواع الملابس وطريقة لبسها وخلعها</span>
+          </h3>
+          <p class="text-violet-800 font-medium text-sm mt-1">
+            اختر النشاط للتعرف على الملابس أو تعلم خطوات اللبس والخلع خطوة بخطوة بالصوت!
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button data-clothes-sub="types" class="clothes-sub-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-violet-600 text-white shadow-sm">
+            👕 أنواع الملابس
+          </button>
+          <button data-clothes-sub="wear" class="clothes-sub-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-violet-200 text-violet-900 hover:bg-violet-100">
+            🧥 خطوات لبس الملابس
+          </button>
+          <button data-clothes-sub="remove" class="clothes-sub-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-violet-200 text-violet-900 hover:bg-violet-100">
+            🧺 خطوات خلع الملابس
+          </button>
+        </div>
+      </div>
+
+      <!-- Sub-view 1: Clothes Types -->
+      <div id="clothes-view-types" class="clothes-subview space-y-4">
+        <div class="bg-white border-2 border-violet-200 rounded-2xl p-3 flex items-center gap-2 text-violet-900 font-bold text-sm">
+          <span class="bg-violet-600 text-white px-3 py-1 rounded-full text-xs">نشاط ١</span>
+          <span>يتعرف الطالب على أنواع الملابس اليومية (اضغط على أي قطعة لسماع اسمها):</span>
+        </div>
+        <div id="clothes-types-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+      </div>
+
+      <!-- Sub-view 2: Wearing Clothes Steps -->
+      <div id="clothes-view-wear" class="clothes-subview hidden space-y-4">
+        <div class="bg-white border-2 border-violet-200 rounded-2xl p-3 flex items-center justify-between flex-wrap gap-2 text-violet-900 font-bold text-sm">
+          <div class="flex items-center gap-2">
+            <span class="bg-violet-600 text-white px-3 py-1 rounded-full text-xs">نشاط ٢</span>
+            <span>خطوات لبس الملابس (٤ خطوات منظمة بالترتيب):</span>
+          </div>
+          <button id="btn-speak-all-clothes-wear" class="accessible-target bg-violet-100 hover:bg-violet-200 text-violet-900 px-4 py-1.5 rounded-xl text-xs font-black">
+            🔊 استمع لجميع الخطوات بالترتيب
+          </button>
+        </div>
+        <div id="clothes-wear-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      </div>
+
+      <!-- Sub-view 3: Removing Clothes Steps -->
+      <div id="clothes-view-remove" class="clothes-subview hidden space-y-4">
+        <div class="bg-white border-2 border-violet-200 rounded-2xl p-3 flex items-center justify-between flex-wrap gap-2 text-violet-900 font-bold text-sm">
+          <div class="flex items-center gap-2">
+            <span class="bg-violet-600 text-white px-3 py-1 rounded-full text-xs">نشاط ٣</span>
+            <span>خطوات خلع الملابس بهدوء وترتيب:</span>
+          </div>
+          <button id="btn-speak-all-clothes-remove" class="accessible-target bg-violet-100 hover:bg-violet-200 text-violet-900 px-4 py-1.5 rounded-xl text-xs font-black">
+            🔊 استمع لجميع الخطوات بالترتيب
+          </button>
+        </div>
+        <div id="clothes-remove-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         TAB 11: SHOES & FOOTWEAR (أنواع الأحذية ولبسها وخلعها)
+         ============================================== -->
+    <section id="tab-shoes" class="tab-content hidden space-y-6">
+      <div class="bg-rose-50 border-2 border-rose-200 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-2xl font-black text-rose-950 flex items-center gap-2">
+            <span>👟</span>
+            <span>أنواع الأحذية وطريقة لبسها وخلعها</span>
+          </h3>
+          <p class="text-rose-800 font-medium text-sm mt-1">
+            دروس تفاعلية مستوحاة من منهج المهارات الحياتية لتعليم الاعتماد على النفس!
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button data-shoes-sub="types" class="shoes-sub-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-rose-600 text-white shadow-sm">
+            👟 أنواع الأحذية
+          </button>
+          <button data-shoes-sub="wear" class="shoes-sub-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-rose-200 text-rose-900 hover:bg-rose-100">
+            🧦 لبس الحذاء (٤ خطوات)
+          </button>
+          <button data-shoes-sub="remove" class="shoes-sub-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-rose-200 text-rose-900 hover:bg-rose-100">
+            🪑 خلع الحذاء (٣ خطوات)
+          </button>
+        </div>
+      </div>
+
+      <!-- Sub-view 1: Shoe Types -->
+      <div id="shoes-view-types" class="shoes-subview space-y-4">
+        <div class="bg-white border-2 border-rose-200 rounded-2xl p-3 flex items-center gap-2 text-rose-900 font-bold text-sm">
+          <span class="bg-rose-600 text-white px-3 py-1 rounded-full text-xs">الموضوع الأول</span>
+          <span>أنواع الأحذية — يتعرف الطالب على كل نوع ومناسبته:</span>
+        </div>
+        <div id="shoes-types-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"></div>
+      </div>
+
+      <!-- Sub-view 2: Wearing Shoes (4 Steps) -->
+      <div id="shoes-view-wear" class="shoes-subview hidden space-y-4">
+        <div class="bg-white border-2 border-rose-200 rounded-2xl p-3 flex items-center justify-between flex-wrap gap-2 text-rose-900 font-bold text-sm">
+          <div class="flex items-center gap-2">
+            <span class="bg-rose-600 text-white px-3 py-1 rounded-full text-xs">الموضوع الثاني</span>
+            <span>لبس الحذاء — يتعرف الطالب على خطوات لبس الحذاء (٤ خطوات):</span>
+          </div>
+          <button id="btn-speak-all-shoes-wear" class="accessible-target bg-rose-100 hover:bg-rose-200 text-rose-900 px-4 py-1.5 rounded-xl text-xs font-black">
+            🔊 استمع للخطوات بالترتيب
+          </button>
+        </div>
+        <div id="shoes-wear-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      </div>
+
+      <!-- Sub-view 3: Removing Shoes (3 Steps) -->
+      <div id="shoes-view-remove" class="shoes-subview hidden space-y-4">
+        <div class="bg-white border-2 border-rose-200 rounded-2xl p-3 flex items-center justify-between flex-wrap gap-2 text-rose-900 font-bold text-sm">
+          <div class="flex items-center gap-2">
+            <span class="bg-rose-600 text-white px-3 py-1 rounded-full text-xs">الموضوع الثالث</span>
+            <span>خلع الحذاء — يتعرف الطالب على خطوات خلع الحذاء (٣ خطوات):</span>
+          </div>
+          <button id="btn-speak-all-shoes-remove" class="accessible-target bg-rose-100 hover:bg-rose-200 text-rose-900 px-4 py-1.5 rounded-xl text-xs font-black">
+            🔊 استمع للخطوات بالترتيب
+          </button>
+        </div>
+        <div id="shoes-remove-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ========================================================
@@ -1389,6 +1623,9 @@
         'drawing': 'مرسم الرسم والإبداع',
         'animals': 'واحة الحيوانات وأصواتها',
         'countries': 'عالم الدول والأعلام',
+        'computer': 'مكونات الحاسب الآلي',
+        'clothes': 'أنواع الملابس ولبسها',
+        'shoes': 'أنواع الأحذية ولبسها',
         'games': 'ألعاب التناسق والذاكرة',
         'sensory': 'المرسم الحسي الموسيقي'
       };
@@ -2452,6 +2689,333 @@
       if (currentFlagQuiz) speak(`أين هو علم دولة ${currentFlagQuiz.name}؟`, 'ar');
     });
 
+    
+    // --- Computer Components Database & Logic ---
+    const computerData = [
+      { id: 'monitor', name: 'الشاشة (Monitor)', icon: '🖥️', desc: 'تعرض لنا الصور والفيديوهات والكلمات بوضوح', speech: 'الشاشة .. تعرض لنا الصور والفيديوهات والكلمات' },
+      { id: 'keyboard', name: 'لوحة المفاتيح (Keyboard)', icon: '⌨️', desc: 'نستخدمها لكتابة الحروف والأرقام', speech: 'لوحة المفاتيح .. نستخدمها لكتابة الحروف والأرقام' },
+      { id: 'mouse', name: 'الفأرة (Mouse)', icon: '🖱️', desc: 'نحرك بها المؤشر على الشاشة ونضغط للاختيار', speech: 'الفأرة .. نحرك بها المؤشر على الشاشة ونضغط للاختيار' },
+      { id: 'case', name: 'وحدة النظام (Case)', icon: '🗄️', desc: 'العقل المدبر الذي يشغل الحاسب الآلي', speech: 'وحدة النظام .. العقل المدبر الذي يشغل الحاسب الآلي' },
+      { id: 'speakers', name: 'السماعات (Speakers)', icon: '🔊', desc: 'تخرج لنا الأصوات والموسيقى والدروس المسموعة', speech: 'السماعات .. تخرج لنا الأصوات والدروس المسموعة' },
+      { id: 'printer', name: 'الطابعة (Printer)', icon: '🖨️', desc: 'تطبع الصور والواجبات على الورق', speech: 'الطابعة .. تطبع الصور والواجبات على الورق' },
+      { id: 'mic', name: 'الميكروفون (Microphone)', icon: '🎙️', desc: 'ندخل به صوتنا إلى الحاسب الآلي', speech: 'الميكروفون .. ندخل به صوتنا إلى الحاسب الآلي' },
+      { id: 'camera', name: 'الكاميرا (Webcam)', icon: '📷', desc: 'تلتقط الصور وتجعلنا نتواصل بالفيديو', speech: 'الكاميرا .. تلتقط الصور وتجعلنا نتواصل بالفيديو' },
+    ];
+
+    const computerGrid = document.getElementById('computer-grid');
+    const compQuizBox = document.getElementById('comp-quiz-box');
+    const compQuizDesc = document.getElementById('comp-quiz-desc');
+    const compQuizOptions = document.getElementById('comp-quiz-options');
+    const compQuizFeedback = document.getElementById('comp-quiz-feedback');
+    let currentCompQuiz = null;
+
+    function renderComputer() {
+      if (!computerGrid) return;
+      computerGrid.innerHTML = '';
+      computerData.forEach(item => {
+        const card = document.createElement('button');
+        card.className = 'accessible-target card-accessible bg-white border-2 border-cyan-200 hover:border-cyan-400 hover:scale-[1.03] rounded-3xl p-5 flex flex-col items-center justify-center gap-2 target-large text-center shadow-sm transition-all';
+        card.setAttribute('data-phrase', item.speech);
+        card.innerHTML = `
+          <span class="text-5xl pointer-events-none">${item.icon}</span>
+          <span class="font-black text-lg text-cyan-950 pointer-events-none">${item.name}</span>
+          <span class="text-xs font-semibold text-slate-600 pointer-events-none leading-relaxed">${item.desc}</span>
+        `;
+        card.addEventListener('click', (e) => {
+          e.stopPropagation();
+          speak(item.speech, 'ar');
+        });
+        computerGrid.appendChild(card);
+      });
+    }
+
+    function startCompQuiz() {
+      compQuizBox.classList.remove('hidden');
+      currentCompQuiz = computerData[Math.floor(Math.random() * computerData.length)];
+      compQuizDesc.textContent = currentCompQuiz.desc;
+      compQuizFeedback.textContent = '';
+
+      const opts = [currentCompQuiz];
+      while (opts.length < 3) {
+        const d = computerData[Math.floor(Math.random() * computerData.length)];
+        if (!opts.some(o => o.id === d.id)) opts.push(d);
+      }
+      opts.sort(() => Math.random() - 0.5);
+
+      compQuizOptions.innerHTML = '';
+      opts.forEach(o => {
+        const b = document.createElement('button');
+        b.className = 'accessible-target bg-cyan-50 border-3 border-cyan-300 hover:bg-cyan-100 rounded-2xl p-4 flex flex-col items-center gap-2 target-large shadow-sm';
+        b.innerHTML = `<span class="text-4xl">${o.icon}</span><span class="font-bold text-sm text-cyan-950">${o.name}</span>`;
+        b.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (o.id === currentCompQuiz.id) {
+            compQuizFeedback.textContent = `🎉 ممتاز! ${o.name} هي الإجابة الصحيحة!`;
+            compQuizFeedback.className = 'mt-4 text-xl font-black text-emerald-700 animate-bounce';
+            speak(`ممتاز! ${o.name}`, 'ar');
+            confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+            setTimeout(startCompQuiz, 2500);
+          } else {
+            compQuizFeedback.textContent = 'حاول مرة أخرى يا بطل! 💻';
+            compQuizFeedback.className = 'mt-4 text-xl font-black text-amber-600';
+            speak('حاول مرة أخرى', 'ar');
+          }
+        });
+        compQuizOptions.appendChild(b);
+      });
+      speak(`ما هو الجزء الذي ${currentCompQuiz.desc}؟`, 'ar');
+    }
+
+    document.getElementById('btn-start-comp-quiz').addEventListener('click', startCompQuiz);
+    document.getElementById('btn-close-comp-quiz').addEventListener('click', () => compQuizBox.classList.add('hidden'));
+    document.getElementById('btn-comp-quiz-speak').addEventListener('click', () => {
+      if (currentCompQuiz) speak(`ما هو الجزء الذي ${currentCompQuiz.desc}؟`, 'ar');
+    });
+
+    // --- Clothes & Dressing Database & Logic ---
+    const clothesTypesData = [
+      { name: 'تيشيرت', icon: '👕', desc: 'نرتديه في الجو الدافئ والصيف', speech: 'تيشيرت .. ملابس مريحة نرتديها في الجو الدافئ' },
+      { name: 'قميص بأزرار', icon: '👔', desc: 'نرتديه في المدرسة والمناسبات', speech: 'قميص بأزرار .. نرتديه في المدرسة والمناسبات' },
+      { name: 'بنطلون', icon: '👖', desc: 'نرتديه في الجزء السفلي من الجسم', speech: 'بنطلون .. نرتديه في الجزء السفلي من الجسم' },
+      { name: 'جاكيت شتوي', icon: '🧥', desc: 'يدفئنا في فصل الشتاء البارد', speech: 'جاكيت شتوي .. يدفئنا في فصل الشتاء البارد' },
+      { name: 'فستان', icon: '👗', desc: 'ملابس جميلة ومريحة للبنات', speech: 'فستان .. ملابس جميلة ومريحة للبنات' },
+      { name: 'جورب (شراب)', icon: '🧦', desc: 'نلبسه في القدمين قبل لبس الحذاء', speech: 'جورب أو شراب .. نلبسه في القدمين قبل الحذاء' },
+      { name: 'قبعة (كاب)', icon: '🧢', desc: 'تحمي رأسنا من أشعة الشمس', speech: 'قبعة .. تحمي رأسنا من أشعة الشمس' },
+      { name: 'بيجاما للنوم', icon: '🛌', desc: 'ملابس ناعمة ومريحة وقت النوم', speech: 'بيجاما .. ملابس ناعمة نرتديها عند النوم' },
+    ];
+
+    const clothesWearSteps = [
+      { num: '١', icon: '🪑', title: 'الجلوس بثبات', desc: 'نجلس على الكرسي أو السرير لنكون متوازنين ومرتاحين.' },
+      { num: '٢', icon: '💪', title: 'إدخال الذراعين أولاً', desc: 'ندخل الذراع الأيمن ثم الأيسر في الأكمام بهدوء.' },
+      { num: '٣', icon: '👕', title: 'إدخال الرأس والسحب للأسفل', desc: 'ندخل الرأس من فتحة الرقبة ونسحب القميص للأسفل.' },
+      { num: '٤', icon: '🤐', title: 'تعديل الملابس وإغلاقها', desc: 'نرتب الملابس ونغلق السحاب أو الأزرار بمساعدة لطيفة عند الحاجة.' },
+    ];
+
+    const clothesRemoveSteps = [
+      { num: '١', icon: '🪑', title: 'الجلوس وفتح الأزرار', desc: 'نجلس باستقرار ثم نفك الأزرار أو نفتح السحاب ببطء.' },
+      { num: '٢', icon: '⬆️', title: 'رفع الملابس للأعلى', desc: 'نمسك طرف القميص أو التيشيرت ونسحبه للأعلى برفق.' },
+      { num: '٣', icon: '💪', title: 'إخراج الرأس والذراعين', desc: 'نخرج الرأس أولاً ثم نخرج الذراعين من الأكمام بهدوء.' },
+      { num: '٤', icon: '🧺', title: 'وضع الملابس في السلة', desc: 'نضع الملابس النظيفة في الدولاب أو المتسخة في سلة الغسيل.' },
+    ];
+
+    function renderClothes() {
+      const typesGrid = document.getElementById('clothes-types-grid');
+      const wearGrid = document.getElementById('clothes-wear-grid');
+      const removeGrid = document.getElementById('clothes-remove-grid');
+
+      if (typesGrid) {
+        typesGrid.innerHTML = '';
+        clothesTypesData.forEach(item => {
+          const card = document.createElement('button');
+          card.className = 'accessible-target card-accessible bg-white border-2 border-violet-200 hover:border-violet-400 hover:scale-[1.03] rounded-3xl p-5 flex flex-col items-center justify-center gap-2 target-large text-center shadow-sm transition-all';
+          card.setAttribute('data-phrase', item.speech);
+          card.innerHTML = `
+            <span class="text-5xl pointer-events-none">${item.icon}</span>
+            <span class="font-black text-xl text-violet-950 pointer-events-none">${item.name}</span>
+            <span class="text-xs font-semibold text-slate-600 pointer-events-none">${item.desc}</span>
+          `;
+          card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            speak(item.speech, 'ar');
+          });
+          typesGrid.appendChild(card);
+        });
+      }
+
+      if (wearGrid) {
+        wearGrid.innerHTML = '';
+        clothesWearSteps.forEach(s => {
+          const card = document.createElement('button');
+          const speechText = `الخطوة ${s.num}: ${s.title} .. ${s.desc}`;
+          card.className = 'accessible-target card-accessible bg-white border-2 border-violet-200 hover:border-violet-400 rounded-3xl p-5 flex items-center gap-4 text-right shadow-sm transition-all';
+          card.setAttribute('data-phrase', speechText);
+          card.innerHTML = `
+            <div class="w-14 h-14 bg-violet-600 text-white rounded-full flex items-center justify-center font-black text-2xl shrink-0 shadow-sm">${s.num}</div>
+            <div class="text-4xl shrink-0">${s.icon}</div>
+            <div>
+              <h4 class="font-black text-lg text-violet-950 mb-1">${s.title}</h4>
+              <p class="text-sm font-medium text-slate-600 leading-relaxed">${s.desc}</p>
+            </div>
+          `;
+          card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            speak(speechText, 'ar');
+          });
+          wearGrid.appendChild(card);
+        });
+      }
+
+      if (removeGrid) {
+        removeGrid.innerHTML = '';
+        clothesRemoveSteps.forEach(s => {
+          const card = document.createElement('button');
+          const speechText = `الخطوة ${s.num}: ${s.title} .. ${s.desc}`;
+          card.className = 'accessible-target card-accessible bg-white border-2 border-violet-200 hover:border-violet-400 rounded-3xl p-5 flex items-center gap-4 text-right shadow-sm transition-all';
+          card.setAttribute('data-phrase', speechText);
+          card.innerHTML = `
+            <div class="w-14 h-14 bg-violet-600 text-white rounded-full flex items-center justify-center font-black text-2xl shrink-0 shadow-sm">${s.num}</div>
+            <div class="text-4xl shrink-0">${s.icon}</div>
+            <div>
+              <h4 class="font-black text-lg text-violet-950 mb-1">${s.title}</h4>
+              <p class="text-sm font-medium text-slate-600 leading-relaxed">${s.desc}</p>
+            </div>
+          `;
+          card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            speak(speechText, 'ar');
+          });
+          removeGrid.appendChild(card);
+        });
+      }
+    }
+
+    document.querySelectorAll('.clothes-sub-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sub = btn.getAttribute('data-clothes-sub');
+        document.querySelectorAll('.clothes-subview').forEach(v => v.classList.add('hidden'));
+        document.getElementById(`clothes-view-${sub}`).classList.remove('hidden');
+
+        document.querySelectorAll('.clothes-sub-btn').forEach(b => {
+          b.className = 'clothes-sub-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-violet-200 text-violet-900 hover:bg-violet-100';
+        });
+        btn.className = 'clothes-sub-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-violet-600 text-white shadow-sm';
+        speak(btn.innerText, 'ar');
+      });
+    });
+
+    document.getElementById('btn-speak-all-clothes-wear').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const full = clothesWearSteps.map(s => `الخطوة ${s.num}: ${s.title}. ${s.desc}`).join(' .. ');
+      speak(full, 'ar');
+    });
+
+    document.getElementById('btn-speak-all-clothes-remove').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const full = clothesRemoveSteps.map(s => `الخطوة ${s.num}: ${s.title}. ${s.desc}`).join(' .. ');
+      speak(full, 'ar');
+    });
+
+    // --- Shoes & Footwear Database & Logic (Inspired by Curriculum Activity Cards) ---
+    const shoesTypesData = [
+      { name: 'حذاء بلصق (فيلكرو)', icon: '👟', badge: 'سهل اللبس للأطفال', desc: 'حذاء مريح يُغلق بلاصق سريع بدون رباط معقد', speech: 'حذاء بلصق فيلكرو .. سهل اللبس والفتح ومريح جداً للأطفال' },
+      { name: 'حذاء رياضي برباط', icon: '🥾', badge: 'للجري والرياضة', desc: 'حذاء رياضي متين يحمي القدمين عند المشي واللعب', speech: 'حذاء رياضي برباط .. مناسب للرياضة والمشي واللعب' },
+      { name: 'حذاء كلاسيكي (أرضي)', icon: '🥿', badge: 'للمناسبات والخروج', desc: 'حذاء أنيق وخفيف يدخل في القدم بسهولة مباشرة', speech: 'حذاء كلاسيكي .. حذاء أنيق وخفيف نرتديه في المناسبات' },
+      { name: 'صندل أو شبشب', icon: '🩴', badge: 'للمنزل والصيف', desc: 'حذاء مفتوح ومريح للقدمين في البيت وفي الجو الحار', speech: 'صندل أو شبشب .. مفتوح ومريح للبيت وفصل الصيف' },
+    ];
+
+    const shoesWearSteps = [
+      { num: '١', icon: '🪑', title: 'الجلوس على الكرسي ورفع القدم', desc: 'نجلس باستقرار على الكرسي، ثم نرفع إحدى القدمين ونضعها برفق لنرى فتحة الحذاء.' },
+      { num: '٢', icon: '🦶', title: 'إدخال أصابع القدم في الحذاء', desc: 'ندخل مقدمة القدم والأصابع داخل الحذاء مع التأكد أنه مناسب لكل قدم.' },
+      { num: '٣', icon: '👟', title: 'تثبيت الكعب بالكامل داخل الحذاء', desc: 'نسحب طرف الحذاء الخلفي أو نضغط القدم للأسفل حتى يدخل الكعب تماماً.' },
+      { num: '٤', icon: '🎀', title: 'إغلاق اللاصق أو ربط الرباط', desc: 'ننحني للأمام ونثبت شريط اللاصق (الفيلكرو) أو نربط الرباط بإحكام.' },
+    ];
+
+    const shoesRemoveSteps = [
+      { num: '١', icon: '🪑', title: 'الجلوس على الكرسي والانحناء بهدوء', desc: 'نجلس بأمان على الكرسي وننحني للأمام للوصول إلى الحذاء دون فقدان التوازن.' },
+      { num: '٢', icon: '👐', title: 'فك الرباط أو فتح شريط اللاصق', desc: 'نفتح شريط اللاصق أو نفك رباط الحذاء بكلتا اليدين حتى يتسع الحذاء.' },
+      { num: '٣', icon: '🧦', title: 'سحب الحذاء وإخراج القدم', desc: 'نسحب الحذاء من الخلف برفق فتخرج القدم مرتدية الجورب، ونضع الحذاء في مكانه.' },
+    ];
+
+    function renderShoes() {
+      const typesGrid = document.getElementById('shoes-types-grid');
+      const wearGrid = document.getElementById('shoes-wear-grid');
+      const removeGrid = document.getElementById('shoes-remove-grid');
+
+      if (typesGrid) {
+        typesGrid.innerHTML = '';
+        shoesTypesData.forEach(item => {
+          const card = document.createElement('button');
+          card.className = 'accessible-target card-accessible bg-white border-2 border-rose-200 hover:border-rose-400 hover:scale-[1.03] rounded-3xl p-5 flex flex-col items-center justify-center gap-2 target-large text-center shadow-sm transition-all';
+          card.setAttribute('data-phrase', item.speech);
+          card.innerHTML = `
+            <span class="text-6xl pointer-events-none">${item.icon}</span>
+            <span class="font-black text-xl text-rose-950 pointer-events-none">${item.name}</span>
+            <span class="text-xs font-bold text-rose-700 bg-rose-50 px-2.5 py-0.5 rounded-full pointer-events-none">${item.badge}</span>
+            <span class="text-xs font-medium text-slate-600 pointer-events-none leading-relaxed">${item.desc}</span>
+          `;
+          card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            speak(item.speech, 'ar');
+          });
+          typesGrid.appendChild(card);
+        });
+      }
+
+      if (wearGrid) {
+        wearGrid.innerHTML = '';
+        shoesWearSteps.forEach(s => {
+          const card = document.createElement('button');
+          const speechText = `الخطوة ${s.num}: ${s.title} .. ${s.desc}`;
+          card.className = 'accessible-target card-accessible bg-white border-2 border-rose-200 hover:border-rose-400 rounded-3xl p-5 flex items-center gap-4 text-right shadow-sm transition-all';
+          card.setAttribute('data-phrase', speechText);
+          card.innerHTML = `
+            <div class="w-14 h-14 bg-rose-600 text-white rounded-full flex items-center justify-center font-black text-2xl shrink-0 shadow-sm">${s.num}</div>
+            <div class="text-4xl shrink-0">${s.icon}</div>
+            <div>
+              <h4 class="font-black text-lg text-rose-950 mb-1">${s.title}</h4>
+              <p class="text-sm font-medium text-slate-600 leading-relaxed">${s.desc}</p>
+            </div>
+          `;
+          card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            speak(speechText, 'ar');
+          });
+          wearGrid.appendChild(card);
+        });
+      }
+
+      if (removeGrid) {
+        removeGrid.innerHTML = '';
+        shoesRemoveSteps.forEach(s => {
+          const card = document.createElement('button');
+          const speechText = `الخطوة ${s.num}: ${s.title} .. ${s.desc}`;
+          card.className = 'accessible-target card-accessible bg-white border-2 border-rose-200 hover:border-rose-400 rounded-3xl p-5 flex flex-col items-center text-center gap-3 shadow-sm transition-all';
+          card.setAttribute('data-phrase', speechText);
+          card.innerHTML = `
+            <div class="w-12 h-12 bg-rose-600 text-white rounded-full flex items-center justify-center font-black text-2xl shadow-sm">${s.num}</div>
+            <div class="text-5xl">${s.icon}</div>
+            <div>
+              <h4 class="font-black text-lg text-rose-950 mb-1">${s.title}</h4>
+              <p class="text-xs md:text-sm font-medium text-slate-600 leading-relaxed">${s.desc}</p>
+            </div>
+          `;
+          card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            speak(speechText, 'ar');
+          });
+          removeGrid.appendChild(card);
+        });
+      }
+    }
+
+    document.querySelectorAll('.shoes-sub-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sub = btn.getAttribute('data-shoes-sub');
+        document.querySelectorAll('.shoes-subview').forEach(v => v.classList.add('hidden'));
+        document.getElementById(`shoes-view-${sub}`).classList.remove('hidden');
+
+        document.querySelectorAll('.shoes-sub-btn').forEach(b => {
+          b.className = 'shoes-sub-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-white border-2 border-rose-200 text-rose-900 hover:bg-rose-100';
+        });
+        btn.className = 'shoes-sub-btn accessible-target px-4 py-2.5 rounded-xl font-bold text-sm bg-rose-600 text-white shadow-sm';
+        speak(btn.innerText, 'ar');
+      });
+    });
+
+    document.getElementById('btn-speak-all-shoes-wear').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const full = shoesWearSteps.map(s => `الخطوة ${s.num}: ${s.title}. ${s.desc}`).join(' .. ');
+      speak(full, 'ar');
+    });
+
+    document.getElementById('btn-speak-all-shoes-remove').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const full = shoesRemoveSteps.map(s => `الخطوة ${s.num}: ${s.title}. ${s.desc}`).join(' .. ');
+      speak(full, 'ar');
+    });
+
     // --- Initial Application Bootstrapping ---
     window.addEventListener('DOMContentLoaded', () => {
       renderAacCards('all');
@@ -2459,6 +3023,9 @@
       renderEnglishLetters();
       renderAnimals();
       renderCountries();
+      renderComputer();
+      renderClothes();
+      renderShoes();
       renderNumberSelector();
       setNumber(1);
       initMemoryGame();
