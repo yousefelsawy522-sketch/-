@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> منصة قدراتي </title>
-  
+    <title> منصة قدراتي </title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   
@@ -230,32 +229,48 @@
          ============================================== -->
     <section id="tab-home" class="tab-content space-y-6">
       
-      <!-- Welcome Hero Banner with Audio -->
-      <div class="bg-gradient-to-r from-emerald-500 via-teal-600 to-sky-600 text-white rounded-3xl p-6 md:p-8 shadow-lg relative overflow-hidden">
-        <div class="relative z-10 max-w-3xl">
-          <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3.5 py-1.5 rounded-full text-sm font-semibold mb-3">
-            <span>✨</span>
-            <span>أهلاً بك يا بطل المستقبل في عالمك الممتع!</span>
+      <!-- Interactive Welcome Video Player (فيديو التعريف بالمنصة وأهدافها) -->
+      <div class="bg-slate-900 text-white rounded-3xl p-4 md:p-6 shadow-xl border-4 border-emerald-500/40 overflow-hidden">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="bg-rose-600 text-white text-xs font-black px-2.5 py-1 rounded-full animate-pulse">🎬 فيديو تعريفي</span>
+            <h2 class="text-lg md:text-xl font-black text-white">تعرف على «منصة قدراتي» — أهدافها ومستواها وكيف تساعدك</h2>
           </div>
-          <h2 class="text-3xl md:text-5xl font-black mb-3 leading-tight">
-            تَعَلّم، تَوَاصَل، وَانْطَلِق بِإِبْدَاع!
-          </h2>
-          <p class="text-emerald-50 text-base md:text-lg mb-6 font-medium leading-relaxed">
-            منصة مخصصة لتمكين الأبطال من التعلم باللغتين العربية والإنجليزية، والتعبير عن الاحتياجات بالصوت، مع أدوات تيسير كالنقر بالتثبيت البصري وقراءة النصوص الصوتية، ومرسم تفاعلي مبسط.
-          </p>
-          <div class="flex flex-wrap items-center gap-3">
-            <button id="btn-hero-speak" class="accessible-target flex items-center gap-2.5 bg-white text-emerald-800 px-6 py-3.5 rounded-2xl font-black text-lg shadow-md hover:bg-emerald-50 target-large transition-all">
-              <span class="text-2xl">🔊</span>
-              <span>استمع إلى رسالة الترحيب</span>
-            </button>
-            <button id="btn-hero-aac-quick" class="accessible-target flex items-center gap-2.5 bg-emerald-800/80 hover:bg-emerald-800 text-white px-6 py-3.5 rounded-2xl font-black text-lg shadow-md target-large transition-all border border-emerald-400/40">
-              <span class="text-2xl">🗣️</span>
-              <span>تحدث وعبر عن احتياجاتك الآن</span>
-            </button>
-          </div>
+          <span id="video-scene-badge" class="bg-white/10 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full">المشهد ١ من ٥</span>
         </div>
-        <div class="absolute -bottom-10 -left-10 text-[180px] opacity-15 pointer-events-none select-none">
-          🌟
+
+        <!-- Video Stage -->
+        <div id="welcome-video-stage" class="relative bg-gradient-to-br from-emerald-800 via-teal-900 to-slate-900 rounded-2xl p-6 md:p-10 min-h-[260px] md:min-h-[300px] flex flex-col items-center justify-center text-center border border-white/10 overflow-hidden">
+          <div id="video-scene-icon" class="text-6xl md:text-7xl mb-4 transition-all duration-500">🌟</div>
+          <h3 id="video-scene-title" class="text-2xl md:text-4xl font-black text-amber-300 mb-3 leading-snug">
+            أهلاً بك يا بطل في «منصة قدراتي»!
+          </h3>
+          <p id="video-scene-text" class="text-emerald-50 text-base md:text-xl font-semibold max-w-2xl leading-relaxed">
+            اضغط على زر «تشغيل الفيديو» لمشاهدة وسماع شرح كامل عن المنصة، مستواها التعليمي، ولمن صُممت وكيف تساعد طلاب الشلل الدماغي.
+          </p>
+        </div>
+
+        <!-- Video Progress Bar -->
+        <div class="w-full bg-slate-800 h-2.5 rounded-full mt-4 overflow-hidden">
+          <div id="video-progress-bar" class="bg-gradient-to-r from-emerald-400 to-amber-400 h-full w-0 transition-all duration-500"></div>
+        </div>
+
+        <!-- Video Controls & Quick AAC Button -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mt-4">
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="btn-video-play" data-custom-speak="true" class="accessible-target flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-5 py-2.5 rounded-xl font-black text-sm md:text-base shadow-md transition-all">
+              <span id="video-play-icon">▶️</span>
+              <span id="video-play-label">تشغيل الفيديو التعريفي</span>
+            </button>
+            <button id="btn-video-replay" data-custom-speak="true" class="accessible-target flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2.5 rounded-xl font-bold text-sm border border-slate-700">
+              <span>🔁</span>
+              <span>إعادة من البداية</span>
+            </button>
+          </div>
+          <button id="btn-hero-aac-quick" class="accessible-target flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-black text-sm md:text-base shadow-md">
+            <span>🗣️</span>
+            <span>افتح لوحة التواصل (AAC)</span>
+          </button>
         </div>
       </div>
 
@@ -545,6 +560,21 @@
         <!-- Injected via JS -->
       </div>
 
+      <div class="bg-white border-2 border-indigo-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">شرح برامج التواصل البديلة والمعززة للأطفال</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: التوحد والحياة Mohammed Ali</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=A3KbtsxxzaI" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
+      </div>
+
     </section>
 
     <!-- ==============================================
@@ -604,6 +634,21 @@
         <!-- Injected via JS -->
       </div>
 
+      <div class="bg-white border-2 border-emerald-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">أغنية الحروف الأبجدية العربية للأطفال بدون موسيقى</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: Learn with Zakaria - تعلم مع زكريا</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=OQs8g1DN55o" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
+      </div>
+
     </section>
 
     <!-- ==============================================
@@ -658,6 +703,21 @@
       <!-- English Letters Grid -->
       <div id="english-letters-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5">
         <!-- Injected via JS -->
+      </div>
+
+      <div class="bg-white border-2 border-blue-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">الحروف الإنجليزية للأطفال مع الأمثلة</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: تعلم - Learn</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=5PKXLilDGuE" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
       </div>
 
     </section>
@@ -750,6 +810,21 @@
         <canvas id="drawingCanvas" class="w-full h-[420px] md:h-[480px] bg-white rounded-2xl cursor-crosshair block touch-none"></canvas>
       </div>
 
+      <div class="bg-white border-2 border-pink-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">رسم سهل جداً للأطفال للمبتدئين خطوة بخطوة</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: رسم سهل</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=Ioyx-Irk8Ec" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
+      </div>
+
     </section>
 
     <!-- ==============================================
@@ -839,6 +914,21 @@
         </div>
       </div>
 
+      <div class="bg-white border-2 border-amber-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">تعليم الأرقام والعد للأطفال من 1 إلى 10</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: Magic Land</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=AgImfNdIJVQ" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
+      </div>
+
     </section>
 
     <!-- ==============================================
@@ -862,6 +952,21 @@
       <!-- Animals Grid -->
       <div id="animals-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         <!-- Injected via JS -->
+      </div>
+
+      <div class="bg-white border-2 border-teal-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">تعليم أصوات الحيوانات للأطفال باللغة العربية</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: تعلم مع نور learn with Noor</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=Q3H-RUx3Ks4" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
       </div>
 
     </section>
@@ -903,6 +1008,21 @@
         <button id="btn-game-again" class="accessible-target bg-emerald-600 hover:bg-emerald-700 text-white font-black px-6 py-3 rounded-2xl shadow-md target-large">
           العب جولة أخرى 🌟
         </button>
+      </div>
+
+      <div class="bg-white border-2 border-sky-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">لعبة الذاكرة وتنشيط التركيز للأطفال</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: Learn with Zakaria - تعلم مع زكريا</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=f4WYX9m3FGg" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
       </div>
 
     </section>
@@ -962,6 +1082,21 @@
         <!-- Injected by JS -->
       </div>
 
+      <div class="bg-white border-2 border-emerald-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">أعلام الدول العربية للأطفال - تعليم جميع الأعلام</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: هيا نتعلم</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=CoabUFMHkwU" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
+      </div>
+
     </section>
 
 
@@ -1003,6 +1138,21 @@
 
       <!-- Computer Components Grid -->
       <div id="computer-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+
+      <div class="bg-white border-2 border-cyan-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">مكونات الحاسوب الرئيسية كارتون للأطفال</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: قناة منصة ناعم العود</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=45LtBSwxfcU" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
+      </div>
     </section>
 
     <!-- ==============================================
@@ -1068,6 +1218,21 @@
         </div>
         <div id="clothes-remove-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
       </div>
+
+      <div class="bg-white border-2 border-violet-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">تعلم أسماء الملابس باللغة العربية للأطفال</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: Learn with Zakaria - تعلم مع زكريا</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=3daaHycErdc" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
+      </div>
     </section>
 
     <!-- ==============================================
@@ -1132,6 +1297,21 @@
           </button>
         </div>
         <div id="shoes-remove-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+      </div>
+
+      <div class="bg-white border-2 border-rose-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-2xl shrink-0">▶️</div>
+          <div>
+            <div class="text-xs font-bold text-rose-600">فيديو تعليمي مقترح على يوتيوب</div>
+            <div class="font-black text-slate-900 text-sm md:text-base">تعليم لبس الحذاء للأطفال خطوة بخطوة</div>
+            <div class="text-xs text-slate-500 font-medium">قناة: Nile stars educational Channel</div>
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=3k4eLxYoTEc" target="_blank" rel="noopener noreferrer" class="accessible-target bg-rose-600 hover:bg-rose-700 text-white font-black px-4 py-2.5 rounded-xl text-sm shadow-sm flex items-center gap-2 shrink-0">
+          <span>📺</span>
+          <span>مشاهدة على يوتيوب</span>
+        </a>
       </div>
     </section>
 
@@ -1980,10 +2160,7 @@
       });
     });
 
-    document.getElementById('btn-hero-speak').addEventListener('click', () => {
-      speak('أهلاً بك يا بطل في منصة قدراتي الشاملة! يسعدنا وجودك معنا. يمكنك استكشاف الحروف العربية والإنجليزية، والأرقام، والرسم، والتحدث بحرية متى شئت.');
-      playSuccessSound();
-    });
+
 
     document.getElementById('btn-hero-aac-quick').addEventListener('click', () => {
       switchTab('aac');
@@ -3015,6 +3192,114 @@
       const full = shoesRemoveSteps.map(s => `الخطوة ${s.num}: ${s.title}. ${s.desc}`).join(' .. ');
       speak(full, 'ar');
     });
+
+    
+    // --- Interactive Welcome Video Player (شرح المنصة وأهدافها ومستواها) ---
+    const welcomeVideoScenes = [
+      {
+        icon: '🌟',
+        title: 'أهلاً بك في «منصة قدراتي»!',
+        text: 'منصة تعليمية وتواصلية مجانية، صُممت خصيصاً لتمكين الأبطال من التعلم والتعبير بكل سهولة وثقة.',
+        speech: 'أهلاً بك يا بطل في منصة قدراتي! منصة تعليمية وتواصلية صممت خصيصاً لتمكينك من التعلم والتعبير بكل سهولة وثقة.'
+      },
+      {
+        icon: '🦽',
+        title: 'مخصصة لمين؟ لطلاب الشلل الدماغي',
+        text: 'تراعي صعوبات التحكم العضلي الدقيق وصعوبات النطق، فتقدم أزراراً كبيرة وحماية من النقرات العرضية.',
+        speech: 'هذه المنصة مخصصة للأطفال والطلاب ذوي الشلل الدماغي، حيث تراعي صعوبات الحركة والنطق وتوفر أزراراً كبيرة وحماية من الارتجاف.'
+      },
+      {
+        icon: '📚',
+        title: 'المستوى التعليمي: تأسيسي وميسر',
+        text: 'تناسب مستوى رياض الأطفال والمرحلة الابتدائية التأسيسية (الحروف العربية والإنجليزية، والأرقام من ١ إلى ٢٠، والكمبيوتر).',
+        speech: 'تقدم المنصة محتوى بمستوى تأسيسي ميسر يناسب رياض الأطفال والابتدائي، يشمل الحروف العربية والإنجليزية والأرقام ومكونات الحاسب الآلي.'
+      },
+      {
+        icon: '👟',
+        title: 'أهدافها: التواصل والاعتماد على النفس',
+        text: 'تساعد الطالب على بناء الجمل بالصوت (AAC)، وتعلم مهارات الحياة اليومية كأنواع الملابس والأحذية وخطوات لبسها وخلعها.',
+        speech: 'تهدف المنصة إلى دعم التواصل البديل بالصوت، وتعليم مهارات الاعتماد على النفس مثل لبس وخلع الملابس والأحذية خطوة بخطوة.'
+      },
+      {
+        icon: '⏱️',
+        title: 'كيف تساعدك؟ أدوات تيسير ذكية',
+        text: 'تعمل بالتثبيت البصري دون ضغط، والتباين العالي، وبدون أي مؤقت زمني مرهق في الألعاب. اختر محطتك وابدأ الآن!',
+        speech: 'تساعدك المنصة عبر التثبيت البصري دون ضغط عضلي، ووضع التباين العالي، وبدون قيود زمنية مرهقة. اختر محطتك وابدأ التعلم الآن!'
+      }
+    ];
+
+    let videoPlaying = false;
+    let videoSceneIdx = 0;
+    let videoTimer = null;
+
+    const btnVideoPlay = document.getElementById('btn-video-play');
+    const btnVideoReplay = document.getElementById('btn-video-replay');
+    const videoPlayIcon = document.getElementById('video-play-icon');
+    const videoPlayLabel = document.getElementById('video-play-label');
+    const videoSceneBadge = document.getElementById('video-scene-badge');
+    const videoSceneIcon = document.getElementById('video-scene-icon');
+    const videoSceneTitle = document.getElementById('video-scene-title');
+    const videoSceneText = document.getElementById('video-scene-text');
+    const videoProgressBar = document.getElementById('video-progress-bar');
+
+    function renderVideoScene(idx) {
+      const scene = welcomeVideoScenes[idx];
+      if (!scene) return;
+      videoSceneBadge.textContent = `المشهد ${idx + 1} من ${welcomeVideoScenes.length}`;
+      videoSceneIcon.textContent = scene.icon;
+      videoSceneTitle.textContent = scene.title;
+      videoSceneText.textContent = scene.text;
+      videoProgressBar.style.width = `${((idx + 1) / welcomeVideoScenes.length) * 100}%`;
+      speak(scene.speech, 'ar');
+    }
+
+    function stopWelcomeVideo() {
+      videoPlaying = false;
+      if (videoTimer) clearTimeout(videoTimer);
+      videoPlayIcon.textContent = '▶️';
+      videoPlayLabel.textContent = 'تشغيل الفيديو التعريفي';
+    }
+
+    function advanceWelcomeVideo() {
+      if (!videoPlaying) return;
+      renderVideoScene(videoSceneIdx);
+      videoTimer = setTimeout(() => {
+        videoSceneIdx++;
+        if (videoSceneIdx < welcomeVideoScenes.length) {
+          advanceWelcomeVideo();
+        } else {
+          videoSceneIdx = 0;
+          stopWelcomeVideo();
+        }
+      }, 6500);
+    }
+
+    if (btnVideoPlay) {
+      btnVideoPlay.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (videoPlaying) {
+          stopWelcomeVideo();
+          if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        } else {
+          videoPlaying = true;
+          videoPlayIcon.textContent = '⏸️';
+          videoPlayLabel.textContent = 'إيقاف مؤقت';
+          advanceWelcomeVideo();
+        }
+      });
+    }
+
+    if (btnVideoReplay) {
+      btnVideoReplay.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (videoTimer) clearTimeout(videoTimer);
+        videoSceneIdx = 0;
+        videoPlaying = true;
+        videoPlayIcon.textContent = '⏸️';
+        videoPlayLabel.textContent = 'إيقاف مؤقت';
+        advanceWelcomeVideo();
+      });
+    }
 
     // --- Initial Application Bootstrapping ---
     window.addEventListener('DOMContentLoaded', () => {
